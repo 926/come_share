@@ -106,12 +106,12 @@ class _MainViewState extends State<MainView> {
             String appName = packageInfo.appName;
             String version = packageInfo.version;
             String buildNumber = packageInfo.buildNumber;
-            showDialogWeebi(
+            showDialogCS(
                 '$appName \nversion : $version buildNumber : $buildNumber',
                 context);
           },
           child: Text(
-            'weebi',
+            'CS',
             style: TextStyle(
               fontFamily: 'Quicksand',
               fontSize: 22.0,
@@ -123,7 +123,7 @@ class _MainViewState extends State<MainView> {
         elevation: 0,
         actions: widget.actions,
       ),
-      drawer: WeebiDrawer(),
+      drawer: CSDrawer(),
       body: WillPopScope(onWillPop: _onBackPressed, child: widget.body),
       floatingActionButton: widget.floatingButton,
       bottomNavigationBar: BottomNavigationBar(
@@ -141,13 +141,13 @@ class _MainViewState extends State<MainView> {
               cartStore.items.isNotEmpty &&
               widget.selectedIndex == 2 &&
               paths[newIndex] == SpendRoute.routePath) {
-            showDialogWeebi(
+            showDialogCS(
                 'Vider le panier vente avant de faire un achat', context);
           } else if (!shopStore.shop.first.isLocked &&
               cartStore.items.isNotEmpty &&
               widget.selectedIndex == 3 &&
               paths[newIndex] == SellRoute.routePath) {
-            showDialogWeebi(
+            showDialogCS(
                 'Vider le panier achat avant de faire une vente', context);
           } else if (paths[newIndex] != null) {
             widget.mainNavigatorKey.currentState
