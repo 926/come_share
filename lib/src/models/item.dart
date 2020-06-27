@@ -10,8 +10,6 @@ class Item {
     fromJson: lotFromJson,
   )
   Lot lot;
-  @JsonKey(toJson: lotsToJson, fromJson: lotsFromJson)
-  List<Lot> lots;
   double quantity;
 
   Item(this.lot, this.quantity);

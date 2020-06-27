@@ -109,7 +109,6 @@ void main() async {
               id: 1,
               isDefault: true,
               quantity: 0,
-              initialQuantity: 0,
               lotDate: DateTime.now())
         ],
       ),
@@ -129,7 +128,6 @@ void main() async {
               id: 1,
               isDefault: true,
               quantity: 0,
-              initialQuantity: 0,
               lotDate: DateTime.now()),
         ],
       ),

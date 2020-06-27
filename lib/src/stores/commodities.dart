@@ -67,8 +67,6 @@ abstract class CommoditiesStoreBase with Store {
         commodities.firstWhere((commodity) => commodity.id == lot.commodityId);
     final _lot = _commodity.lots.firstWhere((l) => l.id == lot.id);
     _lot.quantity += quantity;
-    _lot.initialQuantity +=
-        quantity; // * lot can only be inremented once, so ugly but works
     await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
     return commodities;
   }
@@ -80,8 +78,6 @@ abstract class CommoditiesStoreBase with Store {
         commodities.firstWhere((commodity) => commodity.id == lot.commodityId);
     final _lot = _commodity.lots.firstWhere((l) => l.id == lot.id);
     _lot.quantity += quantity;
-    _lot.initialQuantity +=
-        quantity; // * since lot can only be inremented once, doin' it here
     await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
     return commodities;
   }

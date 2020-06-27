@@ -24,7 +24,7 @@ class Lot {
   final int id;
   final int subcommodityId;
   int commodityId;
-  double initialQuantity;
+  String comment;
   double quantity;
   bool isDefault;
   DateTime lotDate;
@@ -34,7 +34,7 @@ class Lot {
     @required this.id,
     @required this.subcommodityId,
     @required this.commodityId,
-    this.initialQuantity,
+    this.comment,
     this.quantity,
     this.isDefault = false,
     this.lotDate,
