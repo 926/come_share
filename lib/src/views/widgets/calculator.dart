@@ -72,8 +72,14 @@ class _CalculatorState extends State<Calculator> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            Text(currentCaptureValueText, style: textStyle),
-            Text(fullCalculText, style: informationTextStyle),
+            FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(currentCaptureValueText, style: textStyle),
+            ),
+            FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(fullCalculText, style: informationTextStyle),
+            ),
           ],
         ),
       ),
