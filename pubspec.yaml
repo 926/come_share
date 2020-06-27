@@ -31,7 +31,7 @@ dependencies:
   date_range_picker: ^1.0.5
   csv: ^4.0.3
   flutter_markdown: ^0.3.3
-  #connectivity: ^0.4.8+6
+  connectivity: ^0.4.8+6
   uuid: 2.0.4
   collection: ^1.14.11
   equatable: ^1.1.0
