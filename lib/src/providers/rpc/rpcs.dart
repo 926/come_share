@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/providers/rpc/flock.dart';
 import 'package:come_share/src/providers/rpc/herder.dart';
+import 'package:come_share/src/providers/rpc/commodity.dart';
 
 class RpcsProvider extends StatelessWidget {
   final Widget child;
@@ -14,6 +15,7 @@ class RpcsProvider extends StatelessWidget {
       providers: [
         ...herderRpc,
         ...flockRpc,
+        ...commodityRpc,
       ],
       child: child,
     );
