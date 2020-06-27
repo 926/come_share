@@ -1,5 +1,5 @@
 import 'package:come_share/src/loading.dart';
-import 'package:come_share/src/views/widgets/calculator.dart';
+import 'package:come_share/src/views/collector_page/collector_page.dart';
 import 'package:flutter/material.dart';
 import 'package:rc_router/rc_router.dart';
 import 'package:come_share/src/home_page.dart';
@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
         MyHomePage.routePath: (context) =>
             MyHomePage(title: 'Come Share Demo Home Page'),
       },
-      home: Calculator(),
+      home: CollectorPage(),
       // home: Loading(),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: rcRoutes.onGeneratedRoute,
