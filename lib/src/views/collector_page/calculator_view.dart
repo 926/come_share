@@ -1,5 +1,8 @@
 import 'package:come_share/src/views/widgets/calculator.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'collector_page.dart';
 
 class CalculatorView extends StatelessWidget {
   @override
@@ -10,6 +13,13 @@ class CalculatorView extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Calculator(),
+          Consumer<CollectorViewsManager>(
+            builder: (context, collectorViewManager, child) => FlatButton(
+              onPressed: () =>
+                  collectorViewManager.activeView = CollectorViews.scanner,
+              child: Text('Validate'),
+            ),
+          ),
         ],
       ),
     );
