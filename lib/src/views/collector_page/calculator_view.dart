@@ -16,7 +16,7 @@ class CalculatorView extends StatelessWidget {
           Consumer<CollectorViewsManager>(
             builder: (context, collectorViewManager, child) => FlatButton(
               onPressed: () =>
-                  collectorViewManager.activeView = CollectorViews.scanner,
+                  collectorViewManager.activeView = CollectorViews.validation,
               child: Text('Validate'),
             ),
           ),

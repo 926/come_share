@@ -67,11 +67,6 @@ class _CollectorPageState extends State<CollectorPage>
                 ],
               ),
             ),
-            FlatButton(
-                color: Colors.white,
-                onPressed: () =>
-                    _tabController.animateTo(_tabController.index + 1),
-                child: Text('Load Next Page')),
           ],
         ),
       ),
