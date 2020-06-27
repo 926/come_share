@@ -8,12 +8,16 @@ class Calculator extends StatefulWidget {
 
 class _CalculatorState extends State<Calculator> {
   static const Color defaultButtonBackgroundColor = Colors.grey;
+  final TextStyle textStyle = TextStyle(
+    color: Colors.red.withOpacity(0.95),
+    decoration: TextDecoration.none,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: GridView.count(
-        crossAxisCount: 3,
+        crossAxisCount: 4,
         children: _buttons(),
       ),
     );
@@ -21,24 +25,22 @@ class _CalculatorState extends State<Calculator> {
 
   List<Widget> _buttons() {
     var buttons = List<Widget>();
-    // buttons.add(_emptyButton());
-    // buttons.add(_emptyButton());
-    // buttons.add(_resetButton());
-    // buttons.add(_divisionButton());
     buttons.add(_numberButton(7));
     buttons.add(_numberButton(8));
     buttons.add(_numberButton(9));
-    // buttons.add(_multiplicationButton());
+    buttons.add(_emptyButton());
     buttons.add(_numberButton(4));
     buttons.add(_numberButton(5));
     buttons.add(_numberButton(6));
-    // buttons.add(_substractionButton());
+    buttons.add(_emptyButton());
     buttons.add(_numberButton(1));
     buttons.add(_numberButton(2));
     buttons.add(_numberButton(3));
+    buttons.add(_emptyButton());
     buttons.add(_numberButton(0));
-    buttons.add(_additionButton());
+    buttons.add(_emptyButton());
     buttons.add(_resetButton());
+    buttons.add(_additionButton());
     return buttons;
   }
 
@@ -57,7 +59,12 @@ class _CalculatorState extends State<Calculator> {
             width: 1,
           ),
         ),
-        child: Center(child: Text(text)),
+        child: Center(
+          child: Text(
+            text,
+            style: textStyle,
+          ),
+        ),
       ),
     );
   }
