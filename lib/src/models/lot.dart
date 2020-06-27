@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
-// import 'package:weebi/src/utils/formatters.dart';
 
 part 'lot.g.dart';
 

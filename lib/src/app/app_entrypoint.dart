@@ -14,18 +14,18 @@ class ComeShareApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WeebiAppEntrypoint(
+    return ComeShareAppEntrypoint(
       database: database,
       child: MyApp(),
     );
   }
 }
 
-class WeebiAppEntrypoint extends StatelessWidget {
+class ComeShareAppEntrypoint extends StatelessWidget {
   final Widget child;
   final sembast.Database database;
 
-  WeebiAppEntrypoint({@required this.child, @required this.database});
+  ComeShareAppEntrypoint({@required this.child, @required this.database});
 
   @override
   Widget build(BuildContext context) {

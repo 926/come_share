@@ -27,8 +27,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeDateFormatting('fr');
-  final coolPath = await getLocalPath();
-  String path = join(coolPath, 'come_share.db');
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+  String path = join(appDocDir.path, 'cs.db');
   DatabaseFactory dbFactory = databaseFactoryIo;
   Database database = await dbFactory.openDatabase(path, version: 1);
 

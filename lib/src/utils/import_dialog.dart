@@ -13,7 +13,7 @@ Future<bool> showDialogImport(BuildContext context) {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                  'L\'import de la liste se fait à partir d\'un fichier .json. \nIl est recommandé d\'être accompagné par un commercial weebi pour cette manipulation. Souhitez-vous poursuivre : '),
+                  'L\'import de la liste se fait à partir d\'un fichier .json. '),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
