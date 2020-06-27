@@ -9,16 +9,73 @@ class Calculator extends StatefulWidget {
 class _CalculatorState extends State<Calculator> {
   static const Color defaultButtonBackgroundColor = Colors.grey;
   final TextStyle textStyle = TextStyle(
-    color: Colors.red.withOpacity(0.95),
+    color: Colors.white,
     decoration: TextDecoration.none,
   );
+  final TextStyle informationTextStyle = TextStyle(
+    color: Colors.white.withOpacity(0.6),
+    decoration: TextDecoration.none,
+    fontSize: 14,
+  );
+
+  bool isCapturing = false;
+
+  int currentCaptureValue = 0;
+  String get currentCaptureValueText =>
+      isCapturing ? currentCaptureValue.toString() : total.toString();
+
+  List<int> pastvalues = List<int>();
+  int get total {
+    var tot = 0;
+    pastvalues.forEach((value) => tot += value);
+    return tot;
+  }
+
+  String get fullCalculText {
+    if (pastvalues.length == 0) return '0';
+    var text = '';
+    for (var i = 0; i < pastvalues.length - 1; i++) {
+      text += pastvalues[i].toString() + '+';
+    }
+    text += pastvalues.last.toString();
+
+    text += ' = ' + total.toString();
+    return text;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: GridView.count(
-        crossAxisCount: 4,
-        children: _buttons(),
+    return LayoutBuilder(
+      builder: (context, constraints) => Container(
+        child: Column(
+          children: <Widget>[
+            _calculView(),
+            SizedBox(
+              height: constraints.maxWidth,
+              child: GridView.count(
+                padding: EdgeInsets.zero,
+                crossAxisCount: 4,
+                children: _buttons(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _calculView() {
+    return LayoutBuilder(
+      builder: (context, constraints) => Container(
+        width: constraints.maxWidth,
+        padding: EdgeInsets.only(right: 25),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: <Widget>[
+            Text(currentCaptureValueText, style: textStyle),
+            Text(fullCalculText, style: informationTextStyle),
+          ],
+        ),
       ),
     );
   }
@@ -38,7 +95,7 @@ class _CalculatorState extends State<Calculator> {
     buttons.add(_numberButton(3));
     buttons.add(_emptyButton());
     buttons.add(_numberButton(0));
-    buttons.add(_emptyButton());
+    buttons.add(_resetAllButton());
     buttons.add(_resetButton());
     buttons.add(_additionButton());
     return buttons;
@@ -71,34 +128,38 @@ class _CalculatorState extends State<Calculator> {
 
   // all buttons
 
+  // Reset all button
+  Widget _resetAllButton() => _button('AC', _resetAll, Colors.red);
+  void _resetAll() {
+    setState(() {
+      pastvalues.clear();
+      _reset();
+    });
+  }
+
   // Reset button
-  Widget _resetButton() => _button(
-        'C',
-        () => _reset,
-      );
-  void _reset() => null;
+  Widget _resetButton() => _button('C', _reset, Colors.red);
+  void _reset() => setState(() {
+        currentCaptureValue = 0;
+        isCapturing = true;
+      });
 
   // Empty button
   Widget _emptyButton() => _button('', () => null);
 
-  // Division button
-  Widget _divisionButton() => _button('/', () => _divide);
-  void _divide() => null;
-
-  // Multiplication button
-  Widget _multiplicationButton() => _button('X', () => _multiply);
-  void _multiply() => null;
-
   // Add button
-  Widget _additionButton() => _button('+', () => _add);
-  void _add() => null;
-
-  // Substraction button
-  Widget _substractionButton() => _button('-', () => _substract);
-  void _substract() => null;
+  Widget _additionButton() => _button('+', _add, Colors.orange);
+  void _add() => setState(() {
+        pastvalues.add(currentCaptureValue);
+        currentCaptureValue = 0;
+        isCapturing = false;
+      });
 
   // Number button
   Widget _numberButton(int number) =>
       _button(number.toString(), () => _numberClicked(number));
-  void _numberClicked(int number) => null;
+  void _numberClicked(int number) => setState(() {
+        isCapturing = true;
+        currentCaptureValue = currentCaptureValue * 10 + number;
+      });
 }
