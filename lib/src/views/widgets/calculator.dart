@@ -11,6 +11,7 @@ class _CalculatorState extends State<Calculator> {
   final TextStyle textStyle = TextStyle(
     color: Colors.white,
     decoration: TextDecoration.none,
+    fontSize: 22,
   );
   final TextStyle informationTextStyle = TextStyle(
     color: Colors.white.withOpacity(0.6),
@@ -45,20 +46,23 @@ class _CalculatorState extends State<Calculator> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) => Container(
-        child: Column(
-          children: <Widget>[
-            _calculView(),
-            SizedBox(
-              height: constraints.maxWidth,
-              child: GridView.count(
-                padding: EdgeInsets.zero,
-                crossAxisCount: 4,
-                children: _buttons(),
+    return Container(
+      color: Colors.grey,
+      child: LayoutBuilder(
+        builder: (context, constraints) => Container(
+          child: Column(
+            children: <Widget>[
+              _calculView(),
+              SizedBox(
+                height: constraints.maxWidth,
+                child: GridView.count(
+                  padding: EdgeInsets.zero,
+                  crossAxisCount: 4,
+                  children: _buttons(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -109,24 +113,26 @@ class _CalculatorState extends State<Calculator> {
 
   Widget _button(
     String text,
-    void Function() onTap, [
+    void Function() onTap, {
     Color backgroundColor = defaultButtonBackgroundColor,
-  ]) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          border: Border.all(
-            color: Colors.black.withOpacity(0.3),
-            width: 1,
-          ),
+    double elevation = 2.5,
+    Color splashColor = Colors.black,
+  }) {
+    return Container(
+      padding: EdgeInsets.all(4),
+      child: MaterialButton(
+        splashColor: splashColor,
+        highlightColor: Colors.transparent,
+        highlightElevation: 0,
+        elevation: elevation,
+        onPressed: onTap,
+        color: backgroundColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
         ),
-        child: Center(
-          child: Text(
-            text,
-            style: textStyle,
-          ),
+        child: Text(
+          text,
+          style: textStyle,
         ),
       ),
     );
@@ -135,7 +141,8 @@ class _CalculatorState extends State<Calculator> {
   // all buttons
 
   // Reset all button
-  Widget _resetAllButton() => _button('AC', _resetAll, Colors.red);
+  Widget _resetAllButton() =>
+      _button('AC', _resetAll, backgroundColor: Colors.red);
   void _resetAll() {
     setState(() {
       pastvalues.clear();
@@ -144,17 +151,18 @@ class _CalculatorState extends State<Calculator> {
   }
 
   // Reset button
-  Widget _resetButton() => _button('C', _reset, Colors.red);
+  Widget _resetButton() => _button('C', _reset, backgroundColor: Colors.red);
   void _reset() => setState(() {
         currentCaptureValue = 0;
         isCapturing = true;
       });
 
   // Empty button
-  Widget _emptyButton() => _button('', () => null);
+  Widget _emptyButton() => _button('', null, elevation: 0);
 
   // Add button
-  Widget _additionButton() => _button('+', _add, Colors.orange);
+  Widget _additionButton() =>
+      _button('+', _add, backgroundColor: Colors.orange);
   void _add() => setState(() {
         pastvalues.add(currentCaptureValue);
         currentCaptureValue = 0;
