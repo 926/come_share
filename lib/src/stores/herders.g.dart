@@ -65,44 +65,6 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
     return _$loadTasksAsyncAction.run(() => super.loadTasks());
   }
 
-  final _$createHerderAsyncAction = AsyncAction('createHerder');
-
-  @override
-  Future<Herder> createHerder(Herder herderData) {
-    return _$createHerderAsyncAction.run(() => super.createHerder(herderData));
-  }
-
-  final _$updateHerderAsyncAction = AsyncAction('updateHerder');
-
-  @override
-  Future<Herder> updateHerder(Herder herder) {
-    return _$updateHerderAsyncAction.run(() => super.updateHerder(herder));
-  }
-
-  final _$disableHerderAsyncAction = AsyncAction('disableHerder');
-
-  @override
-  Future<Herder> disableHerder(Herder herderdata) {
-    return _$disableHerderAsyncAction
-        .run(() => super.disableHerder(herderdata));
-  }
-
-  final _$restoreHerderAsyncAction = AsyncAction('restoreHerder');
-
-  @override
-  Future<Herder> restoreHerder(Herder herderData) {
-    return _$restoreHerderAsyncAction
-        .run(() => super.restoreHerder(herderData));
-  }
-
-  final _$deleteForeverHerderAsyncAction = AsyncAction('deleteForeverHerder');
-
-  @override
-  Future<ObservableList<Herder>> deleteForeverHerder(Herder herder) {
-    return _$deleteForeverHerderAsyncAction
-        .run(() => super.deleteForeverHerder(herder));
-  }
-
   final _$deleteAllHerdersAsyncAction = AsyncAction('deleteAllHerders');
 
   @override

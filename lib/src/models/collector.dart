@@ -24,11 +24,6 @@ class Collector {
   @JsonKey(includeIfNull: false, nullable: true)
   String long;
   @JsonKey(includeIfNull: false, nullable: true)
-  String shopKeeperName;
-  @JsonKey(includeIfNull: false, nullable: true)
-  String shopKeeperTel;
-  @JsonKey(includeIfNull: false, nullable: true)
-  String shopKeeperMail;
   @JsonKey(includeIfNull: false, nullable: true)
   DateTime date;
   @JsonKey(includeIfNull: false, nullable: true)
@@ -56,9 +51,6 @@ class Collector {
       this.address,
       this.lat,
       this.long,
-      this.shopKeeperName,
-      this.shopKeeperTel,
-      this.shopKeeperMail,
       this.date,
       this.status,
       this.statusUpdateDate,

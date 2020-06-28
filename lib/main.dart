@@ -31,6 +31,7 @@ void main() async {
   String path = join(appDocDir.path, 'cs.db');
   DatabaseFactory dbFactory = databaseFactoryIo;
   Database database = await dbFactory.openDatabase(path, version: 1);
+  DateTime now = DateTime.now();
 
   List<dynamic> passwords = await database.get('passwords') ?? [];
   if (passwords.isEmpty) {
@@ -57,10 +58,21 @@ void main() async {
           lastName: '',
           avatar: '',
           qrcode: '',
-          overdraft: 0,
-          updateDate: null,
+          date: now,
+          updateDate: now,
           status: true,
-          statusUpdateDate: null),
+          statusUpdateDate: now),
+      Herder(
+          id: 1,
+          bidon: 1,
+          firstName: 'test',
+          lastName: '',
+          avatar: '',
+          qrcode: '',
+          date: now,
+          updateDate: now,
+          status: true,
+          statusUpdateDate: now),
     ];
     await database.put(_herders.map((h) => h.toJson()).toList(), 'herders');
   }
@@ -83,8 +95,8 @@ void main() async {
         serverStatusUpdateDate: null,
         isProd: false,
         isLocked: false,
-        date: DateTime.now(),
-        updateDate: null,
+        date: now,
+        updateDate: now,
       ),
     ];
     await database.put(
@@ -101,16 +113,18 @@ void main() async {
         stockUnit: StockUnit.unit,
         photo: '',
         status: true,
-        statusUpdateDate: DateTime.fromMillisecondsSinceEpoch(1565888474278),
+        statusUpdateDate: now,
+        date: now,
+        updateDate: now,
         lots: [
           Lot(
               companyUuid: '0',
-              commodityId: 0,
-              subcommodityId: 1,
               id: 1,
+              comment: '',
+              commodityId: 0,
               isDefault: true,
               quantity: 0,
-              lotDate: DateTime.now())
+              lotDate: now)
         ],
       ),
       Commodity(
@@ -120,16 +134,18 @@ void main() async {
         stockUnit: StockUnit.box,
         photo: 'milk.jpg',
         status: true,
-        statusUpdateDate: null,
+        statusUpdateDate: now,
+        date: now,
+        updateDate: now,
         lots: [
           Lot(
               companyUuid: '0',
               commodityId: 1,
-              subcommodityId: 1,
+              comment: '',
               id: 1,
               isDefault: true,
               quantity: 0,
-              lotDate: DateTime.now()),
+              lotDate: now),
         ],
       ),
     ];
