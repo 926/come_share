@@ -1,3 +1,4 @@
+import 'package:come_share/src/routes/export.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         HerdersRoute(navigatorKey),
         SyncRoute(navigatorKey),
         SettingsImportRoute(),
+        ExportRoute(),
         // aboutRoute
       ],
     );
@@ -75,7 +77,8 @@ class _LoadingState extends State<Loading> {
           //Navigator.of(context).pushReplacementNamed(SellRoute.routePath);
         } else {
           //initPlatformState();
-          Navigator.of(context).pushReplacementNamed(CommoditiesRoute.routePath);
+          Navigator.of(context)
+              .pushReplacementNamed(CommoditiesRoute.routePath);
         }
       },
     );

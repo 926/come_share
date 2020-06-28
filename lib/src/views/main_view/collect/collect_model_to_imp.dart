@@ -48,10 +48,10 @@ class _SellViewState extends State<SellView>
     //_actionSubscription = appBarActions.action.listen(onAppBarAction);
     rcRoutes = RcRoutes(
       routes: [
-        // CalculatorRoute(
-        //   onOk: onOkCalc,
-        // ),
-        NoteRoute(onOkOk: onOkNote),
+        /* CalculatorRoute(
+          onOk: onOkCalc,
+        ), */
+        //NoteRoute(onOkOk: onOkNote),
         CollectHerderRoute(
           mainNavigatorKey: navigatorKey,
           onSubmit: onSubmitFlock,

@@ -110,8 +110,13 @@ class _CalculatorViewState extends State<CalculatorView> {
           children: <Widget>[
             FittedBox(
               fit: BoxFit.fitWidth,
-              child: Text(currentCaptureValueText,
-                  style: textStyle.copyWith(color: Colors.black)),
+              child: Text(
+                currentCaptureValueText,
+                style: textStyle.copyWith(
+                  color: Colors.black,
+                  fontSize: 28,
+                ),
+              ),
             ),
             FittedBox(
               fit: BoxFit.fitWidth,

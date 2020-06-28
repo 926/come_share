@@ -124,6 +124,9 @@ class _HerderCollectViewState extends State<HerderCollectView> {
   Widget build(BuildContext context) {
     final herdersStore = Provider.of<HerdersStore>(context);
     final cartStore = Provider.of<CartStore>(context, listen: false);
+
+    print(cartStore.items.length);
+    print(cartStore.items.first.quantity);
 //  final collectorStore = Provider.of<CollectorStore>(context);
 
     // ? select default herder on init
@@ -192,10 +195,10 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                 IconButton(
                   icon: Icon(
                     Icons.delete_sweep,
-                    color: Colors.white,
+                    //color: Colors.white,
                   ),
                   onPressed: () {
-                    //cartStore.clearItems();
+                    cartStore.clearItems();
                   },
                 )
               ],

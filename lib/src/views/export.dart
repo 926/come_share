@@ -180,13 +180,12 @@ class ExportState extends State<Export> {
               },
             ),
             RaisedButton(
-              color: Colors.black54,
+              //color: Colors.black54,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   Icon(
                     Icons.receipt,
-                    color: Colors.grey[200],
                   ),
                   Icon(Icons.share),
                   Text('partager le fichier tickets'),
@@ -194,6 +193,7 @@ class ExportState extends State<Export> {
               ),
               onPressed: () {
                 getFlocksCsv(context);
+                getFlocksExcel(context);
                 shareFile('flocks.csv');
               },
             ),
@@ -297,7 +297,7 @@ getFlocksCsv(BuildContext context) async {
   f.writeAsString(csv);
 }
 
-Future<void> getFlocksByMonthExcel(BuildContext context, DateTime date) async {
+Future<void> getFlocksExcel(BuildContext context) async {
   var file = "assets/collecte.xlsx";
   ByteData data = await rootBundle.load(file);
   bool exists = data != null;

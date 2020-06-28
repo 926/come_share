@@ -29,10 +29,8 @@ abstract class CartStoreBase with Store {
   int get numberOfItem => items.fold(0, (value, item) => value + item).round();
 
   @computed
-  double get qt => items
-      .fold(0, (value, item) => value + item.quantity)
-      .round()
-      .roundToDouble();
+  double get qt =>
+      items.fold(0, (value, item) => value + item.quantity).roundToDouble();
 
   CartStoreBase(this._commoditiesStore) {
     items = <Item>[];
@@ -50,7 +48,7 @@ abstract class CartStoreBase with Store {
   }
 
   @action
-  void addLot(Lot lot, double qt) {
+  void addLot(Lot lot, double lotQuantity) {
     print('try to add $qt to lot $lot');
     final _newItems = <Item>[];
     final _commodity = _commoditiesStore.commodities
@@ -60,7 +58,7 @@ abstract class CartStoreBase with Store {
 
     if (!items.any((item) => // this was never added here
         item.lot.commodityId == _lot.commodityId && item.lot.id == _lot.id)) {
-      _newItems.add(Item(lot, qt)); // adding the new lot/item
+      _newItems.add(Item(lot, lotQuantity)); // adding the new lot/item
 
       items.forEach((item) {
         _newItems.add(item); // adding all the previous ones
@@ -69,13 +67,12 @@ abstract class CartStoreBase with Store {
       items.forEach((item) {
         if (item.lot.id == _lot.id &&
             item.lot.commodityId == _lot.commodityId) {
-          _newItems.add(Item(item.lot, item.quantity + qt));
+          _newItems.add(Item(item.lot, item.quantity + lotQuantity));
         } else {
           _newItems.add(item);
         }
       });
     }
-
     items = _newItems;
   }
 
