@@ -1,4 +1,5 @@
 import 'package:come_share/src/routes/collect/collect.dart';
+import 'package:come_share/src/routes/export.dart';
 import 'package:come_share/src/routes/settings_import.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
@@ -53,10 +54,10 @@ class AppDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.save),
-              title: Text('Export .csv'),
+              title: Text('Export .csv/.xlsl'),
               onTap: () {
                 Navigator.of(context).pop();
-                //Navigator.of(context).pushNamed(ExportRoute.routePath);
+                Navigator.of(context).pushNamed(ExportRoute.routePath);
               },
             ), //
             ListTile(

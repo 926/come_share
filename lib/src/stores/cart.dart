@@ -26,12 +26,11 @@ abstract class CartStoreBase with Store {
   List<Lot> listBigQuantityOnForLot;
 
   @computed
-  int get numberOfItem =>
-      items.fold(0, (value, item) => value + item.quantity).round();
+  int get numberOfItem => items.fold(0, (value, item) => value + item).round();
 
   @computed
   double get qt =>
-      items.fold(0, (value, item) => value + item.lot.quantity).round();
+      items.fold(0, (value, item) => value + item.quantity).round();
 
   CartStoreBase(this._commoditiesStore) {
     items = <Item>[];
