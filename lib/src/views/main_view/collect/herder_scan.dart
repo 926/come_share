@@ -371,12 +371,13 @@ class _HerderCollectViewState extends State<HerderCollectView> {
         title: Text(
             '${herdersStore.herders[index]?.firstName} ${herdersStore.herders[index]?.lastName}' ??
                 "noName"),
-        subtitle: Text(
-            'bidon : ${herdersStore?.herders[index]?.bidon.toString()}' +
-                        herdersStore?.herders[index]?.tel !=
-                    null
-                ? 'tel : ${herdersStore?.herders[index]?.tel}'
-                : ''),
+        subtitle: Text('hello'),
+        // subtitle: Text(
+        //     'bidon : ${herdersStore?.herders[index]?.bidon.toString()}' +
+        //                 herdersStore?.herders[index]?.tel !=
+        //             null
+        //         ? 'tel : ${herdersStore?.herders[index]?.tel}'
+        //         : ''),
         value: herdersStore.herders[index],
         groupValue: selectedHerder,
         onChanged: (currentHerder) {

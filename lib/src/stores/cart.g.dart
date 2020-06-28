@@ -116,7 +116,6 @@ mixin _$CartStore on CartStoreBase, Store {
 
   @override
   void addLot(Lot lot, double qt) {
-    print('quantity added $qt');
     final _$actionInfo = _$CartStoreBaseActionController.startAction();
     try {
       return super.addLot(lot, qt);
