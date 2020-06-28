@@ -17,9 +17,6 @@ Collector _$CollectorFromJson(Map<String, dynamic> json) {
     address: json['address'] as String,
     lat: json['lat'] as String,
     long: json['long'] as String,
-    shopKeeperName: json['shopKeeperName'] as String,
-    shopKeeperTel: json['shopKeeperTel'] as String,
-    shopKeeperMail: json['shopKeeperMail'] as String,
     date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
     status: json['status'] as bool,
     statusUpdateDate: json['statusUpdateDate'] == null
@@ -55,9 +52,6 @@ Map<String, dynamic> _$CollectorToJson(Collector instance) {
   writeNotNull('address', instance.address);
   writeNotNull('lat', instance.lat);
   writeNotNull('long', instance.long);
-  writeNotNull('shopKeeperName', instance.shopKeeperName);
-  writeNotNull('shopKeeperTel', instance.shopKeeperTel);
-  writeNotNull('shopKeeperMail', instance.shopKeeperMail);
   writeNotNull('date', instance.date?.toIso8601String());
   writeNotNull('status', instance.status);
   writeNotNull(

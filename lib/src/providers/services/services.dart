@@ -1,13 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/rpc/herder/create_herder.dart';
-import 'package:come_share/src/rpc/herder/delete_forever_herder.dart';
-import 'package:come_share/src/rpc/herder/disable_herder.dart';
 import 'package:come_share/src/rpc/herder/delete_herders.dart';
 import 'package:come_share/src/rpc/herder/get_herders.dart';
 import 'package:come_share/src/rpc/herder/save_herders.dart';
-import 'package:come_share/src/rpc/herder/update_herder.dart';
-import 'package:come_share/src/rpc/herder/restore_herder.dart';
 import 'package:come_share/src/rpc/flock/add_flock.dart';
 import 'package:come_share/src/rpc/flock/disable_flock.dart';
 import 'package:come_share/src/rpc/flock/restore_flock.dart';
@@ -28,35 +23,16 @@ class ServicesProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ProxyProvider6<
-            GetHerdersRpc,
-            SaveAllHerdersRpc,
-            UpdateHerderRpc,
-            DisableHerderRpc,
-            DeleteAllHerdersRpc,
-            RestoreHerderRpc,
+        ProxyProvider3<GetHerdersRpc, SaveAllHerdersRpc, DeleteAllHerdersRpc,
             HerdersService>(
-          update: (c,
-              getHerdersRpc,
-              saveAllHerdersRpc,
-              updateHerdersRpc,
-              disableHerderRpc,
-              deleteAllHerdersRpc,
-              restoreHerderRpc,
+          update: (c, getHerdersRpc, saveAllHerdersRpc, deleteAllHerdersRpc,
               previousService) {
-            final createHerderRpc = Provider.of<CreateHerderRpc>(context);
-            final deleteForeverHerderRpc =
-                Provider.of<DeleteForeverHerderRpc>(context);
             return previousService ??
                 HerdersService(
-                    getHerdersRpc,
-                    saveAllHerdersRpc,
-                    updateHerdersRpc,
-                    disableHerderRpc,
-                    deleteAllHerdersRpc,
-                    restoreHerderRpc,
-                    createHerderRpc,
-                    deleteForeverHerderRpc);
+                  getHerdersRpc,
+                  saveAllHerdersRpc,
+                  deleteAllHerdersRpc,
+                );
           },
         ),
         ProxyProvider5<AddFlockRpc, DisableFlockRpc, GetFlocksRpc,

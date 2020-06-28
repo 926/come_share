@@ -41,45 +41,7 @@ abstract class HerdersStoreBase with Store {
     initialLoading = false;
   }
 
-  @action
-  Future<Herder> createHerder(Herder herderData) async {
-    final herder = await _herdersService.createHerderRpc.request(herderData);
-    herders.add(herder);
-    return herder;
-  }
-
-  @action
-  Future<Herder> updateHerder(Herder herder) async {
-    final updateHerder = await _herdersService.updateHerderRpc.request(herder);
-    final herderIndex = updateHerder.id;
-    herders[herderIndex] = updateHerder;
-    return updateHerder;
-  }
-
-  @action
-  Future<Herder> disableHerder(Herder herderdata) async {
-    final disableHerder =
-        await _herdersService.disableHerderRpc.request(herderdata);
-    final herderIndex = disableHerder.id;
-    herders[herderIndex] = disableHerder;
-    return disableHerder;
-  }
-
-  @action
-  Future<Herder> restoreHerder(Herder herderData) async {
-    final restoredHerder =
-        await _herdersService.restoreHerderRpc.request(herderData);
-    var herderIndex = restoredHerder.id;
-    herders[herderIndex] = restoredHerder;
-    return restoredHerder;
-  }
-
-  @action
-  Future<ObservableList<Herder>> deleteForeverHerder(Herder herder) async {
-    await _herdersService.deleteForeverHerderRpc.request(herder);
-    herders.remove(herder);
-    return herders;
-  }
+  
 
   @action
   Future<ObservableList<Herder>> deleteAllHerders(

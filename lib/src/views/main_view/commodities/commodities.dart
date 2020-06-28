@@ -6,7 +6,7 @@ import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/stores/commodities.dart';
 //import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/views/main_view/main_view.dart';
-import 'package:come_share/src/views/main_view/commodities/items/product_item.dart';
+import 'package:come_share/src/views/main_view/commodities/elements/commodity_element.dart';
 
 class CommoditiesView extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigator;
@@ -21,10 +21,10 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   String scanBarcode;
   TextEditingController barcodeController;
 
-  List<Commodity> productsListReordered;
+  List<Commodity> commoditiesListReordered;
   bool isListReorderedByProductTitle;
   bool isListReorderedById;
-  bool isTitleAscending;
+  bool isNameAscending;
   bool isIdAscending;
 
   List<Commodity> searchResults;
@@ -43,31 +43,11 @@ class _CommoditiesViewState extends State<CommoditiesView> {
     isSearchByBarcode = false;
     isListReorderedByProductTitle = false;
     isListReorderedById = false;
-    isTitleAscending = true;
+    isNameAscending = true;
     isIdAscending = true;
-
-    barcodeController?.addListener(() {
-      final text = barcodeController.text.toLowerCase();
-      barcodeController.value = barcodeController.value.copyWith(
-        text: text,
-        selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
-        composing: TextRange.empty,
-      );
-    });
   }
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    super.dispose();
-    if (barcodeController != null) {
-      barcodeController.clear();
-      barcodeController.dispose();
-    }
-  }
-
-  void _searchByTitleOrCode(String queryString) {
+  void _searchByName(String queryString) {
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
     var temp = commoditiesStore.commodities.where((p) {
       return p.name.toLowerCase().contains(queryString.toLowerCase());
@@ -77,7 +57,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
     });
   }
 
-  void _orderByTitle(bool _isAscending) {
+  void _orderByName(bool _isAscending) {
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
     List<Commodity> ordering = commoditiesStore.commodities;
     if (_isAscending == true) {
@@ -86,8 +66,8 @@ class _CommoditiesViewState extends State<CommoditiesView> {
       ordering.sort((a, b) => b.name.compareTo(a.name));
     }
     setState(() {
-      isTitleAscending = !_isAscending;
-      productsListReordered = ordering;
+      isNameAscending = !_isAscending;
+      commoditiesListReordered = ordering;
       isListReorderedByProductTitle = true;
       isListReorderedById = false;
       isSearch = false;
@@ -104,7 +84,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
     }
     setState(() {
       isIdAscending = !_isAscending;
-      productsListReordered = ordering;
+      commoditiesListReordered = ordering;
       isListReorderedById = true;
       isListReorderedByProductTitle = false;
       isSearch = false;
@@ -135,8 +115,8 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   @override
   Widget build(BuildContext context) {
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
-    var coolComm =
-        commoditiesStore.commodities.where((h) => h.id != 0).toList();
+    var coolComm = commoditiesStore.commodities.toList();
+    // .where((c) => c.id != 0)
     // final collectorStore = Provider.of<CollectorStore>(context);
     // var thisCollector = collectorStore.collector.first;
 
@@ -152,11 +132,11 @@ class _CommoditiesViewState extends State<CommoditiesView> {
           },
         ),
         IconButton(
-          icon: isTitleAscending == true
+          icon: isNameAscending == true
               ? Icon(Icons.sort_by_alpha)
               : Icon(Icons.sort_by_alpha),
           onPressed: () {
-            _orderByTitle(isTitleAscending);
+            _orderByName(isNameAscending);
           },
         ),
       ],
@@ -184,7 +164,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
                   Expanded(
                     child: Scrollbar(
                       child: ListView.builder(
-                        itemCount: productsListReordered.length,
+                        itemCount: commoditiesListReordered.length,
                         itemBuilder: (BuildContext context, int index) =>
                             buildReorderedList(context, index),
                       ),
@@ -216,7 +196,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
                               title: TextField(
                                 autofocus: true,
                                 onChanged: (value) {
-                                  _searchByTitleOrCode(value);
+                                  _searchByName(value);
                                 },
                                 style: TextStyle(color: Colors.blue),
                                 keyboardType: TextInputType.text,
@@ -268,11 +248,10 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   }
 
   Widget buildSearchBody(BuildContext context, int index) {
-    // return ProductItemWidget(product: searchResults[index]);
     return CommodityItemWidget(commodity: searchResults[index]);
   }
 
   Widget buildReorderedList(BuildContext context, int index) {
-    return CommodityItemWidget(commodity: productsListReordered[index]);
+    return CommodityItemWidget(commodity: commoditiesListReordered[index]);
   }
 }

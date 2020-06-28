@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/routes/commodities/commodity_detail.dart';
 import 'package:come_share/src/utils/formatters.dart';
-import 'package:come_share/src/views/main_view/commodities/items/lot_item.dart';
+import 'package:come_share/src/views/main_view/commodities/elements/lot_element.dart';
 
 class CommodityItemWidget extends StatefulWidget {
   final Commodity commodity;
