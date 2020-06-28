@@ -54,7 +54,7 @@ class _SellViewState extends State<SellView>
         NoteRoute(onOkOk: onOkNote),
         CollectHerderRoute(
           mainNavigatorKey: navigatorKey,
-          onOkOk: onOkHerder,
+          onSubmit: onSubmitFlock,
           // ! Work In Progress
           // onSubmit: onConfirmSubmit,
         ),
@@ -83,14 +83,7 @@ class _SellViewState extends State<SellView>
     );
   }
 
-  Future<void> onOkHerder() async {
-    tabController.index = tabController.index + 1;
-    navigatorKey.currentState.pushReplacementNamed(
-      CollectHerderRoute.routePath,
-    );
-  }
-
-  Future<void> onConfirmSubmit(Flock flock) async {
+  Future<void> onSubmitFlock(Flock flock) async {
     _flock = flock;
     tabController.index = tabController.index + 1;
     setState(() {
@@ -115,7 +108,7 @@ class _SellViewState extends State<SellView>
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                SellTabBar(
+                CollectTabBar(
                   tabController: tabController,
                   onTap: (index) {
                     if (onFlockPage && index != 0) {
@@ -164,7 +157,7 @@ class CollectNavigatorObserver extends NavigatorObserver {
   CollectNavigatorObserver(this.appBarActions);
 }
 
-class SellTabBar extends StatelessWidget {
+class CollectTabBar extends StatelessWidget {
   final TabController tabController;
   final ValueChanged<int> onTap;
 
@@ -175,7 +168,7 @@ class SellTabBar extends StatelessWidget {
     'flock',
   ];
 
-  SellTabBar({@required this.tabController, @required this.onTap});
+  CollectTabBar({@required this.tabController, @required this.onTap});
 
   @override
   Widget build(BuildContext context) {

@@ -1,5 +1,9 @@
 import 'dart:async';
 
+import 'package:come_share/src/models/flock.dart';
+import 'package:come_share/src/models/item.dart';
+import 'package:come_share/src/stores/commodities.dart';
+import 'package:come_share/src/stores/flocks.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -9,21 +13,21 @@ import 'package:come_share/src/routes/herders/herder_detail.dart';
 import 'package:come_share/src/stores/herders.dart';
 import 'package:come_share/src/stores/cart.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-//import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/utils/formatters.dart';
+//import 'package:come_share/src/stores/collector.dart';
 
-class HerderView extends StatefulWidget {
+class HerderCollectView extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigatorKey;
-  final Future<void> Function() onOk;
+  final Future<void> Function(Flock flock) onSubmit;
 
-  HerderView({this.mainNavigatorKey, @required this.onOk});
+  HerderCollectView({this.mainNavigatorKey, @required this.onSubmit});
 
   @override
-  _HerderViewState createState() => _HerderViewState();
+  _HerderCollectViewState createState() => _HerderCollectViewState();
 }
 
-class _HerderViewState extends State<HerderView> {
+class _HerderCollectViewState extends State<HerderCollectView> {
   List<Herder> herders;
   Herder selectedHerder;
   bool isSelectedHerder = true;
@@ -31,22 +35,12 @@ class _HerderViewState extends State<HerderView> {
   bool _activeSearchByBidon;
   bool _activeSearchByQr;
   String _scanBarcode = '';
-  //TextEditingController _barcodeController;
 
   @override
   void initState() {
     super.initState();
     _activeSearchByBidon = false;
     _activeSearchByQr = false;
-    /* _barcodeController?.addListener(() {
-      final text = _barcodeController.text.toLowerCase();
-      _barcodeController.value = _barcodeController.value.copyWith(
-        text: text,
-        selection:
-            TextSelection(baseOffset: text.length, extentOffset: text.length),
-        composing: TextRange.empty,
-      );
-    }); */
   }
 
   void _searchByQr(String queryString) {
@@ -62,7 +56,6 @@ class _HerderViewState extends State<HerderView> {
 
   void _searchByBidon(String queryString) {
     final herdersStore = Provider.of<HerdersStore>(context);
-    //List<Herder> searching = herdersStore.searchHerdersByBidon(queryString);
     var temp = herdersStore.herders.where((h) {
       return h.bidon.toString().contains(queryString) ||
           h.firstName.toLowerCase().contains(queryString.toLowerCase()) ||
@@ -89,13 +82,48 @@ class _HerderViewState extends State<HerderView> {
     });
   }
 
+  Future<void> _onSubmit() async {
+    final cartStore = Provider.of<CartStore>(context, listen: false);
+    final commoditiesStore =
+        Provider.of<CommoditiesStore>(context, listen: false);
+    final flocksStore = Provider.of<FlocksStore>(context, listen: false);
+
+    final flock = Flock(
+        axeUuid: 'test',
+        items: cartStore.items,
+        comment: cartStore?.comment ?? '',
+        received: 0,
+        date: DateTime.now(),
+        flockType: FlockType.gathered,
+        herderId:
+            '${cartStore?.herder?.id ?? 0}', // if no herder then use default
+        status: true,
+        statusUpdateDate: DateTime.now(),
+        creationDate: DateTime.now());
+
+    for (final item in cartStore.items) {
+      print('we are in view, show me the lot : ${item.lot} ${item.quantity}');
+      await commoditiesStore.removeLotDouble(
+        item.lot,
+        item.quantity,
+      );
+    }
+
+    await flocksStore.addFlock(flock);
+
+    cartStore.clearItems();
+    cartStore.clearComment(); // idem
+    cartStore.removeAllBigQuantities();
+    widget.onSubmit(flock);
+  }
+
   @override
   Widget build(BuildContext context) {
     final herdersStore = Provider.of<HerdersStore>(context);
     final cartStore = Provider.of<CartStore>(context, listen: false);
-//    final collectorStore = Provider.of<CollectorStore>(context);
+//  final collectorStore = Provider.of<CollectorStore>(context);
 
-    // ? using a herder if no contact is selected
+    // ? select default herder on init
     // var clientHerder = herdersStore.herders.firstWhere((f) => f.id == 0, orElse: null);
     return Scaffold(
       appBar: AppBar(
@@ -208,10 +236,19 @@ class _HerderViewState extends State<HerderView> {
           Align(
             alignment: Alignment.bottomRight,
             child: FloatingActionButton(
-                heroTag: 2,
-                backgroundColor: Colors.teal,
-                onPressed: () => widget.onOk(),
-                child: Icon(Icons.arrow_forward)),
+              heroTag: 2,
+              backgroundColor: Colors.teal,
+              child: Text('OK'),
+              onPressed: () {
+                //final collectorStore = Provider.of<CollectorStore>(context);
+                final cartStore = Provider.of<CartStore>(context);
+                if (cartStore.items.isEmpty) {
+                  showDialogCSNotOk('Panier vide', context);
+                } else {
+                  _onSubmit();
+                }
+              },
+            ),
           ),
           Positioned(
             bottom: 0,
