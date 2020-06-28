@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../main_view.dart';
 import 'calculator.dart';
+import 'herder_scan.dart';
 
 class Collect extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigator;
@@ -70,7 +71,7 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
                   children: [
                     CalculatorView(),
                     ScannerView(),
-                    Icon(Icons.directions_bike),
+                    HerderCollectView(),
                   ],
                 ),
               ),

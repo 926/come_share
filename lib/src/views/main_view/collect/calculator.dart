@@ -54,43 +54,49 @@ class _CalculatorViewState extends State<CalculatorView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Container(
-            color: Colors.transparent,
-            child: LayoutBuilder(
-              builder: (context, constraints) => Container(
-                child: Column(
-                  children: <Widget>[
-                    _calculView(),
-                    SizedBox(
-                      height: constraints.maxWidth,
-                      child: GridView.count(
-                        padding: EdgeInsets.zero,
-                        crossAxisCount: 4,
-                        children: _buttons(),
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              color: Colors.transparent,
+              child: LayoutBuilder(
+                builder: (context, constraints) => Container(
+                  child: Column(
+                    children: <Widget>[
+                      _calculView(),
+                      SizedBox(
+                        height: constraints.maxWidth,
+                        child: GridView.count(
+                          padding: EdgeInsets.zero,
+                          crossAxisCount: 4,
+                          children: _buttons(),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Consumer<CollectorViewsManager>(
-            builder: (context, collectorViewManager, child) => FlatButton(
-              child: Text('OK'),
-              onPressed: () {
-                final cartStore = Provider.of<CartStore>(context);
-                final commoditiesStore = Provider.of<CommoditiesStore>(context);
-                cartStore.addLot(commoditiesStore.commodities.first.lots.first,
-                    total.toDouble());
-                collectorViewManager.activeView = CollectorViews.validation;
-              },
+            Consumer<CollectorViewsManager>(
+              builder: (context, collectorViewManager, child) => FlatButton(
+                child:
+                    Text('OK', style: textStyle.copyWith(color: Colors.black)),
+                onPressed: () {
+                  final cartStore = Provider.of<CartStore>(context);
+                  final commoditiesStore =
+                      Provider.of<CommoditiesStore>(context);
+                  cartStore.addLot(
+                      commoditiesStore.commodities.first.lots.first,
+                      total.toDouble());
+                  collectorViewManager.activeView = CollectorViews.validation;
+                },
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -105,11 +111,15 @@ class _CalculatorViewState extends State<CalculatorView> {
           children: <Widget>[
             FittedBox(
               fit: BoxFit.fitWidth,
-              child: Text(currentCaptureValueText, style: textStyle),
+              child: Text(currentCaptureValueText,
+                  style: textStyle.copyWith(color: Colors.black)),
             ),
             FittedBox(
               fit: BoxFit.fitWidth,
-              child: Text(fullCalculText, style: informationTextStyle),
+              child: Text(
+                fullCalculText,
+                style: informationTextStyle.copyWith(color: Colors.black),
+              ),
             ),
           ],
         ),
