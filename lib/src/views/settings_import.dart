@@ -221,7 +221,6 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         //} else if (thisCollector.isLocked == true) {
                         //  return showDialogWeebiNotOk(
                         //      'Permission requise', context);
-
                       } else {
                         final _products = await file.readAsString();
                         await commoditiesStore.deleteAllCommodities([]);
