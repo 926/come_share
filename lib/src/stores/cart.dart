@@ -29,8 +29,10 @@ abstract class CartStoreBase with Store {
   int get numberOfItem => items.fold(0, (value, item) => value + item).round();
 
   @computed
-  double get qt =>
-      items.fold(0, (value, item) => value + item.quantity).round();
+  double get qt => items
+      .fold(0, (value, item) => value + item.quantity)
+      .round()
+      .roundToDouble();
 
   CartStoreBase(this._commoditiesStore) {
     items = <Item>[];
@@ -49,6 +51,7 @@ abstract class CartStoreBase with Store {
 
   @action
   void addLot(Lot lot, double qt) {
+    print('try to add $qt to lot $lot');
     final _newItems = <Item>[];
     final _commodity = _commoditiesStore.commodities
         .firstWhere((commodity) => commodity.id == lot.commodityId);
@@ -72,6 +75,7 @@ abstract class CartStoreBase with Store {
         }
       });
     }
+
     items = _newItems;
   }
 

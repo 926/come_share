@@ -1,9 +1,10 @@
-import 'package:come_share/src/views/main_view/collect/qr_scan.dart';
+import 'package:come_share/src/models/flock.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../main_view.dart';
 import 'calculator.dart';
+import 'flock.dart';
 import 'herder_scan.dart';
 
 class Collect extends StatefulWidget {
@@ -65,14 +66,17 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
           child: Column(
             children: <Widget>[
               Expanded(
-                child: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: _tabController,
-                  children: [
-                    CalculatorView(),
-                    ScannerView(),
-                    //HerderCollectView(onSubmit: ,),
-                  ],
+                child: Provider<Flock>(
+                  create: (_) => Flock(),
+                  child: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: _tabController,
+                    children: [
+                      CalculatorView(),
+                      HerderCollectView(),
+                      FlockView(),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -83,9 +87,10 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
   }
 
   int collectorViewsToTabIndex(CollectorViews view) {
+    print('next view $view');
     switch (view) {
       case CollectorViews.calculator:
-        return 1;
+        return 0;
       case CollectorViews.scanner:
         return 1;
       case CollectorViews.validation:

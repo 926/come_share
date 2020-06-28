@@ -15,6 +15,8 @@ import 'package:come_share/src/stores/cart.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/utils/formatters.dart';
+
+import 'collect.dart';
 //import 'package:come_share/src/stores/collector.dart';
 
 class HerderCollectView extends StatefulWidget {
@@ -114,7 +116,9 @@ class _HerderCollectViewState extends State<HerderCollectView> {
     cartStore.clearItems();
     cartStore.clearComment(); // idem
     cartStore.removeAllBigQuantities();
-    widget.onSubmit(flock);
+
+    // load flock view
+    // widget.onSubmit(flock);
   }
 
   @override
@@ -245,7 +249,9 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                 if (cartStore.items.isEmpty) {
                   showDialogCSNotOk('Panier vide', context);
                 } else {
-                  _onSubmit();
+                  final collectorViewManager =
+                      Provider.of<CollectorViewsManager>(context);
+                  collectorViewManager.activeView = CollectorViews.validation;
                 }
               },
             ),
@@ -369,12 +375,13 @@ class _HerderCollectViewState extends State<HerderCollectView> {
         title: Text(
             '${herdersStore.herders[index]?.firstName} ${herdersStore.herders[index]?.lastName}' ??
                 "noName"),
-        subtitle: Text(
-            'bidon : ${herdersStore?.herders[index]?.bidon.toString()}' +
-                        herdersStore?.herders[index]?.tel !=
-                    null
-                ? 'tel : ${herdersStore?.herders[index]?.tel}'
-                : ''),
+        subtitle: Text('hello'),
+        // subtitle: Text(
+        //     'bidon : ${herdersStore?.herders[index]?.bidon.toString()}' +
+        //                 herdersStore?.herders[index]?.tel !=
+        //             null
+        //         ? 'tel : ${herdersStore?.herders[index]?.tel}'
+        //         : ''),
         value: herdersStore.herders[index],
         groupValue: selectedHerder,
         onChanged: (currentHerder) {
