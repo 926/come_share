@@ -55,7 +55,7 @@ class _CalculatorViewState extends State<CalculatorView> {
       text += '+' + currentCaptureValue.toString();
     }
 
-    text += ' = ' + total.toString();
+    text += ' = ';
     return text;
   }
 
@@ -126,9 +126,19 @@ class _CalculatorViewState extends State<CalculatorView> {
             ),
             FittedBox(
               fit: BoxFit.fitWidth,
-              child: Text(
-                fullCalculText,
-                style: informationTextStyle.copyWith(color: Colors.black),
+              child: RichText(
+                text: TextSpan(
+                  style: informationTextStyle.copyWith(color: Colors.black),
+                  children: <TextSpan>[
+                    TextSpan(text: fullCalculText),
+                    if (pastvalues.length > 0)
+                      TextSpan(
+                        text: total.toString(),
+                        style: informationTextStyle.copyWith(
+                            color: Colors.black, fontSize: 22),
+                      ),
+                  ],
+                ),
               ),
             ),
           ],
