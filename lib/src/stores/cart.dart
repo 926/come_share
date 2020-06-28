@@ -30,12 +30,9 @@ abstract class CartStoreBase with Store {
       items.fold(0, (value, item) => value + item.quantity).round();
 
   @computed
-  double get qt => items.fold(
-      0,
-      (value, item) =>
-          value +
-          item.lot
-              .quantity); // remove rounding since it cast to int, do we really want to round ? If yes use roundToDouble
+  double get qt => items
+      .fold(0, (value, item) => value + item.lot.quantity)
+      .roundToDouble(); // remove rounding since it cast to int, do we really want to round ? If yes use roundToDouble
 
   CartStoreBase(this._commoditiesStore) {
     items = <Item>[];
@@ -54,6 +51,7 @@ abstract class CartStoreBase with Store {
 
   @action
   void addLot(Lot lot, double qt) {
+    print('try to add $qt to lot $lot');
     final _newItems = <Item>[];
     final _commodity = _commoditiesStore.commodities
         .firstWhere((commodity) => commodity.id == lot.commodityId);
@@ -77,6 +75,7 @@ abstract class CartStoreBase with Store {
         }
       });
     }
+
     items = _newItems;
   }
 
