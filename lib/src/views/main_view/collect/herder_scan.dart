@@ -136,8 +136,9 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                 )
               : Container(),
           actions: <Widget>[
-            _activeSearchByBidon == true
-                ? Flexible(
+            !_activeSearchByBidon
+                ? Container()
+                : Flexible(
                     flex: 1,
                     child: ListTile(
                       leading: Icon(Icons.search, color: Colors.white),
@@ -163,8 +164,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                         ),
                       ),
                     ),
-                  )
-                : Container(),
+                  ),
           ]),
       body: Column(
         children: <Widget>[
@@ -188,7 +188,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                 ),
                 IconButton(
                   icon: Icon(
-                    Icons.title,
+                    Icons.delete_sweep,
                     color: Colors.white,
                   ),
                   onPressed: () {

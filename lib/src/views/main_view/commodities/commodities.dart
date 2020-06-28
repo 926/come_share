@@ -22,7 +22,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   TextEditingController barcodeController;
 
   List<Commodity> commoditiesListReordered;
-  bool isListReorderedByProductTitle;
+  bool isListReorderedByName;
   bool isListReorderedById;
   bool isNameAscending;
   bool isIdAscending;
@@ -41,7 +41,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
     scanBarcode = '';
     isSearch = false;
     isSearchByBarcode = false;
-    isListReorderedByProductTitle = false;
+    isListReorderedByName = false;
     isListReorderedById = false;
     isNameAscending = true;
     isIdAscending = true;
@@ -68,7 +68,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
     setState(() {
       isNameAscending = !_isAscending;
       commoditiesListReordered = ordering;
-      isListReorderedByProductTitle = true;
+      isListReorderedByName = true;
       isListReorderedById = false;
       isSearch = false;
     });
@@ -86,7 +86,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
       isIdAscending = !_isAscending;
       commoditiesListReordered = ordering;
       isListReorderedById = true;
-      isListReorderedByProductTitle = false;
+      isListReorderedByName = false;
       isSearch = false;
     });
   }
@@ -116,6 +116,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   Widget build(BuildContext context) {
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
     var coolComm = commoditiesStore.commodities.toList();
+    print('commoditiesStore.commodities.toList() ${commoditiesStore.commodities.toList().length}');
     // .where((c) => c.id != 0)
     // final collectorStore = Provider.of<CollectorStore>(context);
     // var thisCollector = collectorStore.collector.first;
@@ -158,7 +159,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
                       ),
                     ),
                   )
-                else if (isListReorderedByProductTitle == true ||
+                else if (isListReorderedByName == true ||
                     isListReorderedById ==
                         true) // handle null, default case as well in view)
                   Expanded(
@@ -181,7 +182,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
                       ),
                     ),
                   ),
-                // below empty widget at bottom so that last product can also be selected
+                // below empty widget at bottom so last commodity can also be selected
                 ListTile(
                   title: Text(''),
                 ),
@@ -220,7 +221,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
         }),
       ),
       floatingButton: FloatingActionButton(
-        heroTag: "btnSearchProducts",
+        heroTag: "btnSearchCommoditiess",
         backgroundColor: Color(0xFF20272B),
         //mini: true,
         child:

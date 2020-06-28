@@ -11,8 +11,8 @@ import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/views/main_view/main_view.dart';
 // import 'package:come_share/src/webhooks/status.dart';
-// import 'package:come_share/src/webhooks/upload_products.dart';
-// import 'package:come_share/src/webhooks/upload_tickets_sell.dart';
+// import 'package:come_share/src/webhooks/upload_commodities.dart';
+// import 'package:come_share/src/webhooks/upload_flocks.dart';
 
 class SyncView extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigator;
@@ -92,7 +92,7 @@ class _SyncViewState extends State<SyncView>
                             content: Text('Import en cours, fadagol ')));
                         try {
                           /* await uploadCommodities(shopsStore.shop.first.isProd,
-                              products: productsStore.products.toList());
+                              commodities: commoditiesStore.commodities.toList());
                           List<Ticket> ticketsSell = ticketsStore.tickets
                               .where((t) => t.ticketType == TicketType.sell)
                               .toList();

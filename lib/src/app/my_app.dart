@@ -10,12 +10,9 @@ import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
 import 'package:rc_router/rc_router.dart';
-
-
 //import 'package:come_share/src/stores/cart.dart';
 
 class MyApp extends StatefulWidget {
-  // This widget is the root of your application.
   @override
   _MyAppState createState() => _MyAppState();
 }

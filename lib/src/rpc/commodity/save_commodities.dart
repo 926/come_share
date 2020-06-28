@@ -9,8 +9,8 @@ class SaveAllCommoditiesRpc implements EndpointBase<void, List<Commodity>> {
   SaveAllCommoditiesRpc(this._database);
 
   @override
-  Future<void> request(List<Commodity> products) async {
+  Future<void> request(List<Commodity> commodities) async {
     await _database.put(
-        products.map((product) => product.toJson()).toList(), 'products');
+        commodities.map((c) => c.toJson()).toList(), 'commodities');
   }
 }

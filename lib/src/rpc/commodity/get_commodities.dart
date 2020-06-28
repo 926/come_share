@@ -9,9 +9,9 @@ class GetCommoditiesRpc implements EndpointBase<List<Commodity>, void> {
 
   @override
   Future<List<Commodity>> request(void data) async =>
-      (await _database.get('products') as List ?? [])
+      (await _database.get('commodities') as List ?? [])
           .cast<Map>()
           .cast<Map<String, dynamic>>()
-          .map((product) => Commodity.fromJson(product))
+          .map((c) => Commodity.fromJson(c))
           .toList();
 }

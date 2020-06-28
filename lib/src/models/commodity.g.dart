@@ -17,11 +17,11 @@ Commodity _$CommodityFromJson(Map<String, dynamic> json) {
     statusUpdateDate: json['statusUpdateDate'] == null
         ? null
         : DateTime.parse(json['statusUpdateDate'] as String),
-    lots: lotsFromJson(json['lots'] as List),
     date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
     updateDate: json['updateDate'] == null
         ? null
         : DateTime.parse(json['updateDate'] as String),
+    lots: lotsFromJson(json['lots'] as List),
   );
 }
 
@@ -33,9 +33,9 @@ Map<String, dynamic> _$CommodityToJson(Commodity instance) => <String, dynamic>{
       'photo': instance.photo,
       'status': instance.status,
       'statusUpdateDate': instance.statusUpdateDate?.toIso8601String(),
-      'lots': lotsToJson(instance.lots),
       'date': instance.date?.toIso8601String(),
       'updateDate': instance.updateDate?.toIso8601String(),
+      'lots': lotsToJson(instance.lots),
     };
 
 T _$enumDecode<T>(Map<T, dynamic> enumValues, dynamic source) {

@@ -43,14 +43,6 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
     }, _$herdersAtom, name: '${_$herdersAtom.name}_set');
   }
 
-  final _$saveAllHerdersAsyncAction = AsyncAction('saveAllHerders');
-
-  @override
-  Future<List<Herder>> saveAllHerders(List<Herder> _herders) {
-    return _$saveAllHerdersAsyncAction
-        .run(() => super.saveAllHerders(_herders));
-  }
-
   final _$initAsyncAction = AsyncAction('init');
 
   @override
@@ -63,6 +55,14 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
   @override
   Future<void> loadTasks() {
     return _$loadTasksAsyncAction.run(() => super.loadTasks());
+  }
+
+  final _$saveAllHerdersAsyncAction = AsyncAction('saveAllHerders');
+
+  @override
+  Future<ObservableList<Herder>> saveAllHerders(List<Herder> _herders) {
+    return _$saveAllHerdersAsyncAction
+        .run(() => super.saveAllHerders(_herders));
   }
 
   final _$deleteAllHerdersAsyncAction = AsyncAction('deleteAllHerders');

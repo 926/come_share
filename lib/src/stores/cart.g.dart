@@ -15,6 +15,10 @@ mixin _$CartStore on CartStoreBase, Store {
   int get numberOfItem =>
       (_$numberOfItemComputed ??= Computed<int>(() => super.numberOfItem))
           .value;
+  Computed<double> _$qtComputed;
+
+  @override
+  double get qt => (_$qtComputed ??= Computed<double>(() => super.qt)).value;
 
   final _$itemsAtom = Atom(name: 'CartStoreBase.items');
 

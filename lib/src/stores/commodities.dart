@@ -1,7 +1,6 @@
 import 'dart:convert' as convert;
 
 import 'package:mobx/mobx.dart';
-//import 'package:come_share/src/models/subcommodity.dart';
 import 'package:come_share/src/models/lot.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/servives/commodities.dart';
@@ -26,6 +25,12 @@ abstract class CommoditiesStoreBase with Store {
 
   @action
   Future<void> init() async {
+    await loadTasks();
+    initialLoading = false;
+  }
+
+  @action
+  Future<void> loadTasks() async {
     final _commodities =
         await _commoditiesService.getCommoditiesRpc.request(null);
     commodities = ObservableList.of(_commodities);
@@ -36,10 +41,11 @@ abstract class CommoditiesStoreBase with Store {
   Future<ObservableList<Commodity>> saveCommodities(
       List<Commodity> _commoditiesToSave) async {
     commodities = ObservableList.of(_commoditiesToSave);
-    await _commoditiesService.saveAllCommoditiesRpc.request(_commoditiesToSave);
+    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
     return commodities;
   }
 
+// * consider removing
   @action
   Future<ObservableList<Commodity>> removeLot(Lot lot, int quantity) async {
     final _commodity =
@@ -50,6 +56,7 @@ abstract class CommoditiesStoreBase with Store {
     return commodities;
   }
 
+// * consider removing
   @action
   Future<ObservableList<Commodity>> removeLotDouble(
       Lot lot, double quantity) async {
@@ -126,8 +133,8 @@ abstract class CommoditiesStoreBase with Store {
   // below is not different from above importCatalogue yet
   @action
   Future<ObservableList<Commodity>> deleteAllCommodities(
-      List<Commodity> theseProducts) async {
-    await _commoditiesService.saveAllCommoditiesRpc.request(theseProducts);
+      List<Commodity> theseCommodities) async {
+    await _commoditiesService.saveAllCommoditiesRpc.request(theseCommodities);
     commodities.clear();
     return commodities;
   }
