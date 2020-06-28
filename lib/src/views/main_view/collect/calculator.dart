@@ -30,24 +30,30 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   int currentCaptureValue = 0;
 
-  String get currentCaptureValueText =>
-      isCapturing ? currentCaptureValue.toString() : total.toString();
+  String get currentCaptureValueText => currentCaptureValue.toString();
 
   List<int> pastvalues = List<int>();
 
   int get total {
     var tot = 0;
     pastvalues.forEach((value) => tot += value);
+    tot += currentCaptureValue;
     return tot;
   }
 
   String get fullCalculText {
     if (pastvalues.length == 0) return '0';
-    var text = '';
+    var text = 'total: ';
     for (var i = 0; i < pastvalues.length - 1; i++) {
-      text += pastvalues[i].toString() + '+';
+      if (pastvalues[i] != 0) {
+        text += pastvalues[i].toString() + '+';
+      }
     }
     text += pastvalues.last.toString();
+
+    if (currentCaptureValue != 0) {
+      text += '+' + currentCaptureValue.toString();
+    }
 
     text += ' = ' + total.toString();
     return text;
