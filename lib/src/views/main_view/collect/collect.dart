@@ -31,10 +31,22 @@ class CollectorViewsManager with ChangeNotifier {
   }
 }
 
+class FlockManager with ChangeNotifier {
+  Flock _flock;
+  Flock get flock => _flock;
+  set flock(Flock flock) {
+    print('flock changed');
+    print(flock.status);
+    _flock = flock;
+    notifyListeners();
+  }
+}
+
 class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   CollectorViewsManager _collectorViewsManager = CollectorViewsManager();
+  FlockManager _flockManager = FlockManager();
 
   @override
   void initState() {
@@ -66,8 +78,8 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
           child: Column(
             children: <Widget>[
               Expanded(
-                child: Provider<Flock>(
-                  create: (_) => Flock(),
+                child: ChangeNotifierProvider<FlockManager>.value(
+                  value: _flockManager,
                   child: TabBarView(
                     physics: NeverScrollableScrollPhysics(),
                     controller: _tabController,

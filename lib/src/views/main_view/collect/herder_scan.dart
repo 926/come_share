@@ -90,6 +90,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
         Provider.of<CommoditiesStore>(context, listen: false);
     final flocksStore = Provider.of<FlocksStore>(context, listen: false);
 
+    final flockManager = Provider.of<FlockManager>(context);
     final flock = Flock(
         axeUuid: 'test',
         items: cartStore.items,
@@ -110,15 +111,15 @@ class _HerderCollectViewState extends State<HerderCollectView> {
         item.quantity,
       );
     }
-
     await flocksStore.addFlock(flock);
 
     cartStore.clearItems();
     cartStore.clearComment(); // idem
     cartStore.removeAllBigQuantities();
 
-    // load flock view
-    // widget.onSubmit(flock);
+    flockManager.flock = flock;
+    final collectorViewManager = Provider.of<CollectorViewsManager>(context);
+    collectorViewManager.activeView = CollectorViews.validation;
   }
 
   @override
@@ -249,9 +250,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                 if (cartStore.items.isEmpty) {
                   showDialogCSNotOk('Panier vide', context);
                 } else {
-                  final collectorViewManager =
-                      Provider.of<CollectorViewsManager>(context);
-                  collectorViewManager.activeView = CollectorViews.validation;
+                  _onSubmit();
                 }
               },
             ),
