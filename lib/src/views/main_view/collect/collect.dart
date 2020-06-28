@@ -2,6 +2,7 @@ import 'package:come_share/src/views/main_view/collect/qr_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main_view.dart';
 import 'calculator.dart';
 
 class Collect extends StatefulWidget {
@@ -53,24 +54,28 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CollectorViewsManager>.value(
-      value: _collectorViewsManager,
-      child: Container(
-        color: Colors.red,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
-                controller: _tabController,
-                children: [
-                  CalculatorView(),
-                  ScannerView(),
-                  Icon(Icons.directions_bike),
-                ],
+    return MainView(
+      mainNavigatorKey: widget.mainNavigator,
+      selectedIndex: 2,
+      body: ChangeNotifierProvider<CollectorViewsManager>.value(
+        value: _collectorViewsManager,
+        child: Container(
+          // color: Colors.transparent,
+          child: Column(
+            children: <Widget>[
+              Expanded(
+                child: TabBarView(
+                  physics: NeverScrollableScrollPhysics(),
+                  controller: _tabController,
+                  children: [
+                    CalculatorView(),
+                    ScannerView(),
+                    Icon(Icons.directions_bike),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
