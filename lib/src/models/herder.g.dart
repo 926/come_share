@@ -17,7 +17,7 @@ Herder _$HerderFromJson(Map<String, dynamic> json) {
     address: json['address'] as String,
     avatar: json['avatar'] as String,
     qrcode: json['qrcode'] as String,
-    overdraft: json['overdraft'] as int,
+    date: json['date'] == null ? null : DateTime.parse(json['date'] as String),
     updateDate: json['updateDate'] == null
         ? null
         : DateTime.parse(json['updateDate'] as String),
@@ -25,7 +25,6 @@ Herder _$HerderFromJson(Map<String, dynamic> json) {
     statusUpdateDate: json['statusUpdateDate'] == null
         ? null
         : DateTime.parse(json['statusUpdateDate'] as String),
-    milkMonthQuota: json['milkMonthQuota'] as int,
   );
 }
 
@@ -47,11 +46,10 @@ Map<String, dynamic> _$HerderToJson(Herder instance) {
   writeNotNull('address', instance.address);
   writeNotNull('avatar', instance.avatar);
   writeNotNull('qrcode', instance.qrcode);
-  writeNotNull('overdraft', instance.overdraft);
+  writeNotNull('date', instance.date?.toIso8601String());
   writeNotNull('updateDate', instance.updateDate?.toIso8601String());
   writeNotNull('status', instance.status);
   writeNotNull(
       'statusUpdateDate', instance.statusUpdateDate?.toIso8601String());
-  writeNotNull('milkMonthQuota', instance.milkMonthQuota);
   return val;
 }

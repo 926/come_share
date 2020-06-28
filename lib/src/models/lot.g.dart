@@ -10,7 +10,6 @@ Lot _$LotFromJson(Map<String, dynamic> json) {
   return Lot(
     companyUuid: json['companyUuid'] as String,
     id: json['id'] as int,
-    subcommodityId: json['subcommodityId'] as int,
     commodityId: json['commodityId'] as int,
     comment: json['comment'] as String,
     quantity: (json['quantity'] as num)?.toDouble(),
@@ -24,7 +23,6 @@ Lot _$LotFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$LotToJson(Lot instance) => <String, dynamic>{
       'companyUuid': instance.companyUuid,
       'id': instance.id,
-      'subcommodityId': instance.subcommodityId,
       'commodityId': instance.commodityId,
       'comment': instance.comment,
       'quantity': instance.quantity,

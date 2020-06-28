@@ -1,4 +1,4 @@
-import 'package:come_share/src/views/main_view/commodities/items/lot_item.dart';
+import 'package:come_share/src/views/main_view/commodities/elements/lot_element.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/routes/commodities/commodities.dart';

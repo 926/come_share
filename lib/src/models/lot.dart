@@ -20,9 +20,8 @@ List<Lot> lotsFromJson(List json) =>
 @JsonSerializable()
 class Lot {
   final String companyUuid;
-  final int id;
-  final int subcommodityId;
   int commodityId;
+  final int id;
   String comment;
   double quantity;
   bool isDefault;
@@ -30,9 +29,8 @@ class Lot {
 
   Lot({
     this.companyUuid,
-    @required this.id,
-    @required this.subcommodityId,
     @required this.commodityId,
+    @required this.id,
     this.comment,
     this.quantity,
     this.isDefault = false,

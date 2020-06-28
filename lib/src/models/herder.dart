@@ -25,31 +25,29 @@ class Herder {
   @JsonKey(includeIfNull: false, nullable: true)
   String qrcode; //
   @JsonKey(includeIfNull: false, nullable: true)
-  int overdraft; // clientBalance limit
+  DateTime date; // if herder info are updated, keep date here
   @JsonKey(includeIfNull: false, nullable: true)
   DateTime updateDate; // if herder info are updated, keep date here
   @JsonKey(includeIfNull: false, nullable: true)
   bool status;
   @JsonKey(includeIfNull: false, nullable: true)
   DateTime statusUpdateDate; // if status changes, update date here
-  @JsonKey(includeIfNull: false, nullable: true)
-  int milkMonthQuota; // specific to ldb,
 
-  Herder(
-      {this.id,
-      this.bidon,
-      this.firstName,
-      this.lastName,
-      this.tel,
-      this.mail,
-      this.address,
-      this.avatar,
-      this.qrcode,
-      this.overdraft,
-      this.updateDate,
-      this.status,
-      this.statusUpdateDate,
-      this.milkMonthQuota});
+  Herder({
+    this.id,
+    this.bidon,
+    this.firstName,
+    this.lastName,
+    this.tel,
+    this.mail,
+    this.address,
+    this.avatar,
+    this.qrcode,
+    this.date,
+    this.updateDate,
+    this.status,
+    this.statusUpdateDate,
+  });
 
   String get sharableText {
     final sb = StringBuffer()
