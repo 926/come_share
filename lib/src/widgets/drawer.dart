@@ -20,7 +20,7 @@ class AppDrawer extends StatelessWidget {
                   children: <Widget>[
                     ListTile(
                       leading: Icon(Icons.home, color: Colors.teal),
-                      title: Text('home'),
+                      title: Text('Come Share'),
                       onTap: () {
                         Navigator.of(context)
                             .pushReplacementNamed(CollectRoute.routePath);
@@ -28,7 +28,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                     ListTile(
                       leading: Icon(Icons.motorcycle),
-                      title: Text('Info magasin'),
+                      title: Text('Info collecteur'),
                       onTap: () {
                         Navigator.of(context).pop();
                         // Navigator.of(context).pushNamed(
@@ -39,28 +39,17 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
             ),
-            ListTile(
-              leading: Icon(
-                Icons.timeline,
-                color: Colors.grey,
-              ),
-              title: Text('Stats du magasin'),
-              onTap: () {
-                Navigator.of(context).pop();
-                // Navigator.of(context).pushNamed(StatsSalesRoute.routePath);
-              },
-            ),
-            ListTile(
+            /* ListTile(
               leading: Icon(
                 Icons.layers,
                 color: Colors.orange[800],
               ),
-              title: Text('Stats du stock'),
+              title: Text('Stats'),
               onTap: () {
                 Navigator.of(context).pop();
                 // Navigator.of(context).pushNamed(StatsStockRoute.routePath);
               },
-            ),
+            ), */
             // thisCollector.isLocked == true
             //     ? Container()
             //     :

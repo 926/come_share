@@ -1,4 +1,3 @@
-import 'package:come_share/src/views/home_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -11,6 +10,8 @@ import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
 import 'package:rc_router/rc_router.dart';
+
+import '../stores/cart.dart';
 //import 'package:come_share/src/stores/cart.dart';
 
 class MyApp extends StatefulWidget {
@@ -26,27 +27,27 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    rcRoutes = RcRoutes(routes: [
-      CollectRoute(navigatorKey),
-      CommoditiesRoute(navigatorKey),
-      HerdersRoute(navigatorKey),
-      SyncRoute(navigatorKey),
-    ]);
+
+    rcRoutes = RcRoutes(
+      routes: [
+        CollectRoute(navigatorKey),
+        CommoditiesRoute(navigatorKey),
+        HerdersRoute(navigatorKey),
+        SyncRoute(navigatorKey),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      title: 'Flutter Demo',
+      title: 'Come Share',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      routes: {
-        MyHomePage.routePath: (context) =>
-            MyHomePage(title: 'Come Share Demo Home Page'),
-      },
+      //routes: {},
       home: Loading(), // just below
       debugShowCheckedModeBanner: false,
       onGenerateRoute: rcRoutes.onGeneratedRoute,
@@ -65,6 +66,7 @@ class _LoadingState extends State<Loading> {
     super.initState();
     final appStore = Provider.of<AppStore>(context, listen: false);
     final flocksStore = Provider.of<FlocksStore>(context, listen: false);
+    //final cartStore = Provider.of<CartStore>(context, listen: false);
 
     when(
       (_) => !appStore.initialLoading,
@@ -73,7 +75,7 @@ class _LoadingState extends State<Loading> {
           //Navigator.of(context).pushReplacementNamed(SellRoute.routePath);
         } else {
           //initPlatformState();
-          Navigator.of(context).pushReplacementNamed(CollectRoute.routePath);
+          Navigator.of(context).pushReplacementNamed(CommoditiesRoute.routePath);
         }
       },
     );

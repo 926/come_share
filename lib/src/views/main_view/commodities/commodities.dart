@@ -30,7 +30,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   List<Commodity> searchResults;
   bool isSearch;
   bool isSearchByBarcode;
-  Icon actionIcon = new Icon(Icons.search);
+  Icon actionIcon = new Icon(Icons.search, color: Colors.orange[800]);
   // Widget appBarTitle = new Text("List of p");
 
   bool submitting = false;
@@ -141,134 +141,125 @@ class _CommoditiesViewState extends State<CommoditiesView> {
     // var thisCollector = collectorStore.collector.first;
 
     return MainView(
-        selectedIndex: 0,
-        actions: <Widget>[
-          IconButton(
-            icon: isIdAscending == true
-                ? Icon(Icons.keyboard_arrow_up)
-                : Icon(Icons.keyboard_arrow_down),
-            onPressed: () {
-              _orderById(isIdAscending);
-            },
-          ),
-          IconButton(
-            icon: isTitleAscending == true
-                ? Icon(Icons.sort_by_alpha)
-                : Icon(Icons.sort_by_alpha),
-            onPressed: () {
-              _orderByTitle(isTitleAscending);
-            },
-          ),
-        ],
-        mainNavigatorKey: widget.mainNavigator,
-        body: Scaffold(
-          body: Builder(builder: (BuildContext context) {
-            return Container(
-              alignment: Alignment.center,
-              child: Column(
-                children: <Widget>[
-                  if (isSearchByBarcode && searchResults != null ||
-                      isSearch && searchResults != null)
-                    Expanded(
-                      child: Scrollbar(
-                        child: ListView.builder(
-                          itemCount: searchResults.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              buildSearchBody(context, index),
-                        ),
-                      ),
-                    )
-                  else if (isListReorderedByProductTitle == true ||
-                      isListReorderedById ==
-                          true) // handle null, default case as well in view)
-                    Expanded(
-                      child: Scrollbar(
-                        child: ListView.builder(
-                          itemCount: productsListReordered.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              buildReorderedList(context, index),
-                        ),
-                      ),
-                    )
-                  else
-                    Expanded(
-                      child: Scrollbar(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: coolComm.length,
-                          itemBuilder: (BuildContext context, int index) =>
-                              buildBody(context, index, coolComm),
-                        ),
+      selectedIndex: 0,
+      actions: <Widget>[
+        IconButton(
+          icon: isIdAscending == true
+              ? Icon(Icons.keyboard_arrow_up)
+              : Icon(Icons.keyboard_arrow_down),
+          onPressed: () {
+            _orderById(isIdAscending);
+          },
+        ),
+        IconButton(
+          icon: isTitleAscending == true
+              ? Icon(Icons.sort_by_alpha)
+              : Icon(Icons.sort_by_alpha),
+          onPressed: () {
+            _orderByTitle(isTitleAscending);
+          },
+        ),
+      ],
+      mainNavigatorKey: widget.mainNavigator,
+      body: Scaffold(
+        body: Builder(builder: (BuildContext context) {
+          return Container(
+            alignment: Alignment.center,
+            child: Column(
+              children: <Widget>[
+                if (isSearchByBarcode && searchResults != null ||
+                    isSearch && searchResults != null)
+                  Expanded(
+                    child: Scrollbar(
+                      child: ListView.builder(
+                        itemCount: searchResults.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            buildSearchBody(context, index),
                       ),
                     ),
-                  // below empty widget at bottom so that last product can also be selected
-                  ListTile(
-                    title: Text(''),
+                  )
+                else if (isListReorderedByProductTitle == true ||
+                    isListReorderedById ==
+                        true) // handle null, default case as well in view)
+                  Expanded(
+                    child: Scrollbar(
+                      child: ListView.builder(
+                        itemCount: productsListReordered.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            buildReorderedList(context, index),
+                      ),
+                    ),
+                  )
+                else
+                  Expanded(
+                    child: Scrollbar(
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: coolComm.length,
+                        itemBuilder: (BuildContext context, int index) =>
+                            buildBody(context, index, coolComm),
+                      ),
+                    ),
                   ),
-                  !isSearch
-                      ? Container()
-                      : Row(
-                          children: <Widget>[
-                            Flexible(
-                              flex: 6,
-                              child: ListTile(
-                                leading: Icon(Icons.search),
-                                title: TextField(
-                                  autofocus: true,
-                                  onChanged: (value) {
-                                    _searchByTitleOrCode(value);
-                                  },
-                                  style: TextStyle(color: Colors.blue),
-                                  keyboardType: TextInputType.text,
-                                  //onTap: () => setState(() => isSearchByBarcode = true),
-                                  decoration: InputDecoration(
-                                    hintText: "nom / code",
-                                    hintStyle: TextStyle(color: Colors.grey),
-                                  ),
+                // below empty widget at bottom so that last product can also be selected
+                ListTile(
+                  title: Text(''),
+                ),
+                !isSearch
+                    ? Container()
+                    : Row(
+                        children: <Widget>[
+                          Flexible(
+                            flex: 6,
+                            child: ListTile(
+                              leading: Icon(Icons.search),
+                              title: TextField(
+                                autofocus: true,
+                                onChanged: (value) {
+                                  _searchByTitleOrCode(value);
+                                },
+                                style: TextStyle(color: Colors.blue),
+                                keyboardType: TextInputType.text,
+                                //onTap: () => setState(() => isSearchByBarcode = true),
+                                decoration: InputDecoration(
+                                  hintText: "nom / code",
+                                  hintStyle: TextStyle(color: Colors.grey),
                                 ),
                               ),
                             ),
-                            Flexible(
-                              flex: 2,
-                              child: Container(),
-                            ),
-                          ],
-                        ),
-                ],
-              ),
-            );
-          }),
-        ),
-        floatingButton: Stack(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 80),
-                child: FloatingActionButton(
-                  heroTag: "btnSearchProducts",
-                  backgroundColor: Color(0xFF20272B),
-                  mini: true,
-                  child:
-                      //isSearchByBarcode == false
-                      actionIcon,
-                  onPressed: () {
-                    setState(() {
-                      // bool not used anymore in UI but could always be needed
-                      if (this.actionIcon.icon == Icons.search) {
-                        isSearch = true;
-                        this.actionIcon = new Icon(Icons.close);
-                      } else {
-                        isSearch = false;
-                        this.actionIcon = new Icon(Icons.search);
-                      }
-                    });
-                  },
-                ),
-              ),
+                          ),
+                          Flexible(
+                            flex: 2,
+                            child: Container(),
+                          ),
+                        ],
+                      ),
+              ],
             ),
-          ],
-        ));
+          );
+        }),
+      ),
+      floatingButton: FloatingActionButton(
+        heroTag: "btnSearchProducts",
+        backgroundColor: Color(0xFF20272B),
+        //mini: true,
+        child:
+            //isSearchByBarcode == false
+            actionIcon,
+        onPressed: () {
+          setState(() {
+            // bool not used anymore in UI but could always be needed
+            if (this.actionIcon.icon == Icons.search) {
+              isSearch = true;
+              this.actionIcon = new Icon(Icons.close);
+            } else {
+              isSearch = false;
+              this.actionIcon = new Icon(Icons.search);
+            }
+          });
+        },
+      ),
+    );
   }
 
   Widget buildBody(

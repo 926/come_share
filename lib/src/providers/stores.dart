@@ -8,6 +8,8 @@ import 'package:come_share/src/stores/herders.dart';
 import 'package:come_share/src/stores/app.dart';
 import 'package:come_share/src/stores/flocks.dart';
 
+import '../stores/cart.dart';
+
 class StoresProvider extends StatelessWidget {
   final Widget child;
 
@@ -30,6 +32,11 @@ class StoresProvider extends StatelessWidget {
         ProxyProvider<CommoditiesService, CommoditiesStore>(
           update: (c, service, previousStore) {
             return previousStore ?? CommoditiesStore(service);
+          },
+        ),
+        ProxyProvider<CommoditiesStore, CartStore>(
+          update: (c, productsStore, previousStore) {
+            return CartStore(productsStore);
           },
         ),
         ProxyProvider3<FlocksStore, HerdersStore, CommoditiesStore, AppStore>(

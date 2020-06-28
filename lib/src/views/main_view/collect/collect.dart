@@ -1,8 +1,8 @@
-import 'package:come_share/src/views/main_view/collect/scanner_view.dart';
+import 'package:come_share/src/views/main_view/collect/qr_scan.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'calculator_view.dart';
+import 'calculator.dart';
 
 class Collect extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigator;

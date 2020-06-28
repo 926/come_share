@@ -5,18 +5,17 @@ import 'package:come_share/src/routes/sync.dart';
 import 'package:come_share/src/utils/back_pressed.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import 'package:come_share/src/routes/sync/sync.dart';
-// import 'package:come_share/src/routes/flocks/flocks.dart';
-// import 'package:come_share/src/routes/herders/herders.dart';
-// import 'package:come_share/src/routes/commodities/commodities.dart';
-//import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/stores/cart.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/widgets/drawer.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info/package_info.dart';
+// import 'package:come_share/src/routes/sync/sync.dart';
+// import 'package:come_share/src/routes/flocks/flocks.dart';
+// import 'package:come_share/src/routes/herders/herders.dart';
+// import 'package:come_share/src/routes/commodities/commodities.dart';
+//import 'package:come_share/src/stores/collector.dart';
 
 class MainView extends StatefulWidget {
   final Widget body;
@@ -69,12 +68,8 @@ class _MainViewState extends State<MainView> {
                 context);
           },
           child: Text(
-            'CS',
-            style: TextStyle(
-              fontFamily: 'Quicksand',
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
-            ),
+            'Come Share',
+            style: TextStyle(),
           ),
         ),
         centerTitle: true,
@@ -100,7 +95,7 @@ class _MainViewState extends State<MainView> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.widgets),
-            title: Text('Ressource'),
+            title: Text('Denree'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.contacts),
