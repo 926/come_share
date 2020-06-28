@@ -13,7 +13,7 @@ class _CalculatorViewState extends State<CalculatorView> {
   static const Color defaultButtonBackgroundColor = Color(0xff42b2a6);
   static const Color importantButtonsColor = Color(0xfffa5c68);
   static const Color otherButtonsColor = Color(0xffffb733);
-  static const Radius buttonCornerRadius = Radius.circular(18);
+  static const Radius buttonCornerRadius = Radius.circular(12);
   final TextStyle textStyle = TextStyle(
     color: Colors.white,
     decoration: TextDecoration.none,
@@ -57,6 +57,7 @@ class _CalculatorViewState extends State<CalculatorView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
+        padding: EdgeInsets.all(5),
         color: Colors.transparent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -96,6 +97,7 @@ class _CalculatorViewState extends State<CalculatorView> {
                 },
               ),
             ),
+            // SizedBox(height: 3),
           ],
         ),
       ),
@@ -281,5 +283,4 @@ enum RoundedCorner {
   bottomLeft,
   bottomRight,
   bottom,
-  // top,
 }
