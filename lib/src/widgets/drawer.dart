@@ -1,5 +1,6 @@
 import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/routes/export.dart';
+import 'package:come_share/src/routes/flocks/flocks.dart';
 import 'package:come_share/src/routes/settings_import.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
@@ -44,6 +45,15 @@ class AppDrawer extends StatelessWidget {
             // thisCollector.isLocked == true
             //     ? Container()
             //     :
+            ListTile(
+              leading: Icon(Icons.receipt),
+              title: Text('recus'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .pushNamed(FlocksRoute.routePath); // for now
+              },
+            ),
             ListTile(
               leading: Icon(Icons.file_upload),
               title: Text('Import .json'),

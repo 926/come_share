@@ -1,4 +1,8 @@
+import 'package:come_share/src/routes/commodities/lot_detail.dart';
 import 'package:come_share/src/routes/export.dart';
+import 'package:come_share/src/routes/flocks/flock_detail_frame.dart';
+import 'package:come_share/src/routes/flocks/flocks.dart';
+import 'package:come_share/src/routes/herders/herder_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -31,10 +35,15 @@ class _MyAppState extends State<MyApp> {
       routes: [
         CollectRoute(navigatorKey),
         CommoditiesRoute(navigatorKey),
+        LotDetailRoute(),
+        CommoditiesRoute(navigatorKey),
         HerdersRoute(navigatorKey),
+        HerderDetailRoute(),
         SyncRoute(navigatorKey),
         SettingsImportRoute(),
         ExportRoute(),
+        FlocksRoute(),
+        FlockDetailRoute(),
         // aboutRoute
       ],
     );

@@ -1,3 +1,4 @@
+import 'package:come_share/src/stores/commodities.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
@@ -28,6 +29,8 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
   Widget build(BuildContext context) {
     //final shopStore = Provider.of<ShopStore>(context, listen: false);
     final herdersStore = Provider.of<HerdersStore>(context, listen: false);
+    final commoditiesStore =
+        Provider.of<CommoditiesStore>(context, listen: false);
     final herders = herdersStore.herders;
     Herder thisHerder;
 
@@ -63,22 +66,23 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
                 SizedBox(
                   width: 28,
                 ),
-                Text(widget.flock.date.toString())
+                Text(widget.flock.date.toString().substring(0, 19))
               ],
             ),
-            Row(
+            /* Row(
               children: <Widget>[
                 SizedBox(
                   width: 28,
                 ),
                 Text('${widget.flock.type}'),
               ],
-            ),
+            ), */
             Divider(),
             for (final item in widget.flock.items)
               Row(
                 children: <Widget>[
-                  Text('quantite : '),
+                  Text(
+                      '${commoditiesStore.commodities.firstWhere((c) => c.id == item.lot.commodityId).name ?? 'inconnu'} : '),
                   Expanded(
                     child: Text('${item.quantity}'),
                   ),

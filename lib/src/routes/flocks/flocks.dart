@@ -5,10 +5,5 @@ import 'package:come_share/src/views/main_view/flocks/flocks.dart';
 class FlocksRoute extends AppRouteBase {
   static String routePath = '/tickets';
 
-  FlocksRoute(GlobalKey<NavigatorState> mainNavigator)
-      : super(
-            child: FlocksView(
-              mainNavigator: mainNavigator,
-            ),
-            routePath: FlocksRoute.routePath);
+  FlocksRoute() : super(child: FlocksView(), routePath: FlocksRoute.routePath);
 }
