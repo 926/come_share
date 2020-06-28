@@ -43,7 +43,9 @@ class _CommodityItemWidgetState extends State<CommodityItemWidget> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Text(
-                  '${widget.commodity.name} (${widget.commodity.stockUnitText})',
+                  widget.commodity.weight == 1
+                      ? '${widget.commodity.name}'
+                      : '${widget.commodity.name} (x${widget.commodity.weight})',
                   style: TextStyle(
                       decoration: widget.commodity.status
                           ? null
