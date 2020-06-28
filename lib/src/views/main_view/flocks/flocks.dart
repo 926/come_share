@@ -8,10 +8,6 @@ import 'package:come_share/src/views/main_view/flocks/flock_overview.dart';
 import 'package:come_share/src/views/main_view/main_view.dart';
 
 class FlocksView extends StatefulWidget {
-  final GlobalKey<NavigatorState> mainNavigator;
-
-  FlocksView({this.mainNavigator});
-
   @override
   _FlocksViewState createState() => _FlocksViewState();
 }
@@ -40,68 +36,64 @@ class _FlocksViewState extends State<FlocksView> {
     /* final shopStore = Provider.of<ShopStore>(context);
     final thisShop = shopStore.shop.first; */
 
-    return MainView(
-      selectedIndex: 4,
-      mainNavigatorKey: widget.mainNavigator,
-      body: Scaffold(
-        floatingActionButton: Stack(
-          children: <Widget>[
-            _activeSearch
-                ? Container()
-                : Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 60),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: FloatingActionButton(
-                        child: Icon(Icons.search, color: Colors.white),
-                        heroTag: 'bt1',
-                        backgroundColor: Color(0xFF20272B),
-                        onPressed: () {
-                          setState(() {
-                            _activeSearch = true;
-                          });
-                        },
-                      ),
+    return Scaffold(
+      floatingActionButton: Stack(
+        children: <Widget>[
+          _activeSearch
+              ? Container()
+              : Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 60),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: FloatingActionButton(
+                      child: Icon(Icons.search, color: Colors.white),
+                      heroTag: 'bt1',
+                      backgroundColor: Color(0xFF20272B),
+                      onPressed: () {
+                        setState(() {
+                          _activeSearch = true;
+                        });
+                      },
                     ),
                   ),
-          ],
-        ),
-        body: Column(
-          children: <Widget>[
-            if (_activeSearch == false) // breakpoint for some reason
-              Expanded(
-                child: Scrollbar(
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: flocksStore.flocks.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        buildBody(context, index),
-                  ),
                 ),
-              )
-            else if (_searchResults == null) // handle null, default case
-              Expanded(
-                child: Scrollbar(
-                  child: ListView.builder(
-                    itemCount: flocksStore.flocks.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        buildBody(context, index),
-                  ),
-                ),
-              )
-            else
-              Expanded(
-                child: Scrollbar(
-                  child: ListView.builder(
-                    itemCount: _searchResults.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        buildSearchBody(context, index),
-                  ),
+        ],
+      ),
+      body: Column(
+        children: <Widget>[
+          if (_activeSearch == false) // breakpoint for some reason
+            Expanded(
+              child: Scrollbar(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: flocksStore.flocks.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      buildBody(context, index),
                 ),
               ),
-            _activeSearch ? _searchList() : Container()
-          ],
-        ),
+            )
+          else if (_searchResults == null) // handle null, default case
+            Expanded(
+              child: Scrollbar(
+                child: ListView.builder(
+                  itemCount: flocksStore.flocks.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      buildBody(context, index),
+                ),
+              ),
+            )
+          else
+            Expanded(
+              child: Scrollbar(
+                child: ListView.builder(
+                  itemCount: _searchResults.length,
+                  itemBuilder: (BuildContext context, int index) =>
+                      buildSearchBody(context, index),
+                ),
+              ),
+            ),
+          _activeSearch ? _searchList() : Container()
+        ],
       ),
     );
   }

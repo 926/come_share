@@ -26,7 +26,7 @@ void main() async {
   Database database = await dbFactory.openDatabase(path, version: 1);
   DateTime now = DateTime.now();
 
-  List<dynamic> passwords = await database.get('passwords') ?? [];
+  /* List<dynamic> passwords = await database.get('passwords') ?? [];
   if (passwords.isEmpty) {
     passwords = [
       {'id': '0', 'name': 'default', 'password': '2020'},
@@ -39,7 +39,7 @@ void main() async {
 
     await database.put(jsonPasswords, 'passwords');
   }
-
+ */
   // this is used for unknown
   List<dynamic> herders = await database.get('herders') ?? [];
   if (herders.isEmpty) {

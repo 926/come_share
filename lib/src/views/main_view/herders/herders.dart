@@ -20,7 +20,7 @@ class _HerdersViewState extends State<HerdersView> {
   List<Herder> herdersListReordered;
   List<Herder> _searchResults;
   bool _isSearch;
-  Icon actionIcon = Icon(Icons.search, color: Colors.blue[800]);
+  Icon actionIcon = Icon(Icons.search, color: Colors.blue);
 
   bool _isListReorderedByFirstName;
   bool _isListReorderedByBidon;
@@ -217,10 +217,10 @@ class _HerdersViewState extends State<HerdersView> {
                   // bool not used anymore in UI but could always be needed
                   if (this.actionIcon.icon == Icons.search) {
                     _isSearch = true;
-                    this.actionIcon = new Icon(Icons.close);
+                    this.actionIcon = Icon(Icons.close);
                   } else {
                     _isSearch = false;
-                    this.actionIcon = new Icon(Icons.search);
+                    this.actionIcon = Icon(Icons.search, color: Colors.blue);
                   }
                 });
               },
