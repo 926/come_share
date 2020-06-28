@@ -71,7 +71,7 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
                   children: [
                     CalculatorView(),
                     ScannerView(),
-                    HerderCollectView(),
+                    //HerderCollectView(onSubmit: ,),
                   ],
                 ),
               ),
