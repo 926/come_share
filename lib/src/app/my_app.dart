@@ -75,6 +75,8 @@ class _LoadingState extends State<Loading> {
       () {
         if (flocksStore.flocks.length > 1) {
           //Navigator.of(context).pushReplacementNamed(SellRoute.routePath);
+          Navigator.of(context)
+              .pushReplacementNamed(CommoditiesRoute.routePath);
         } else {
           //initPlatformState();
           Navigator.of(context)
