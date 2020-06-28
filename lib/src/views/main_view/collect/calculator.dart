@@ -82,7 +82,8 @@ class _CalculatorViewState extends State<CalculatorView> {
             ),
             Consumer<CollectorViewsManager>(
               builder: (context, collectorViewManager, child) => FlatButton(
-                child: Text('OK', style: textStyle),
+                child:
+                    Text('OK', style: textStyle.copyWith(color: Colors.black)),
                 onPressed: () {
                   final cartStore = Provider.of<CartStore>(context);
                   final commoditiesStore =
