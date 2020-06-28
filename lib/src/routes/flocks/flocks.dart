@@ -7,7 +7,7 @@ class FlocksRoute extends AppRouteBase {
 
   FlocksRoute(GlobalKey<NavigatorState> mainNavigator)
       : super(
-            child: TicketsView(
+            child: FlocksView(
               mainNavigator: mainNavigator,
             ),
             routePath: FlocksRoute.routePath);

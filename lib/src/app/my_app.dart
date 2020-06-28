@@ -11,7 +11,7 @@ import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
 import 'package:rc_router/rc_router.dart';
 
-import '../stores/cart.dart';
+
 //import 'package:come_share/src/stores/cart.dart';
 
 class MyApp extends StatefulWidget {
