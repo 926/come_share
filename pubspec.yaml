@@ -41,6 +41,8 @@ dependencies:
   flutter_svg: ^0.17.3+1
   package_info: ^0.4.0+16
   spreadsheet_decoder: ^1.1.0
+  #rive: ^0.0.1
+
 
   #audioplayer: ^0.7.0  # buggy as f*
   #printing: any
