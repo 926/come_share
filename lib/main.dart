@@ -17,12 +17,6 @@ import 'package:come_share/src/app/app_entrypoint.dart';
 // import 'package:tekartik_app_flutter_sembast/sembast.dart';
 // import 'package:tekartik_common_utils/common_utils_import.dart';
 
-Future<String> getLocalPath() async {
-  // asd
-  final directory = await getApplicationDocumentsDirectory();
-  return directory.path;
-}
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

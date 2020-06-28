@@ -92,8 +92,7 @@ class ExportState extends State<Export> {
               ),
               onPressed: () async {
                 final database = Provider.of<Database>(context, listen: false);
-                var content =
-                    await exportDatabase(database); // this does not work
+                var content = await exportDatabase(database); //? does this work
                 var saved = jsonEncode(content);
                 String dir =
                     (await getExternalStorageDirectory()).absolute.path + "/";
@@ -369,6 +368,6 @@ Future<void> getFlocksByMonthExcel(BuildContext context, DateTime date) async {
     }
     // print('${decoder.tables.values.first.rows.length}');
     // print('${decoder.tables.values.first.rows.last.toString()}');
-    saveExcelFile(decoder, context, now, 'collecte_');
+    saveExcelFile(decoder, context, now, 'collecte');
   }
 }
