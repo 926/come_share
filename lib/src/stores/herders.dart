@@ -22,13 +22,6 @@ abstract class HerdersStoreBase with Store {
   }
 
   @action
-  Future<List<Herder>> saveAllHerders(List<Herder> _herders) async {
-    herders = ObservableList.of(_herders);
-    await _herdersService.saveAllHerdersRpc.request(herders);
-    return herders;
-  }
-
-  @action
   Future<void> init() async {
     await loadTasks();
     initialLoading = false;
@@ -41,7 +34,12 @@ abstract class HerdersStoreBase with Store {
     initialLoading = false;
   }
 
-  
+  @action
+  Future<ObservableList<Herder>> saveAllHerders(List<Herder> _herders) async {
+    herders = ObservableList.of(_herders);
+    await _herdersService.saveAllHerdersRpc.request(herders);
+    return herders;
+  }
 
   @action
   Future<ObservableList<Herder>> deleteAllHerders(

@@ -51,6 +51,13 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
     return _$initAsyncAction.run(() => super.init());
   }
 
+  final _$loadTasksAsyncAction = AsyncAction('loadTasks');
+
+  @override
+  Future<void> loadTasks() {
+    return _$loadTasksAsyncAction.run(() => super.loadTasks());
+  }
+
   final _$saveCommoditiesAsyncAction = AsyncAction('saveCommodities');
 
   @override
@@ -128,8 +135,8 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
 
   @override
   Future<ObservableList<Commodity>> deleteAllCommodities(
-      List<Commodity> theseProducts) {
+      List<Commodity> theseCommodities) {
     return _$deleteAllCommoditiesAsyncAction
-        .run(() => super.deleteAllCommodities(theseProducts));
+        .run(() => super.deleteAllCommodities(theseCommodities));
   }
 }

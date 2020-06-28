@@ -35,17 +35,18 @@ class StoresProvider extends StatelessWidget {
           },
         ),
         ProxyProvider<CommoditiesStore, CartStore>(
-          update: (c, productsStore, previousStore) {
-            return CartStore(productsStore);
+          update: (c, commoditiesStore, previousStore) {
+            return CartStore(commoditiesStore);
           },
         ),
         ProxyProvider3<FlocksStore, HerdersStore, CommoditiesStore, AppStore>(
-          update: (c, flocksStore, herdersStore, productsStore, previousStore) {
+          update:
+              (c, flocksStore, herdersStore, commoditiesStore, previousStore) {
             return previousStore ??
                 AppStore(
                   flocksStore,
                   herdersStore,
-                  productsStore,
+                  commoditiesStore,
                 );
           },
         ),

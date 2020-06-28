@@ -102,9 +102,10 @@ void main() async {
     await database.put(
         _collectors.map((h) => h.toJson()).toList(), 'collectors');
   }
-
   List<dynamic> commodities = await database.get('commodities') ?? [];
+  print('commodity main');
   if (commodities.isEmpty) {
+    print('commodity was empty');
     final _commodities = [
       Commodity(
         companyUuid: '0',
@@ -149,9 +150,11 @@ void main() async {
         ],
       ),
     ];
+    print('_commodities.length ${_commodities.length}');
     await database.put(
         _commodities.map((c) => c.toJson()).toList(), 'commodities');
   }
 
   runApp(ComeShareApp(database: database));
+  
 }

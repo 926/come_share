@@ -5,7 +5,7 @@ import 'package:come_share/src/stores/commodities.dart';
 import 'package:come_share/src/views/main_view/commodities/lot_detail.dart';
 
 class LotDetailRoute extends RcRoute {
-  static String routePath = '/products/:commodityId/:articleId/:lotId';
+  static String routePath = '/commodity/:commodityId/:lotId';
 
   static String generateRoute(String commodityId, String lotId) =>
       RcRoute.generateRoute(routePath,

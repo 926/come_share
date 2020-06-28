@@ -18,14 +18,15 @@ class DisableFlockRpc implements EndpointBase<Flock, Flock> {
         id: data.id,
         axeUuid: data?.axeUuid ?? '0',
         items: data.items,
-        date: data.date,
-        received: data.received,
         comment: data.comment,
+        received: data.received,
+        date: data.date,
+        creationDate: data.creationDate,
         flockType: data.flockType,
         herderId: data.herderId,
         status: false,
         statusUpdateDate: DateTime.now(),
-        creationDate: data.creationDate);
+        );
 
     final flockIndex = soonTobeDisabledFlock.id;
 

@@ -12,7 +12,7 @@ enum AppBarAction {
 class AppBarActions extends ChangeNotifier {
   static List<Widget> emptyActions = [];
 
-  static List<Widget> productsActions = [
+  static List<Widget> commoditiesActions = [
     IconButton(
       icon: Icon(Icons.search),
       onPressed: () {

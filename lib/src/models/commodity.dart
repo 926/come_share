@@ -47,9 +47,6 @@ class Commodity {
       this.updateDate,
       this.lots});
 
-  factory Commodity.fromJson(Map<String, dynamic> json) =>
-      _$CommodityFromJson(json);
-
   String get stockUnitText {
     switch (stockUnit) {
       case StockUnit.kilogram:
@@ -85,6 +82,9 @@ class Commodity {
     return sb.toString();
   }
 
+  factory Commodity.fromJson(Map<String, dynamic> json) =>
+      _$CommodityFromJson(json);
+      
   Map<String, dynamic> toJson() => _$CommodityToJson(this);
 
   String toRawJson() => json.encode(toJson());
