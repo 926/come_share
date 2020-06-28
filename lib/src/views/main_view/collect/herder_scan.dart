@@ -15,6 +15,8 @@ import 'package:come_share/src/stores/cart.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/utils/formatters.dart';
+
+import 'collect.dart';
 //import 'package:come_share/src/stores/collector.dart';
 
 class HerderCollectView extends StatefulWidget {
@@ -247,7 +249,9 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                 if (cartStore.items.isEmpty) {
                   showDialogCSNotOk('Panier vide', context);
                 } else {
-                  _onSubmit();
+                  final collectorViewManager =
+                      Provider.of<CollectorViewsManager>(context);
+                  collectorViewManager.activeView = CollectorViews.validation;
                 }
               },
             ),

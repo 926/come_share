@@ -82,22 +82,18 @@ class _CalculatorViewState extends State<CalculatorView> {
                 ),
               ),
             ),
-            Consumer<CollectorViewsManager>(
-              builder: (context, collectorViewManager, child) => LayoutBuilder(
-                builder: (context, constraints) {
-                  return SizedBox(
-                    width: constraints.maxWidth,
-                    height: 80,
-                    child: _validateButton(
-                      context,
-                      collectorViewManager,
-                      roundedCorner: RoundedCorner.bottom,
-                    ),
-                  );
-                },
-              ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return SizedBox(
+                  width: constraints.maxWidth,
+                  height: 80,
+                  child: _validateButton(
+                    context,
+                    roundedCorner: RoundedCorner.bottom,
+                  ),
+                );
+              },
             ),
-            // SizedBox(height: 3),
           ],
         ),
       ),
@@ -254,23 +250,22 @@ class _CalculatorViewState extends State<CalculatorView> {
       });
 
   Widget _validateButton(
-    BuildContext context,
-    CollectorViewsManager collectorViewManager, {
+    BuildContext context, {
     RoundedCorner roundedCorner,
   }) {
     return _button(
       'Valider',
-      () => _validateAndLoadNextView(context, collectorViewManager),
+      () => _validateAndLoadNextView(context),
       roundedCorner: roundedCorner,
     );
   }
 
   void _validateAndLoadNextView(
     BuildContext context,
-    CollectorViewsManager collectorViewManager,
   ) {
     final cartStore = Provider.of<CartStore>(context);
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
+    final collectorViewManager = Provider.of<CollectorViewsManager>(context);
     cartStore.addLot(
         commoditiesStore.commodities.first.lots.first, total.toDouble());
     collectorViewManager.activeView = CollectorViews.scanner;
