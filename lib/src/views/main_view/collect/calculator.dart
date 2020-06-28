@@ -55,7 +55,7 @@ class _CalculatorViewState extends State<CalculatorView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: Colors.black,
+        color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.max,
@@ -110,11 +110,15 @@ class _CalculatorViewState extends State<CalculatorView> {
           children: <Widget>[
             FittedBox(
               fit: BoxFit.fitWidth,
-              child: Text(currentCaptureValueText, style: textStyle),
+              child: Text(currentCaptureValueText,
+                  style: textStyle.copyWith(color: Colors.black)),
             ),
             FittedBox(
               fit: BoxFit.fitWidth,
-              child: Text(fullCalculText, style: informationTextStyle),
+              child: Text(
+                fullCalculText,
+                style: informationTextStyle.copyWith(color: Colors.black),
+              ),
             ),
           ],
         ),
