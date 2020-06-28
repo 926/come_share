@@ -129,8 +129,6 @@ class _HerderCollectViewState extends State<HerderCollectView> {
     final herdersStore = Provider.of<HerdersStore>(context);
     final cartStore = Provider.of<CartStore>(context, listen: false);
 
-    print(cartStore.items.length);
-    print(cartStore.items.first.quantity);
 //  final collectorStore = Provider.of<CollectorStore>(context);
 
     // ? select default herder on init
