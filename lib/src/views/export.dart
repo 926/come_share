@@ -64,14 +64,14 @@ class ExportState extends State<Export> {
   Future<void> shareExcelFile(String string) async {
     Directory directory = await getApplicationDocumentsDirectory();
     var dbPath = join(directory.path, "collecte.");
-    ByteData data = await rootBundle.load("assets/demo.txt");
+    ByteData data = await rootBundle.load("assets/collecte.xlsx");
     List<int> bytes =
         data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
     await File(dbPath).writeAsBytes(bytes);
     await FlutterShare.shareFile(
       title: 'excel comeshare',
       text: 'Bonne réception',
-      filePath: '$File/$string',
+      filePath: '$File/collecte.xlsx',
     );
   }
 
@@ -340,10 +340,8 @@ Future<void> getFlocksExcel(BuildContext context) async {
       ..updateCell(sheet, 0, 0, 'id')
       ..updateCell(sheet, 1, 0, 'date')
       ..updateCell(sheet, 2, 0, 'bidon')
-      ..updateCell(sheet, 5, 0, 'qt')
-      ..updateCell(sheet, 5, 0, 'denree')
-      ..updateCell(sheet, 3, 0, 'statut')
-      ..updateCell(sheet, 4, 0, 'statut maj');
+      ..updateCell(sheet, 3, 0, 'qt')
+      ..updateCell(sheet, 4, 0, 'denree');
 
     final flocksStore = Provider.of<FlocksStore>(context);
     final herdersStore = Provider.of<HerdersStore>(context);
@@ -379,10 +377,7 @@ Future<void> getFlocksExcel(BuildContext context) async {
               '${thisFlock?.date.toString().substring(0, 19)}')
           ..updateCell(sheet, 2, newRow, "$bidon")
           ..updateCell(sheet, 3, newRow, "$qt")
-          ..updateCell(sheet, 4, newRow, "$commodityName")
-          ..updateCell(sheet, 5, newRow, "${thisFlock.status}")
-          ..updateCell(sheet, 5, newRow,
-              "${thisFlock.statusUpdateDate.toString().substring(0, 19)}");
+          ..updateCell(sheet, 4, newRow, "$commodityName");
       }
     }
     // print('${decoder.tables.values.first.rows.length}');
