@@ -20,9 +20,12 @@ import 'collect.dart';
 
 class HerderCollectView extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigatorKey;
-  final Future<void> Function(Flock flock) onSubmit;
+  //final Future<void> Function(Flock flock) onSubmit;
 
-  HerderCollectView({this.mainNavigatorKey, @required this.onSubmit});
+  HerderCollectView({
+    this.mainNavigatorKey,
+    //@required this.onSubmit
+  });
 
   @override
   _HerderCollectViewState createState() => _HerderCollectViewState();
@@ -110,13 +113,13 @@ class _HerderCollectViewState extends State<HerderCollectView> {
         item.quantity,
       );
     }
-    await flocksStore.addFlock(flock);
+    final coolFlock = await flocksStore.addFlock(flock);
 
     cartStore.clearItems();
     cartStore.clearComment(); // idem
     cartStore.removeAllBigQuantities();
 
-    flockManager.flock = flock;
+    flockManager.flock = coolFlock;
     final collectorViewManager = Provider.of<CollectorViewsManager>(context);
     collectorViewManager.activeView = CollectorViews.validation;
   }

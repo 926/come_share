@@ -35,8 +35,8 @@ class FlockManager with ChangeNotifier {
   Flock _flock;
   Flock get flock => _flock;
   set flock(Flock flock) {
-    print('flock changed');
-    print(flock.status);
+    //print('flock changed');
+    //print(flock.status);
     _flock = flock;
     notifyListeners();
   }
@@ -99,7 +99,7 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
   }
 
   int collectorViewsToTabIndex(CollectorViews view) {
-    print('next view $view');
+    //print('next view $view');
     switch (view) {
       case CollectorViews.calculator:
         return 0;

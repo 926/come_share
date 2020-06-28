@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
 import 'package:provider/provider.dart';
-//import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/stores/herders.dart';
+//import 'package:come_share/src/stores/collector.dart';
 //import 'package:come_share/src/utils/formatters.dart';
 
 class FlockDetailWidget extends StatefulWidget {
