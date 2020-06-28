@@ -22,7 +22,7 @@ class LotItemWidget extends StatelessWidget {
         leading: SizedBox(
           width: 75,
           height: 50,
-          child: Icon(Icons.free_breakfast),
+          child: Icon(Icons.check_box_outline_blank)
         ),
         title: Row(
           children: <Widget>[

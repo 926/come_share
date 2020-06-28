@@ -30,6 +30,7 @@ class _LotDetailWidgetState extends State<LotDetailWidget> {
           CommodityDetailRoute.generateRoute('${widget.lot.commodityId}')),
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.orange[800],
           leading: Builder(
             builder: (BuildContext c) {
               return IconButton(
