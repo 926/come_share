@@ -13,7 +13,7 @@ class AppBarActions extends ChangeNotifier {
   static List<Widget> emptyActions = [];
 
 
-  static final _actionController = StreamController<AppBarAction>.broadcast();
+  //static final _actionController = StreamController<AppBarAction>.broadcast();
 
   List<Widget> _actions;
 
@@ -21,7 +21,7 @@ class AppBarActions extends ChangeNotifier {
 
   List<Widget> get actions => _actions;
 
-  Stream<AppBarAction> get action => _actionController.stream;
+  //Stream<AppBarAction> get action => _actionController.stream;
 
   set actions(List<Widget> actions) {
     _actions = actions;

@@ -45,7 +45,7 @@ class _SellViewState extends State<SellView>
     super.initState();
     tabController = TabController(length: 6, vsync: this);
     appBarActions = AppBarActions();
-    _actionSubscription = appBarActions.action.listen(onAppBarAction);
+    //_actionSubscription = appBarActions.action.listen(onAppBarAction);
     rcRoutes = RcRoutes(
       routes: [
         // CalculatorRoute(
