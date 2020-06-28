@@ -1,10 +1,11 @@
+import 'package:come_share/src/widgets/drawer.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/stores/flocks.dart';
-import 'package:come_share/src/views/main_view/flocks/flock_overview.dart';
+import 'package:come_share/src/views/flocks/flock_overview.dart';
 import 'package:come_share/src/views/main_view/main_view.dart';
 
 class FlocksView extends StatefulWidget {
@@ -37,6 +38,10 @@ class _FlocksViewState extends State<FlocksView> {
     final thisShop = shopStore.shop.first; */
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Recus'),
+      ),
+      drawer: AppDrawer(),
       floatingActionButton: Stack(
         children: <Widget>[
           _activeSearch

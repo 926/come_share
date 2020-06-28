@@ -5,7 +5,7 @@ import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/stores/herders.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
-import 'package:come_share/src/views/main_view/flocks/flock_detail.dart';
+import 'package:come_share/src/views/flocks/flock_detail.dart';
 import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/stores/commodities.dart';
 //import 'package:come_share/src/stores/collector.dart';

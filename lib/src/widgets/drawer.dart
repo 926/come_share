@@ -47,7 +47,7 @@ class AppDrawer extends StatelessWidget {
             //     :
             ListTile(
               leading: Icon(Icons.receipt),
-              title: Text('recus'),
+              title: Text('Recus'),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context)

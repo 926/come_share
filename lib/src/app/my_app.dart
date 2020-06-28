@@ -1,3 +1,4 @@
+import 'package:come_share/src/routes/collector_detail.dart';
 import 'package:come_share/src/routes/commodities/lot_detail.dart';
 import 'package:come_share/src/routes/export.dart';
 import 'package:come_share/src/routes/flocks/flock_detail_frame.dart';
@@ -44,6 +45,7 @@ class _MyAppState extends State<MyApp> {
         ExportRoute(),
         FlocksRoute(),
         FlockDetailRoute(),
+        CollectorRoute(),
         // aboutRoute
       ],
     );
