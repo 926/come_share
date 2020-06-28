@@ -30,8 +30,12 @@ abstract class CartStoreBase with Store {
       items.fold(0, (value, item) => value + item.quantity).round();
 
   @computed
-  double get qt =>
-      items.fold(0, (value, item) => value + item.lot.quantity).round();
+  double get qt => items.fold(
+      0,
+      (value, item) =>
+          value +
+          item.lot
+              .quantity); // remove rounding since it cast to int, do we really want to round ? If yes use roundToDouble
 
   CartStoreBase(this._commoditiesStore) {
     items = <Item>[];
