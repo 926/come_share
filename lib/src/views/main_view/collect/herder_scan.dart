@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/models/item.dart';
 import 'package:come_share/src/stores/commodities.dart';
 import 'package:come_share/src/stores/flocks.dart';
 import 'package:flutter/services.dart';

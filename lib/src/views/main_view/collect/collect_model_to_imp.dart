@@ -56,7 +56,6 @@ class _SellViewState extends State<SellView>
           mainNavigatorKey: navigatorKey,
           onSubmit: onSubmitFlock,
           // ! Work In Progress
-          // onSubmit: onConfirmSubmit,
         ),
         // FlockRoute(),
       ],
