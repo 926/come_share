@@ -1,6 +1,7 @@
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:provider/provider.dart';
 import 'package:spreadsheet_decoder/spreadsheet_decoder.dart';
 import 'dart:io';
@@ -42,9 +43,6 @@ class ExportState extends State<Export> {
   void initState() {
     super.initState();
     getAppDirectory();
-    setState(() {
-      getFlocksCsv(context);
-    });
   }
 
   void getAppDirectory() {
@@ -59,6 +57,21 @@ class ExportState extends State<Export> {
       title: 'Csv comeshare',
       text: 'Bonne réception',
       filePath: '$dir/$string',
+    );
+  }
+
+//TODO
+  Future<void> shareExcelFile(String string) async {
+    Directory directory = await getApplicationDocumentsDirectory();
+    var dbPath = join(directory.path, "collecte.");
+    ByteData data = await rootBundle.load("assets/demo.txt");
+    List<int> bytes =
+        data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    await File(dbPath).writeAsBytes(bytes);
+    await FlutterShare.shareFile(
+      title: 'excel comeshare',
+      text: 'Bonne réception',
+      filePath: '$File/$string',
     );
   }
 
@@ -78,6 +91,30 @@ class ExportState extends State<Export> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             RaisedButton(
+              //color: Colors.black54,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.receipt,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.share),
+                  ),
+                  Expanded(
+                      child: Text(
+                          'Sauvegarder et partager \nle fichier collecte')),
+                ],
+              ),
+              onPressed: () {
+                getFlocksCsv(context);
+                getFlocksExcel(context);
+                shareFile('flocks.csv');
+                shareExcelFile('flocks.xlsl');
+              },
+            ),
+            /* RaisedButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -178,25 +215,7 @@ class ExportState extends State<Export> {
                       context);
                 }
               },
-            ),
-            RaisedButton(
-              //color: Colors.black54,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Icon(
-                    Icons.receipt,
-                  ),
-                  Icon(Icons.share),
-                  Text('partager le fichier tickets'),
-                ],
-              ),
-              onPressed: () {
-                getFlocksCsv(context);
-                getFlocksExcel(context);
-                shareFile('flocks.csv');
-              },
-            ),
+            ), */
             RaisedButton(
                 child: Text("Ouvrir google sheets"),
                 onPressed: () async {
@@ -206,26 +225,28 @@ class ExportState extends State<Export> {
                         "com.google.android.apps.docs.editors.sheets")
                     ..startActivity().catchError((e) => print(e));
                 }),
-            RaisedButton(
-                child: Text("Où sont les fichiers ?"), onPressed: () {}),
-            FutureBuilder<Directory>(
-              future: _appDocDir,
-              builder:
-                  (BuildContext context, AsyncSnapshot<Directory> snapshot) {
-                Text text = Text('');
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasError) {
-                    text = Text('Error: ${snapshot.error}');
-                  } else if (snapshot.hasData) {
-                    text = Text('Path: ${snapshot.data.path}');
-                  } else {
-                    text = Text('Unavailable');
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FutureBuilder<Directory>(
+                future: _appDocDir,
+                builder:
+                    (BuildContext context, AsyncSnapshot<Directory> snapshot) {
+                  Text text = Text('');
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      text = Text('Error: ${snapshot.error}');
+                    } else if (snapshot.hasData) {
+                      text = Text(
+                          'Le fichier est dans le Path: \n${snapshot.data.path}');
+                    } else {
+                      text = Text('Unavailable');
+                    }
                   }
-                }
-                return new Container(
-                  child: text,
-                );
-              },
+                  return new Container(
+                    child: text,
+                  );
+                },
+              ),
             )
           ],
         ),
@@ -246,7 +267,7 @@ getFlocksCsv(BuildContext context) async {
   flocksHeader.add('id');
   //flocksHeader.add('recu_verse');
   flocksHeader.add('date');
-  //flocksHeader.add('ticketType');
+  //flocksHeader.add('flockType');
   flocksHeader.add('bidon');
   flocksHeader.add('qt');
   flocksHeader.add('denree');
@@ -289,7 +310,7 @@ getFlocksCsv(BuildContext context) async {
   String dir = (await getExternalStorageDirectory()).absolute.path + "/";
   var file = "$dir";
   print(" FILE " + file); // LOGTAG+ was originally in the " " but I removed it
-  File f = new File(file + "tickets.csv");
+  File f = new File(file + "collectes.csv");
 
 // convert rows to String and write as csv file
 
