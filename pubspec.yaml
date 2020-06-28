@@ -71,6 +71,7 @@ flutter:
   assets:
     - assets/svg/calculator.svg
     - assets/collecte.xlsx
+    - assets/ksde_qr.png
 
   # fonts:
   #   - family: Schyler
