@@ -1,12 +1,9 @@
 import 'package:come_share/src/routes/commodities/commodity_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/lot.dart';
-import 'package:come_share/src/routes/commodities/commodities.dart';
-//import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/utils/formatters.dart';
-import 'package:provider/provider.dart';
-import 'package:come_share/src/stores/commodities.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
+//import 'package:come_share/src/stores/collector.dart';
+//import 'package:provider/provider.dart';
 
 class LotDetailWidget extends StatefulWidget {
   final Lot lot;

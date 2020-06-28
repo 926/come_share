@@ -1,5 +1,4 @@
 import 'package:come_share/src/views/home_page.dart';
-import 'package:come_share/src/views/main_view/main_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
@@ -11,7 +10,6 @@ import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
-import 'package:come_share/src/views/main_view/collect/collector_page.dart';
 import 'package:rc_router/rc_router.dart';
 //import 'package:come_share/src/stores/cart.dart';
 
@@ -29,7 +27,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     rcRoutes = RcRoutes(routes: [
-      CollectRoute(navigatorKey),
       CollectRoute(navigatorKey),
       CommoditiesRoute(navigatorKey),
       HerdersRoute(navigatorKey),

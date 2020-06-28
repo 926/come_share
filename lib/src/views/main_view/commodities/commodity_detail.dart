@@ -2,10 +2,9 @@ import 'package:come_share/src/views/main_view/commodities/items/lot_item.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/routes/commodities/commodities.dart';
-import 'package:provider/provider.dart';
-import 'package:come_share/src/stores/commodities.dart';
+//import 'package:provider/provider.dart';
 //import 'package:come_share/src/stores/collector.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
+//import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/utils/formatters.dart';
 
 class CommodityDetailWidget extends StatefulWidget {
@@ -26,11 +25,6 @@ class _CommodityDetailWidgetState extends State<CommodityDetailWidget> {
     commodityStatus = widget.commodity.status;
   }
 
-  void _onChange(bool value) {
-    setState(() {
-      commodityStatus = value;
-    });
-  }
 
   Gradient getcommodityGradient(bool widgetcommodityStatus) {
     if (widgetcommodityStatus == true) {

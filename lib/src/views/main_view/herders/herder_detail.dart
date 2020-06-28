@@ -1,21 +1,12 @@
-import 'dart:async';
+//import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:connectivity/connectivity.dart';
-import 'package:come_share/src/models/lot.dart';
 import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/models/item.dart';
-import 'package:come_share/src/models/lot.dart';
-import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
-import 'package:come_share/src/routes/herders/herder_detail.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
-import 'package:come_share/src/stores/cart.dart';
-import 'package:come_share/src/stores/herders.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/stores/flocks.dart';
-//import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/utils/formatters.dart';
+//import 'package:come_share/src/stores/collector.dart';
 //import 'package:come_share/src/views/main_view/flocks/flock_overview.dart';
 //import 'package:come_share/src/webhooks/upload_tickets_sell.dart';
 
@@ -37,18 +28,6 @@ class _HerderDetailWidgetState extends State<HerderDetailWidget> {
     super.initState();
     herderStatus = widget.herder.status;
     ;
-  }
-
-  Future<Herder> _onDisable(Herder herder) async {
-    final herdersStore = Provider.of<HerdersStore>(context, listen: false);
-    final disableHerder = await herdersStore.disableHerder(herder);
-    return disableHerder;
-  }
-
-  Future<Herder> _onRestore(Herder herder) async {
-    final herdersStore = Provider.of<HerdersStore>(context, listen: false);
-    final restoreHerder = await herdersStore.restoreHerder(herder);
-    return restoreHerder;
   }
 
   String makeItPretty(Map<String, Herder> map) {

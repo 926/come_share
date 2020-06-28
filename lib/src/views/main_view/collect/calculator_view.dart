@@ -1,8 +1,7 @@
 import 'package:come_share/src/widgets/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'collector_page.dart';
+import 'package:come_share/src/views/main_view/collect/collect.dart';
 
 class CalculatorView extends StatelessWidget {
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/routes/herders/herder_detail.dart';
-import 'package:provider/provider.dart';
-import 'package:come_share/src/utils/formatters.dart';
+
+//import 'package:provider/provider.dart';
 //import 'package:come_share/src/stores/collector.dart';
 
 class HerderOverview extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 // import 'package:weebi/src/views/onboarding/onboarding.dart';
 // import 'package:weebi/src/routes/cashcount/cashcount.dart';
 

@@ -5,22 +5,24 @@ import 'package:provider/provider.dart';
 import 'calculator_view.dart';
 
 class Collect extends StatefulWidget {
-  final GlobalKey<NavigatorState> mainNavigatorKey;
-  Collect({@required this.mainNavigatorKey});
+  final GlobalKey<NavigatorState> mainNavigator;
+
+  Collect({@required this.mainNavigator});
+
   @override
   _CollectState createState() => _CollectState();
 }
 
-enum CollectViews {
-  scanner,
+enum CollectorViews {
   calculator,
+  scanner,
   validation,
 }
 
-class CollectViewsManager with ChangeNotifier {
-  CollectViews _activeView = CollectViews.scanner;
-  CollectViews get activeView => _activeView;
-  set activeView(CollectViews nextView) {
+class CollectorViewsManager with ChangeNotifier {
+  CollectorViews _activeView = CollectorViews.scanner;
+  CollectorViews get activeView => _activeView;
+  set activeView(CollectorViews nextView) {
     _activeView = nextView;
     notifyListeners();
   }
@@ -29,21 +31,21 @@ class CollectViewsManager with ChangeNotifier {
 class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
   TabController _tabController;
 
-  CollectViewsManager _collectViewsManager = CollectViewsManager();
+  CollectorViewsManager _collectorViewsManager = CollectorViewsManager();
 
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
-    _collectViewsManager.addListener(
-      () => updateActiveView(_collectViewsManager.activeView),
+    _collectorViewsManager.addListener(
+      () => updateActiveView(_collectorViewsManager.activeView),
     );
     super.initState();
   }
 
   @override
   void dispose() {
-    _collectViewsManager.removeListener(
-      () => updateActiveView(_collectViewsManager.activeView),
+    _collectorViewsManager.removeListener(
+      () => updateActiveView(_collectorViewsManager.activeView),
     );
     _tabController.dispose();
     super.dispose();
@@ -51,8 +53,8 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<CollectViewsManager>.value(
-      value: _collectViewsManager,
+    return ChangeNotifierProvider<CollectorViewsManager>.value(
+      value: _collectorViewsManager,
       child: Container(
         color: Colors.red,
         child: Column(
@@ -62,8 +64,8 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
                 physics: NeverScrollableScrollPhysics(),
                 controller: _tabController,
                 children: [
-                  ScannerView(),
                   CalculatorView(),
+                  ScannerView(),
                   Icon(Icons.directions_bike),
                 ],
               ),
@@ -74,20 +76,20 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
     );
   }
 
-  int collectViewsToTabIndex(CollectViews view) {
+  int collectorViewsToTabIndex(CollectorViews view) {
     switch (view) {
-      case CollectViews.scanner:
+      case CollectorViews.calculator:
         return 1;
-      case CollectViews.calculator:
+      case CollectorViews.scanner:
         return 1;
-      case CollectViews.validation:
+      case CollectorViews.validation:
         return 2;
       default:
         throw Exception('Unkown view');
     }
   }
 
-  void updateActiveView(CollectViews nextView) {
-    _tabController.animateTo(collectViewsToTabIndex(nextView));
+  void updateActiveView(CollectorViews nextView) {
+    _tabController.animateTo(collectorViewsToTabIndex(nextView));
   }
 }

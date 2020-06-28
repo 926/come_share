@@ -1,4 +1,4 @@
-import 'dart:async';
+//import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +6,6 @@ import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/stores/commodities.dart';
 //import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/views/main_view/main_view.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:come_share/src/views/main_view/commodities/items/product_item.dart';
 
 class CommoditiesView extends StatefulWidget {
