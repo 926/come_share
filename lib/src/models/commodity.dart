@@ -7,7 +7,8 @@ import 'package:meta/meta.dart';
 
 part 'commodity.g.dart';
 
-enum StockUnit {
+// ? needless
+/* enum StockUnit {
   gram,
   kilogram,
   unit,
@@ -16,14 +17,14 @@ enum StockUnit {
   box,
   centimeter,
   meter,
-}
+} */
 
 @JsonSerializable()
 class Commodity {
   final String companyUuid;
   final int id;
   String name;
-  StockUnit stockUnit;
+  double weight;
   String photo;
   final bool status;
   final DateTime statusUpdateDate;
@@ -39,36 +40,13 @@ class Commodity {
       {this.companyUuid,
       @required this.id,
       @required this.name,
-      this.stockUnit,
+      this.weight,
       this.photo,
       this.status,
       this.statusUpdateDate,
       this.date,
       this.updateDate,
       this.lots});
-
-  String get stockUnitText {
-    switch (stockUnit) {
-      case StockUnit.kilogram:
-        return 'kg';
-      case StockUnit.gram:
-        return 'g';
-      case StockUnit.liter:
-        return 'l';
-      case StockUnit.centiliter:
-        return 'cl';
-      case StockUnit.unit:
-        return 'unite';
-      case StockUnit.box:
-        return 'boite';
-      case StockUnit.centimeter:
-        return 'cm';
-      case StockUnit.meter:
-        return 'm';
-      default:
-        return '?';
-    }
-  }
 
   String get sharableText {
     final truc = StringBuffer();
@@ -84,7 +62,7 @@ class Commodity {
 
   factory Commodity.fromJson(Map<String, dynamic> json) =>
       _$CommodityFromJson(json);
-      
+
   Map<String, dynamic> toJson() => _$CommodityToJson(this);
 
   String toRawJson() => json.encode(toJson());

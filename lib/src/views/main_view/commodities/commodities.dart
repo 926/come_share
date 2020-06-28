@@ -28,8 +28,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   bool isIdAscending;
 
   List<Commodity> searchResults;
-  bool isSearch;
-  bool isSearchByBarcode;
+  bool _isSearch;
   Icon actionIcon = new Icon(Icons.search, color: Colors.orange[800]);
   // Widget appBarTitle = new Text("List of p");
 
@@ -39,8 +38,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   void initState() {
     super.initState();
     scanBarcode = '';
-    isSearch = false;
-    isSearchByBarcode = false;
+    _isSearch = false;
     isListReorderedByName = false;
     isListReorderedById = false;
     isNameAscending = true;
@@ -70,7 +68,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
       commoditiesListReordered = ordering;
       isListReorderedByName = true;
       isListReorderedById = false;
-      isSearch = false;
+      _isSearch = false;
     });
   }
 
@@ -87,7 +85,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
       commoditiesListReordered = ordering;
       isListReorderedById = true;
       isListReorderedByName = false;
-      isSearch = false;
+      _isSearch = false;
     });
   }
 
@@ -116,7 +114,8 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   Widget build(BuildContext context) {
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
     var coolComm = commoditiesStore.commodities.toList();
-    print('commoditiesStore.commodities.toList() ${commoditiesStore.commodities.toList().length}');
+    print(
+        'commoditiesStore.commodities.toList() ${commoditiesStore.commodities.toList().length}');
     // .where((c) => c.id != 0)
     // final collectorStore = Provider.of<CollectorStore>(context);
     // var thisCollector = collectorStore.collector.first;
@@ -148,8 +147,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
             alignment: Alignment.center,
             child: Column(
               children: <Widget>[
-                if (isSearchByBarcode && searchResults != null ||
-                    isSearch && searchResults != null)
+                if (searchResults != null || _isSearch && searchResults != null)
                   Expanded(
                     child: Scrollbar(
                       child: ListView.builder(
@@ -186,7 +184,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
                 ListTile(
                   title: Text(''),
                 ),
-                !isSearch
+                !_isSearch
                     ? Container()
                     : Row(
                         children: <Widget>[
@@ -221,7 +219,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
         }),
       ),
       floatingButton: FloatingActionButton(
-        heroTag: "btnSearchCommoditiess",
+        heroTag: "btnSearchCommodities",
         backgroundColor: Color(0xFF20272B),
         //mini: true,
         child:
@@ -231,10 +229,10 @@ class _CommoditiesViewState extends State<CommoditiesView> {
           setState(() {
             // bool not used anymore in UI but could always be needed
             if (this.actionIcon.icon == Icons.search) {
-              isSearch = true;
+              _isSearch = true;
               this.actionIcon = new Icon(Icons.close);
             } else {
-              isSearch = false;
+              _isSearch = false;
               this.actionIcon = new Icon(Icons.search);
             }
           });

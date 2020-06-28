@@ -111,7 +111,7 @@ void main() async {
         companyUuid: '0',
         id: 0,
         name: '*',
-        stockUnit: StockUnit.unit,
+        weight: 1,
         photo: '',
         status: true,
         statusUpdateDate: now,
@@ -132,7 +132,7 @@ void main() async {
         companyUuid: '0',
         id: 1,
         name: 'Milk',
-        stockUnit: StockUnit.liter,
+        weight: 1,
         photo: 'milk.jpg',
         status: true,
         statusUpdateDate: now,
@@ -156,5 +156,4 @@ void main() async {
   }
 
   runApp(ComeShareApp(database: database));
-  
 }

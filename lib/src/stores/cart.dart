@@ -26,13 +26,13 @@ abstract class CartStoreBase with Store {
   List<Lot> listBigQuantityOnForLot;
 
   @computed
-  int get numberOfItem =>
-      items.fold(0, (value, item) => value + item.quantity).round();
+  int get numberOfItem => items.fold(0, (value, item) => value + item).round();
 
   @computed
   double get qt => items
-      .fold(0, (value, item) => value + item.lot.quantity)
-      .roundToDouble(); // remove rounding since it cast to int, do we really want to round ? If yes use roundToDouble
+      .fold(0, (value, item) => value + item.quantity)
+      .round()
+      .roundToDouble();
 
   CartStoreBase(this._commoditiesStore) {
     items = <Item>[];

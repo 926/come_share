@@ -36,12 +36,13 @@ dependencies:
   collection: ^1.14.11
   equatable: ^1.1.0
   flutter_share: ^1.0.2+1
-  #audioplayer: ^0.7.0
   gradient_text: ^1.0.2
   flutter_screenutil: ^1.0.2
   flutter_svg: ^0.17.3+1
   package_info: ^0.4.0+16
+  spreadsheet_decoder: ^1.1.0
 
+  #audioplayer: ^0.7.0  # buggy as f*
   #printing: any
   #blue_thermal_printer: ^1.0.8 #DO_NOT upgrade
   #contacts_service: ^0.3.0

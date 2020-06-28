@@ -20,13 +20,14 @@ class _HerdersViewState extends State<HerdersView> {
   List<Herder> herdersListReordered;
   List<Herder> _searchResults;
   bool _isSearch;
+  Icon actionIcon = Icon(Icons.search, color: Colors.blue[800]);
+
   bool _isListReorderedByFirstName;
   bool _isListReorderedByBidon;
   bool _isBidonAscending;
   bool _isFirstNameAscending;
   TextEditingController dowap;
 
-  Icon actionIcon = new Icon(Icons.search);
   bool submitting = false;
 
   @override
@@ -159,49 +160,72 @@ class _HerdersViewState extends State<HerdersView> {
                   ),
                 ),
               ),
-            Row(
-              children: <Widget>[
-                Flexible(
-                  flex: 3,
-                  child: ListTile(
-                    leading: Icon(Icons.search),
-                    title: TextField(
-                      autofocus: false,
-                      onChanged: (value) {
-                        _search(value);
-                      },
-                      style: TextStyle(color: Colors.blue),
-                      keyboardType: TextInputType.number,
-                      onTap: () => setState(() {
-                        _isSearch = true;
-                      }),
-                      decoration: InputDecoration(
-                        hintText: "bidon / nom / prénom",
-                        hintStyle: TextStyle(color: Colors.grey),
+            !_isSearch
+                ? Container()
+                : Row(
+                    children: <Widget>[
+                      Flexible(
+                        flex: 3,
+                        child: ListTile(
+                          leading: Icon(Icons.search),
+                          title: TextField(
+                            autofocus: false,
+                            onChanged: (value) {
+                              _search(value);
+                            },
+                            style: TextStyle(color: Colors.blue),
+                            keyboardType: TextInputType.number,
+                            onTap: () => setState(() {
+                              _isSearch = true;
+                            }),
+                            decoration: InputDecoration(
+                              hintText: "bidon/nom/prénom",
+                              hintStyle: TextStyle(color: Colors.grey),
+                            ),
+                            controller: dowap,
+                          ),
+                          trailing: IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              setState(() {
+                                _isSearch = false;
+                                dowap.text = '';
+                              });
+                            },
+                          ),
+                        ),
                       ),
-                      controller: dowap,
-                    ),
-                    trailing: IconButton(
-                      icon: Icon(Icons.close),
-                      onPressed: () {
-                        setState(() {
-                          _isSearch = false;
-                          dowap.text = '';
-                        });
-                      },
-                    ),
+                      Flexible(
+                        flex: 2,
+                        child: Container(),
+                      ),
+                    ],
                   ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Container(),
-                ),
-              ],
-            ),
           ],
         ),
         floatingButton: Stack(
-          children: <Widget>[],
+          children: <Widget>[
+            FloatingActionButton(
+              heroTag: "btnSearchHerders",
+              backgroundColor: Color(0xFF20272B),
+              //mini: true,
+              child:
+                  //isSearchByBarcode == false
+                  actionIcon,
+              onPressed: () {
+                setState(() {
+                  // bool not used anymore in UI but could always be needed
+                  if (this.actionIcon.icon == Icons.search) {
+                    _isSearch = true;
+                    this.actionIcon = new Icon(Icons.close);
+                  } else {
+                    _isSearch = false;
+                    this.actionIcon = new Icon(Icons.search);
+                  }
+                });
+              },
+            ),
+          ],
         ));
   }
 

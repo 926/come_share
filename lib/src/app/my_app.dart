@@ -9,6 +9,7 @@ import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
+import 'package:come_share/src/routes/settings_import.dart';
 import 'package:rc_router/rc_router.dart';
 //import 'package:come_share/src/stores/cart.dart';
 
@@ -31,6 +32,8 @@ class _MyAppState extends State<MyApp> {
         CommoditiesRoute(navigatorKey),
         HerdersRoute(navigatorKey),
         SyncRoute(navigatorKey),
+        SettingsImportRoute(),
+        // aboutRoute
       ],
     );
   }

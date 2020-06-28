@@ -175,7 +175,7 @@ class _CommodityDetailWidgetState extends State<CommodityDetailWidget> {
                                 ),
                               ),
                               Text(
-                                "${widget.commodity.stockUnitText}",
+                                "${widget.commodity.weight}",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold),

@@ -1,4 +1,6 @@
 import 'package:come_share/src/routes/collect/collect.dart';
+import 'package:come_share/src/routes/export.dart';
+import 'package:come_share/src/routes/settings_import.dart';
 import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 // import 'package:weebi/src/views/onboarding/onboarding.dart';
@@ -39,6 +41,42 @@ class AppDrawer extends StatelessWidget {
                 ),
               ),
             ),
+            // thisCollector.isLocked == true
+            //     ? Container()
+            //     :
+            ListTile(
+              leading: Icon(Icons.file_upload),
+              title: Text('Import .json'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(SettingsImportRoute.routePath);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.save),
+              title: Text('Export .csv/.xlsl'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(ExportRoute.routePath);
+              },
+            ), //
+            ListTile(
+              leading: Icon(Icons.help_outline),
+              title: Text('A propos'),
+              onTap: () {
+                Navigator.of(context).pop();
+                // Navigator.of(context).pushNamed(AboutRoute.routePath);
+              },
+            ),
+            /* ListTile(
+              leading: Icon(Icons.important_devices),
+              title: Text('Config test/prod'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .pushNamed(ShopLdbViewRoute.generateRoute('0'));
+              },
+            ), */
             /* ListTile(
               leading: Icon(
                 Icons.layers,
@@ -50,45 +88,6 @@ class AppDrawer extends StatelessWidget {
                 // Navigator.of(context).pushNamed(StatsStockRoute.routePath);
               },
             ), */
-            // thisCollector.isLocked == true
-            //     ? Container()
-            //     :
-            ListTile(
-                leading: Icon(Icons.file_upload),
-                title: Text('Import .json'),
-                onTap: () {
-                  Navigator.of(context).pop();
-                  //   Navigator.of(context)
-                  //       .pushNamed(SettingsImportRoute.routePath);
-                  // },
-                  // ),
-                  ListTile(
-                    leading: Icon(Icons.save),
-                    title: Text('Export .csv'),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      //Navigator.of(context).pushNamed(ExportRoute.routePath);
-                    },
-                  ); //
-                  /* ListTile(
-              leading: Icon(Icons.important_devices),
-              title: Text('Config test/prod'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context)
-                    .pushNamed(ShopLdbViewRoute.generateRoute('0'));
-              },
-            ), // */
-
-                  ListTile(
-                    leading: Icon(Icons.help_outline),
-                    title: Text('A propos'),
-                    onTap: () {
-                      Navigator.of(context).pop();
-                      // Navigator.of(context).pushNamed(AboutRoute.routePath);
-                    },
-                  ); //
-                })
           ],
         ),
       ),
