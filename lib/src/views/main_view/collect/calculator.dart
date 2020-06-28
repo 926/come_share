@@ -273,7 +273,7 @@ class _CalculatorViewState extends State<CalculatorView> {
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
     cartStore.addLot(
         commoditiesStore.commodities.first.lots.first, total.toDouble());
-    collectorViewManager.activeView = CollectorViews.validation;
+    collectorViewManager.activeView = CollectorViews.scanner;
   }
 }
 

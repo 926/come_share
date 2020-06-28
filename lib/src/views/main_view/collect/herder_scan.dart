@@ -114,7 +114,9 @@ class _HerderCollectViewState extends State<HerderCollectView> {
     cartStore.clearItems();
     cartStore.clearComment(); // idem
     cartStore.removeAllBigQuantities();
-    widget.onSubmit(flock);
+
+    // load flock view
+    // widget.onSubmit(flock);
   }
 
   @override
