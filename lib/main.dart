@@ -68,7 +68,7 @@ void main() async {
           firstName: 'test',
           lastName: '',
           avatar: '',
-          qrcode: '',
+          qrcode: 'kossam_sde_00029',
           date: now,
           updateDate: now,
           status: true,
@@ -119,11 +119,11 @@ void main() async {
         lots: [
           Lot(
               companyUuid: '0',
+              commodityId: 0,
               id: 1,
               comment: '',
-              commodityId: 0,
+              quantity: 0.0,
               isDefault: true,
-              quantity: 0,
               lotDate: now)
         ],
       ),
@@ -131,7 +131,7 @@ void main() async {
         companyUuid: '0',
         id: 1,
         name: 'Milk',
-        stockUnit: StockUnit.box,
+        stockUnit: StockUnit.liter,
         photo: 'milk.jpg',
         status: true,
         statusUpdateDate: now,
@@ -141,17 +141,16 @@ void main() async {
           Lot(
               companyUuid: '0',
               commodityId: 1,
-              comment: '',
               id: 1,
+              comment: '',
+              quantity: 0.0,
               isDefault: true,
-              quantity: 0,
               lotDate: now),
         ],
       ),
     ];
     await database.put(
-        _commodities.map((commodity) => commodity.toJson()).toList(),
-        'commodities');
+        _commodities.map((c) => c.toJson()).toList(), 'commodities');
   }
 
   runApp(ComeShareApp(database: database));

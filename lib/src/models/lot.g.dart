@@ -9,8 +9,8 @@ part of 'lot.dart';
 Lot _$LotFromJson(Map<String, dynamic> json) {
   return Lot(
     companyUuid: json['companyUuid'] as String,
-    id: json['id'] as int,
     commodityId: json['commodityId'] as int,
+    id: json['id'] as int,
     comment: json['comment'] as String,
     quantity: (json['quantity'] as num)?.toDouble(),
     isDefault: json['isDefault'] as bool,
@@ -22,8 +22,8 @@ Lot _$LotFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$LotToJson(Lot instance) => <String, dynamic>{
       'companyUuid': instance.companyUuid,
-      'id': instance.id,
       'commodityId': instance.commodityId,
+      'id': instance.id,
       'comment': instance.comment,
       'quantity': instance.quantity,
       'isDefault': instance.isDefault,

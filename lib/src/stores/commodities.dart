@@ -1,7 +1,6 @@
 import 'dart:convert' as convert;
 
 import 'package:mobx/mobx.dart';
-//import 'package:come_share/src/models/subcommodity.dart';
 import 'package:come_share/src/models/lot.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/servives/commodities.dart';
@@ -40,6 +39,7 @@ abstract class CommoditiesStoreBase with Store {
     return commodities;
   }
 
+// * consider removing
   @action
   Future<ObservableList<Commodity>> removeLot(Lot lot, int quantity) async {
     final _commodity =
@@ -50,6 +50,7 @@ abstract class CommoditiesStoreBase with Store {
     return commodities;
   }
 
+// * consider removing
   @action
   Future<ObservableList<Commodity>> removeLotDouble(
       Lot lot, double quantity) async {

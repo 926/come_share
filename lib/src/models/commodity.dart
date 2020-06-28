@@ -27,13 +27,13 @@ class Commodity {
   String photo;
   final bool status;
   final DateTime statusUpdateDate;
+  final DateTime date;
+  final DateTime updateDate;
   @JsonKey(
     fromJson: lotsFromJson,
     toJson: lotsToJson,
   )
   List<Lot> lots;
-  final DateTime date;
-  final DateTime updateDate;
 
   Commodity(
       {this.companyUuid,
@@ -43,9 +43,9 @@ class Commodity {
       this.photo,
       this.status,
       this.statusUpdateDate,
-      this.lots,
       this.date,
-      this.updateDate});
+      this.updateDate,
+      this.lots});
 
   factory Commodity.fromJson(Map<String, dynamic> json) =>
       _$CommodityFromJson(json);

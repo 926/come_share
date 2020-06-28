@@ -116,6 +116,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
   Widget build(BuildContext context) {
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
     var coolComm = commoditiesStore.commodities.toList();
+    print(coolComm.length);
     // .where((c) => c.id != 0)
     // final collectorStore = Provider.of<CollectorStore>(context);
     // var thisCollector = collectorStore.collector.first;
