@@ -59,7 +59,7 @@ class _CalculatorViewState extends State<CalculatorView> {
         mainAxisSize: MainAxisSize.max,
         children: [
           Container(
-            color: Colors.grey,
+            color: Colors.transparent,
             child: LayoutBuilder(
               builder: (context, constraints) => Container(
                 child: Column(
