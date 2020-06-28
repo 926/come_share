@@ -70,14 +70,14 @@ class AppDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed(ExportRoute.routePath);
               },
             ), //
-            ListTile(
-              leading: Icon(Icons.help_outline),
-              title: Text('A propos'),
-              onTap: () {
-                Navigator.of(context).pop();
-                // Navigator.of(context).pushNamed(AboutRoute.routePath);
-              },
-            ),
+            //ListTile(
+            //  leading: Icon(Icons.help_outline),
+            //  title: Text('A propos'),
+            //  onTap: () {
+            //    Navigator.of(context).pop();
+            //    // Navigator.of(context).pushNamed(AboutRoute.routePath);
+            //  },
+            //),
             /* ListTile(
               leading: Icon(Icons.important_devices),
               title: Text('Config test/prod'),
