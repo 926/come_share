@@ -5,13 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:come_share/src/views/main_view/collect/collect.dart';
 
 class CalculatorView extends StatefulWidget {
-  static const Color defaultButtonBackgroundColor = Colors.grey;
-
   @override
   _CalculatorViewState createState() => _CalculatorViewState();
 }
 
 class _CalculatorViewState extends State<CalculatorView> {
+  static const Color defaultButtonBackgroundColor = Color(0xff42b2a6);
+  static const Color importantButtonsColor = Color(0xfffa5c68);
+  static const Color otherButtonsColor = Color(0xffffb733);
+  static const Radius buttonCornerRadius = Radius.circular(18);
   final TextStyle textStyle = TextStyle(
     color: Colors.white,
     decoration: TextDecoration.none,
@@ -55,13 +57,12 @@ class _CalculatorViewState extends State<CalculatorView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: Colors.white,
+        color: Colors.transparent,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.max,
           children: [
             Container(
-              color: Colors.transparent,
               child: LayoutBuilder(
                 builder: (context, constraints) => Container(
                   child: Column(
@@ -81,17 +82,17 @@ class _CalculatorViewState extends State<CalculatorView> {
               ),
             ),
             Consumer<CollectorViewsManager>(
-              builder: (context, collectorViewManager, child) => FlatButton(
-                child:
-                    Text('OK', style: textStyle.copyWith(color: Colors.black)),
-                onPressed: () {
-                  final cartStore = Provider.of<CartStore>(context);
-                  final commoditiesStore =
-                      Provider.of<CommoditiesStore>(context);
-                  cartStore.addLot(
-                      commoditiesStore.commodities.first.lots.first,
-                      total.toDouble());
-                  collectorViewManager.activeView = CollectorViews.validation;
+              builder: (context, collectorViewManager, child) => LayoutBuilder(
+                builder: (context, constraints) {
+                  return SizedBox(
+                    width: constraints.maxWidth,
+                    height: 80,
+                    child: _validateButton(
+                      context,
+                      collectorViewManager,
+                      roundedCorner: RoundedCorner.bottom,
+                    ),
+                  );
                 },
               ),
             ),
@@ -129,9 +130,9 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   List<Widget> _buttons() {
     var buttons = List<Widget>();
-    buttons.add(_numberButton(7));
+    buttons.add(_numberButton(7, roundedCorner: RoundedCorner.topLeft));
     buttons.add(_numberButton(8));
-    buttons.add(_numberButton(9));
+    buttons.add(_numberButton(9, roundedCorner: RoundedCorner.topRight));
     buttons.add(_emptyButton());
     buttons.add(_numberButton(4));
     buttons.add(_numberButton(5));
@@ -144,17 +145,49 @@ class _CalculatorViewState extends State<CalculatorView> {
     buttons.add(_numberButton(0));
     buttons.add(_resetAllButton());
     buttons.add(_resetButton());
-    buttons.add(_additionButton());
+    buttons.add(_additionButton(roundedCorner: RoundedCorner.topRight));
     return buttons;
   }
 
   Widget _button(
     String text,
     void Function() onTap, {
-    Color backgroundColor = CalculatorView.defaultButtonBackgroundColor,
+    Color backgroundColor = defaultButtonBackgroundColor,
     double elevation = 2.5,
-    Color splashColor = Colors.black,
+    Color splashColor = Colors.transparent,
+    RoundedCorner roundedCorner,
   }) {
+    ShapeBorder shape;
+
+    switch (roundedCorner) {
+      case RoundedCorner.topLeft:
+        shape = RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topLeft: buttonCornerRadius),
+        );
+        break;
+      case RoundedCorner.topRight:
+        shape = RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(topRight: buttonCornerRadius),
+        );
+        break;
+      case RoundedCorner.bottomLeft:
+        shape = RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomLeft: buttonCornerRadius),
+        );
+        break;
+      case RoundedCorner.bottomRight:
+        shape = RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(bottomRight: buttonCornerRadius),
+        );
+        break;
+      case RoundedCorner.bottom:
+        shape = RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              bottomLeft: buttonCornerRadius, bottomRight: buttonCornerRadius),
+        );
+        break;
+    }
+
     return Container(
       padding: EdgeInsets.all(4),
       child: MaterialButton(
@@ -164,9 +197,7 @@ class _CalculatorViewState extends State<CalculatorView> {
         elevation: elevation,
         onPressed: onTap,
         color: backgroundColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: shape,
         child: Text(
           text,
           style: textStyle,
@@ -176,7 +207,7 @@ class _CalculatorViewState extends State<CalculatorView> {
   }
 
   Widget _resetAllButton() =>
-      _button('AC', _resetAll, backgroundColor: Colors.red);
+      _button('AC', _resetAll, backgroundColor: importantButtonsColor);
 
   void _resetAll() {
     setState(() {
@@ -185,8 +216,8 @@ class _CalculatorViewState extends State<CalculatorView> {
     });
   }
 
-  Widget _resetButton() => _button('C', _reset, backgroundColor: Colors.red);
-
+  Widget _resetButton() =>
+      _button('C', _reset, backgroundColor: importantButtonsColor);
   void _reset() => setState(() {
         currentCaptureValue = 0;
         isCapturing = true;
@@ -194,20 +225,61 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   Widget _emptyButton() => _button('', null, elevation: 0);
 
-  Widget _additionButton() =>
-      _button('+', _add, backgroundColor: Colors.orange);
-
+  Widget _additionButton({RoundedCorner roundedCorner}) => _button(
+        '+',
+        _add,
+        backgroundColor: otherButtonsColor,
+        roundedCorner: roundedCorner,
+      );
   void _add() => setState(() {
         pastvalues.add(currentCaptureValue);
         currentCaptureValue = 0;
         isCapturing = false;
       });
 
-  Widget _numberButton(int number) =>
-      _button(number.toString(), () => _numberClicked(number));
-
+  Widget _numberButton(
+    int number, {
+    RoundedCorner roundedCorner,
+  }) =>
+      _button(
+        number.toString(),
+        () => _numberClicked(number),
+        roundedCorner: roundedCorner,
+      );
   void _numberClicked(int number) => setState(() {
         isCapturing = true;
         currentCaptureValue = currentCaptureValue * 10 + number;
       });
+
+  Widget _validateButton(
+    BuildContext context,
+    CollectorViewsManager collectorViewManager, {
+    RoundedCorner roundedCorner,
+  }) {
+    return _button(
+      'Valider',
+      () => _validateAndLoadNextView(context, collectorViewManager),
+      roundedCorner: roundedCorner,
+    );
+  }
+
+  void _validateAndLoadNextView(
+    BuildContext context,
+    CollectorViewsManager collectorViewManager,
+  ) {
+    final cartStore = Provider.of<CartStore>(context);
+    final commoditiesStore = Provider.of<CommoditiesStore>(context);
+    cartStore.addLot(
+        commoditiesStore.commodities.first.lots.first, total.toDouble());
+    collectorViewManager.activeView = CollectorViews.validation;
+  }
+}
+
+enum RoundedCorner {
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
+  bottom,
+  // top,
 }
