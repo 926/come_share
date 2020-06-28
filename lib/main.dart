@@ -13,8 +13,6 @@ import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/lot.dart';
 import 'package:come_share/src/app/app_entrypoint.dart';
 
-import 'src/app/my_app.dart';
-
 // import 'package:tekartik_app_platform/app_platform.dart';
 // import 'package:tekartik_app_flutter_sembast/sembast.dart';
 // import 'package:tekartik_common_utils/common_utils_import.dart';

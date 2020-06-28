@@ -1,4 +1,4 @@
-import 'package:come_share/src/views/widgets/calculator.dart';
+import 'package:come_share/src/widgets/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

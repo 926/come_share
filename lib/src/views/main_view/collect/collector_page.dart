@@ -1,4 +1,4 @@
-import 'package:come_share/src/views/collector_page/scanner_view.dart';
+import 'package:come_share/src/views/main_view/collect/scanner_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
