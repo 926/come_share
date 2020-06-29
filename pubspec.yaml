@@ -72,6 +72,7 @@ flutter:
     - assets/svg/calculator.svg
     - assets/collecte.xlsx
     - assets/ksde_qr.png
+    - assets/milk-logo.png
 
   # fonts:
   #   - family: Schyler

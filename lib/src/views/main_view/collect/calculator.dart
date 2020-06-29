@@ -30,7 +30,9 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   int currentCaptureValue = 0;
 
-  String get currentCaptureValueText => currentCaptureValue.toString();
+  String get currentCaptureValueText {
+    return currentCaptureValue == 0 ? '' : currentCaptureValue.toString();
+  }
 
   List<int> pastvalues = List<int>();
 
@@ -43,7 +45,7 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   String get fullCalculText {
     if (pastvalues.length == 0) return '0';
-    var text = 'total: ';
+    var text = '';
     for (var i = 0; i < pastvalues.length - 1; i++) {
       if (pastvalues[i] != 0) {
         text += pastvalues[i].toString() + '+';
@@ -61,6 +63,10 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   @override
   Widget build(BuildContext context) {
+    final cartStore = Provider.of<CartStore>(context, listen: false);
+    cartStore.clearItems();
+    cartStore.clearHerder();
+    //cartStore.clearComment();
     return SafeArea(
       child: Container(
         padding: EdgeInsets.all(5),
@@ -114,7 +120,7 @@ class _CalculatorViewState extends State<CalculatorView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
-            FittedBox(
+            /* FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(
                 currentCaptureValueText,
@@ -123,20 +129,21 @@ class _CalculatorViewState extends State<CalculatorView> {
                   fontSize: 28,
                 ),
               ),
-            ),
+            ), */
             FittedBox(
               fit: BoxFit.fitWidth,
               child: RichText(
                 text: TextSpan(
                   style: informationTextStyle.copyWith(color: Colors.black),
                   children: <TextSpan>[
-                    TextSpan(text: fullCalculText),
-                    if (pastvalues.length > 0)
-                      TextSpan(
-                        text: total.toString(),
-                        style: informationTextStyle.copyWith(
-                            color: Colors.black, fontSize: 22),
-                      ),
+                    TextSpan(
+                        text: fullCalculText == '0' ? ' ' : fullCalculText),
+                    //if (pastvalues.length > 0)
+                    TextSpan(
+                      text: total == 0 ? '' : total.toString(),
+                      style: informationTextStyle.copyWith(
+                          color: Colors.black, fontSize: 28),
+                    ),
                   ],
                 ),
               ),

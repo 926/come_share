@@ -95,7 +95,7 @@ class _MainViewState extends State<MainView> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.widgets),
-            title: Text('Denree'),
+            title: Text('Denrees'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.contacts),

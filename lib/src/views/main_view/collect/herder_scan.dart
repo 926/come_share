@@ -36,14 +36,14 @@ class _HerderCollectViewState extends State<HerderCollectView> {
   Herder selectedHerder;
   bool isSelectedHerder = true;
   List<Herder> _searchResults;
-  bool _activeSearchByBidon;
+  bool _isSearch;
   bool _activeSearchByQr;
   String _scanBarcode = '';
 
   @override
   void initState() {
     super.initState();
-    _activeSearchByBidon = false;
+    _isSearch = false;
     _activeSearchByQr = false;
   }
 
@@ -54,7 +54,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
     setState(() {
       _searchResults = searching;
       _activeSearchByQr = true;
-      _activeSearchByBidon = false;
+      _isSearch = false;
     });
   }
 
@@ -67,9 +67,23 @@ class _HerderCollectViewState extends State<HerderCollectView> {
     }).toList();
     setState(() {
       _searchResults = temp;
-      _activeSearchByBidon = true;
+      _isSearch = true;
       _activeSearchByQr = false;
     });
+  }
+
+  void matchHerder(String queryString) {
+    final herdersStore = Provider.of<HerdersStore>(context);
+    var temp = herdersStore.herders.singleWhere(
+        (h) =>
+            h.bidon.toString().contains(queryString) ||
+            h.firstName.toLowerCase().contains(queryString.toLowerCase()) ||
+            h.lastName.toLowerCase().contains(queryString.toLowerCase()),
+        orElse: () => null);
+
+    if (temp != null) {
+      setSelectedHerder(temp);
+    }
   }
 
   void setSelectedHerder(Herder val) {
@@ -135,16 +149,17 @@ class _HerderCollectViewState extends State<HerderCollectView> {
     // var clientHerder = herdersStore.herders.firstWhere((f) => f.id == 0, orElse: null);
     return Scaffold(
       appBar: AppBar(
-          leading: _activeSearchByBidon == false
+          backgroundColor: Colors.teal[400],
+          leading: _isSearch == false
               ? IconButton(
-                  icon: Icon(Icons.search),
+                  icon: Icon(Icons.search, color: Colors.white),
                   onPressed: () => setState(() {
-                    _activeSearchByBidon = true;
+                    _isSearch = true;
                   }),
                 )
               : Container(),
           actions: <Widget>[
-            !_activeSearchByBidon
+            !_isSearch
                 ? Container()
                 : Flexible(
                     flex: 1,
@@ -154,7 +169,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                         icon: Icon(Icons.close),
                         color: Colors.white,
                         onPressed: () => setState(() {
-                          _activeSearchByBidon = false;
+                          _isSearch = false;
                         }),
                       ),
                       title: TextField(
@@ -164,11 +179,15 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                         },
                         style: TextStyle(color: Colors.white),
                         keyboardType: TextInputType.text,
-                        onTap: () => setState(() =>
-                            _activeSearchByBidon = true), // really useful ?
+                        onSubmitted: (value) {
+                          matchHerder(value);
+                          setState(() => _isSearch = false); // really useful ?
+                        },
+                        /* onTap: () =>
+                            setState(() => _isSearch = true), // really useful ? */
                         decoration: InputDecoration(
-                          hintText: "n° bidon ou nom ou prénom",
-                          hintStyle: TextStyle(color: Colors.grey),
+                          hintText: "bidon/nom/prénom",
+                          hintStyle: TextStyle(color: Colors.grey[300]),
                         ),
                       ),
                     ),
@@ -206,7 +225,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
               ],
             ),
           ),
-          if (_activeSearchByBidon == false && _activeSearchByQr == false ||
+          if (_isSearch == false && _activeSearchByQr == false ||
               _searchResults == null)
             Expanded(
               child: Scrollbar(
@@ -241,86 +260,92 @@ class _HerderCollectViewState extends State<HerderCollectView> {
       ),
       floatingActionButton: Stack(
         children: <Widget>[
-          Align(
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton(
-              heroTag: 2,
-              backgroundColor: Colors.teal,
-              child: Text('OK'),
-              onPressed: () {
-                //final collectorStore = Provider.of<CollectorStore>(context);
-                final cartStore = Provider.of<CartStore>(context);
-                if (cartStore.items.isEmpty) {
-                  showDialogCSNotOk('Panier vide', context);
-                } else {
-                  _onSubmit();
-                }
-              },
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 106,
-            child: _scanBarcode == null || _scanBarcode.isEmpty
-                ? FloatingActionButton(
-                    child: Icon(Icons.speaker_phone),
-                    onPressed: () async {
-                      await scanQr();
-                      if (_scanBarcode != null && _scanBarcode.isNotEmpty)
-                        await selectScannedHerderToCart(_scanBarcode);
-                      setState(() {
-                        _searchByQr(_scanBarcode);
-                      }); // not working
-                    },
-                    backgroundColor: Color(0xFF1ac6ff),
-                    heroTag: 99)
-                : FloatingActionButton(
-                    mini: true,
-                    heroTag: 104,
-                    backgroundColor: Colors.red,
+          _isSearch
+              ? Container()
+              : Align(
+                  alignment: Alignment.bottomRight,
+                  child: FloatingActionButton(
+                    heroTag: 2,
+                    backgroundColor: Colors.teal,
+                    child: Text('OK'),
                     onPressed: () {
-                      setState(() {
-                        _scanBarcode = '';
-                        _activeSearchByQr = false;
-                        selectedHerder = herdersStore.herders
-                            .firstWhere((element) => element.id == 0);
-                        isSelectedHerder = false;
-                        if (cartStore.herder != null) {
-                          cartStore.clearHerder();
-                        }
-                      });
+                      //final collectorStore = Provider.of<CollectorStore>(context);
+                      final cartStore = Provider.of<CartStore>(context);
+                      if (cartStore.items.isEmpty) {
+                        showDialogCSNotOk('Panier vide', context);
+                      } else {
+                        _onSubmit();
+                      }
                     },
-                    child: Icon(Icons.settings_backup_restore),
                   ),
-          ),
-          Positioned(
-            bottom: 0,
-            right: 106,
-            child: isSelectedHerder
-                ? Container()
-                : cartStore?.herder != null && cartStore?.herder?.id != 0
-                    ? FloatingActionButton(
-                        backgroundColor: Colors.red[800],
-                        heroTag: 1,
-                        onPressed: () {
-                          setState(() {
-                            isSelectedHerder = false;
-                            selectedHerder = null;
-                            _activeSearchByQr = false;
-                            _scanBarcode = '';
-                          });
-                          if (cartStore.herder != null) {
-                            cartStore.clearHerder();
-                          }
-                        },
-                        child: Column(
-                          children: <Widget>[
-                            Text("${cartStore?.herder?.bidon}"),
-                            Icon(Icons.cancel),
-                          ],
-                        ))
-                    : Container(),
-          ),
+                ),
+          _isSearch
+              ? Container()
+              : Positioned(
+                  bottom: 0,
+                  right: 106,
+                  child: _scanBarcode == null || _scanBarcode.isEmpty
+                      ? FloatingActionButton(
+                          child: Icon(Icons.speaker_phone),
+                          onPressed: () async {
+                            await scanQr();
+                            if (_scanBarcode != null && _scanBarcode.isNotEmpty)
+                              await selectScannedHerderToCart(_scanBarcode);
+                            setState(() {
+                              _searchByQr(_scanBarcode);
+                            }); // not working
+                          },
+                          backgroundColor: Colors.cyan,
+                          heroTag: 99)
+                      : FloatingActionButton(
+                          mini: true,
+                          heroTag: 104,
+                          backgroundColor: Colors.red,
+                          onPressed: () {
+                            setState(() {
+                              _scanBarcode = '';
+                              _activeSearchByQr = false;
+                              selectedHerder = herdersStore.herders
+                                  .firstWhere((element) => element.id == 0);
+                              isSelectedHerder = false;
+                              if (cartStore.herder != null) {
+                                cartStore.clearHerder();
+                              }
+                            });
+                          },
+                          child: Icon(Icons.settings_backup_restore),
+                        ),
+                ),
+          _isSearch
+              ? Container()
+              : Positioned(
+                  bottom: 0,
+                  right: 106,
+                  child: isSelectedHerder
+                      ? Container()
+                      : cartStore?.herder != null && cartStore?.herder?.id != 0
+                          ? FloatingActionButton(
+                              backgroundColor: Colors.red[800],
+                              heroTag: 1,
+                              onPressed: () {
+                                setState(() {
+                                  isSelectedHerder = false;
+                                  selectedHerder = null;
+                                  _activeSearchByQr = false;
+                                  _scanBarcode = '';
+                                });
+                                if (cartStore.herder != null) {
+                                  cartStore.clearHerder();
+                                }
+                              },
+                              child: Column(
+                                children: <Widget>[
+                                  Text("${cartStore?.herder?.bidon}"),
+                                  Icon(Icons.cancel),
+                                ],
+                              ))
+                          : Container(),
+                ),
         ],
       ),
     );
@@ -375,15 +400,9 @@ class _HerderCollectViewState extends State<HerderCollectView> {
       child: RadioListTile(
         isThreeLine: true,
         title: Text(
-            '${herdersStore.herders[index]?.firstName} ${herdersStore.herders[index]?.lastName}' ??
+            '${herdersStore.herders[index].firstName} ${herdersStore.herders[index].lastName}' ??
                 "noName"),
-        subtitle: Text('hello'),
-        // subtitle: Text(
-        //     'bidon : ${herdersStore?.herders[index]?.bidon.toString()}' +
-        //                 herdersStore?.herders[index]?.tel !=
-        //             null
-        //         ? 'tel : ${herdersStore?.herders[index]?.tel}'
-        //         : ''),
+        subtitle: Text('bidon : ${herdersStore?.herders[index]?.bidon}'),
         value: herdersStore.herders[index],
         groupValue: selectedHerder,
         onChanged: (currentHerder) {

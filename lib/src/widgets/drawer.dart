@@ -1,4 +1,5 @@
 import 'package:come_share/src/routes/collect/collect.dart';
+import 'package:come_share/src/routes/collector_detail.dart';
 import 'package:come_share/src/routes/export.dart';
 import 'package:come_share/src/routes/flocks/flocks.dart';
 import 'package:come_share/src/routes/settings_import.dart';
@@ -34,8 +35,8 @@ class AppDrawer extends StatelessWidget {
                       title: Text('Info collecteur'),
                       onTap: () {
                         Navigator.of(context).pop();
-                        // Navigator.of(context).pushNamed(
-                        //     ColectorDetailRoute.generateRoute('0')); // for now
+                        Navigator.of(context)
+                            .pushNamed(CollectorRoute.routePath); // for now
                       },
                     ),
                   ],

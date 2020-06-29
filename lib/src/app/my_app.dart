@@ -78,21 +78,13 @@ class _LoadingState extends State<Loading> {
   void initState() {
     super.initState();
     final appStore = Provider.of<AppStore>(context, listen: false);
-    final flocksStore = Provider.of<FlocksStore>(context, listen: false);
+    //final flocksStore = Provider.of<FlocksStore>(context, listen: false);
     //final cartStore = Provider.of<CartStore>(context, listen: false);
 
     when(
       (_) => !appStore.initialLoading,
       () {
-        if (flocksStore.flocks.length > 1) {
-          //Navigator.of(context).pushReplacementNamed(SellRoute.routePath);
-          Navigator.of(context)
-              .pushReplacementNamed(CommoditiesRoute.routePath);
-        } else {
-          //initPlatformState();
-          Navigator.of(context)
-              .pushReplacementNamed(CommoditiesRoute.routePath);
-        }
+        Navigator.of(context).pushReplacementNamed(CollectRoute.routePath);
       },
     );
   }
