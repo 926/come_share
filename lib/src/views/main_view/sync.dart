@@ -2,14 +2,14 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:provider/provider.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/stores/commodities.dart';
-//import 'package:come_share/src/stores/collector.dart';
-import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/views/main_view/main_view.dart';
+// import 'package:provider/provider.dart';
+// import 'package:come_share/src/stores/commodities.dart';
+// import 'package:come_share/src/stores/collector.dart';
+// import 'package:come_share/src/stores/flocks.dart';
 // import 'package:come_share/src/webhooks/status.dart';
 // import 'package:come_share/src/webhooks/upload_commodities.dart';
 // import 'package:come_share/src/webhooks/upload_flocks.dart';
@@ -42,10 +42,9 @@ class _SyncViewState extends State<SyncView>
   @override
   Widget build(BuildContext context) {
     //final shopsStore = Provider.of<ShopStore>(context);
-    final flocksStore = Provider.of<FlocksStore>(context, listen: true);
-    final commoditiesStore =
-        Provider.of<CommoditiesStore>(context, listen: true);
-    print('flocks length ${flocksStore.flocks.length}');
+    //final flocksStore = Provider.of<FlocksStore>(context, listen: true);
+    //final commoditiesStore = Provider.of<CommoditiesStore>(context, listen: true);
+    //print('flocks length ${flocksStore.flocks.length}');
     return IgnorePointer(
       ignoring: submitting,
       child: MainView(

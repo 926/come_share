@@ -6,25 +6,20 @@ import 'package:provider/provider.dart';
 import 'package:spreadsheet_decoder/spreadsheet_decoder.dart';
 import 'dart:io';
 import 'dart:async';
-import 'dart:convert';
 import 'package:csv/csv.dart';
 import 'package:intent/intent.dart' as intent;
 import 'package:intent/extra.dart' as intent_extra;
 import 'package:intent/action.dart' as intent_action;
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sembast/sembast.dart';
-import 'package:sembast/sembast_io.dart';
-import 'package:sembast/utils/sembast_import_export.dart';
 import 'package:come_share/src/stores/herders.dart';
 import 'package:come_share/src/utils/save_excel.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/stores/commodities.dart';
-//import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/stores/flocks.dart';
+//import 'package:come_share/src/utils/basic_dialog.dart';
+//import 'package:come_share/src/stores/collector.dart';
 
 class Export extends StatefulWidget {
   Export({
@@ -60,7 +55,7 @@ class ExportState extends State<Export> {
     );
   }
 
-//TODO
+//TODO test on android, check ios
   Future<void> shareExcelFile(String string) async {
     Directory directory = await getApplicationDocumentsDirectory();
     var dbPath = join(directory.path, "collecte.");
@@ -84,7 +79,7 @@ class ExportState extends State<Export> {
     // final thiscollector = collectorStore.collector.first;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Export des fichiers'),
+        title: Text('Export .csv / .xlsl'),
       ),
       body: Center(
         child: Column(
@@ -104,13 +99,33 @@ class ExportState extends State<Export> {
                   ),
                   Expanded(
                       child: Text(
-                          'Sauvegarder et partager \nle fichier collecte')),
+                          'Sauvegarder et partager \nle fichier collecte sous .csv')),
                 ],
               ),
               onPressed: () {
                 getFlocksCsv(context);
-                getFlocksExcel(context);
                 shareFile('flocks.csv');
+              },
+            ),
+            RaisedButton(
+              //color: Colors.black54,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(
+                    Icons.receipt,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(Icons.share),
+                  ),
+                  Expanded(
+                      child: Text(
+                          'Sauvegarder et partager \nle fichier collecte sous excel')),
+                ],
+              ),
+              onPressed: () {
+                getFlocksExcel(context);
                 shareExcelFile('flocks.xlsl');
               },
             ),

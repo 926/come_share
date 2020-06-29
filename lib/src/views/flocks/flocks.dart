@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/views/flocks/flock_overview.dart';
-import 'package:come_share/src/views/main_view/main_view.dart';
 
 class FlocksView extends StatefulWidget {
   @override

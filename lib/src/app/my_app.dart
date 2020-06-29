@@ -10,14 +10,12 @@ import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/stores/app.dart';
 import 'package:flutter/widgets.dart';
-import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
 import 'package:come_share/src/routes/settings_import.dart';
 import 'package:rc_router/rc_router.dart';
-//import 'package:come_share/src/stores/cart.dart';
 
 class MyApp extends StatefulWidget {
   @override

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/views/flocks/flock_detail.dart';
 
 import 'collect.dart';

@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 enum AppBarAction {
@@ -11,7 +9,6 @@ enum AppBarAction {
 
 class AppBarActions extends ChangeNotifier {
   static List<Widget> emptyActions = [];
-
 
   //static final _actionController = StreamController<AppBarAction>.broadcast();
 

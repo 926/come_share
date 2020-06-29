@@ -1,3 +1,5 @@
+import 'package:come_share/src/rpc/collector/get_collector.dart';
+import 'package:come_share/src/servives/collector.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/rpc/herder/delete_herders.dart';
@@ -50,6 +52,11 @@ class ServicesProvider extends StatelessWidget {
               (c, getCommoditiesRpc, saveAllCommoditiesRpc, previousService) {
             return previousService ??
                 CommoditiesService(getCommoditiesRpc, saveAllCommoditiesRpc);
+          },
+        ),
+        ProxyProvider<GetCollectorRpc, CollectorService>(
+          update: (c, getCollectorRpc, previousService) {
+            return previousService ?? CollectorService(getCollectorRpc);
           },
         ),
       ],

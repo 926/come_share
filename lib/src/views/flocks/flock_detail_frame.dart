@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:share/share.dart';
-import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/stores/herders.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/views/flocks/flock_detail.dart';
 import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/stores/commodities.dart';
@@ -123,14 +119,6 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
   }
 
   PreferredSizeWidget _appBarTrue() {
-    final flock = Provider.of<Flock>(context, listen: true);
-    //final collectorStore = Provider.of<CollectorStore>(context, listen: false);
-    //final thisCollector = collectorStore.collector.first;
-
-    final herdersStore = Provider.of<HerdersStore>(context, listen: false);
-    Herder thisHerder = herdersStore.herders.firstWhere(
-        (h) => h.id.toString() == flock.herderId,
-        orElse: () => herdersStore.herders.first);
     return AppBar(
       leading: Builder(
         builder: (BuildContext context) {

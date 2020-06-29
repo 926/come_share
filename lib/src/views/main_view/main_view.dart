@@ -4,18 +4,11 @@ import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
 import 'package:come_share/src/utils/back_pressed.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:come_share/src/routes/collect/collect.dart';
-import 'package:come_share/src/stores/cart.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/widgets/drawer.dart';
 import 'package:flutter/rendering.dart';
 import 'package:package_info/package_info.dart';
-// import 'package:come_share/src/routes/sync/sync.dart';
-// import 'package:come_share/src/routes/flocks/flocks.dart';
-// import 'package:come_share/src/routes/herders/herders.dart';
-// import 'package:come_share/src/routes/commodities/commodities.dart';
-//import 'package:come_share/src/stores/collector.dart';
 
 class MainView extends StatefulWidget {
   final Widget body;
@@ -53,7 +46,7 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    final cartStore = Provider.of<CartStore>(context, listen: true);
+    //final cartStore = Provider.of<CartStore>(context, listen: true);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: selectedColor[widget.selectedIndex],

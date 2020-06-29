@@ -65,7 +65,7 @@ class AppDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(Icons.save),
-              title: Text('Export .csv/.xlsl'),
+              title: Text('Export .csv / .xlsl'),
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pushNamed(ExportRoute.routePath);

@@ -1,11 +1,11 @@
+import 'package:come_share/src/utils/formatters.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/routes/flocks/flock_detail_frame.dart';
-//import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/stores/herders.dart';
 import 'package:provider/provider.dart';
+//import 'package:come_share/src/stores/collector.dart';
 
 class FlockOverviewWidget extends StatelessWidget {
   final Flock flock;
@@ -30,22 +30,29 @@ class FlockOverviewWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: Row(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 2,
-                      horizontal: 8,
-                    ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: Text('#${flock.id}'),
+                ),
+              ],
+            ),
+            Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 2,
+                    horizontal: 8,
                   ),
-                  Text(flock.status == true ? '' : 'annulé',
-                      style: TextStyle(
-                          fontStyle: FontStyle
-                              .italic)), // to update accordingly with // if ticket is disabled icon displayed in grey
-                ],
-              ),
+                ),
+                Text(flock.status == true ? '' : 'annulé',
+                    style: TextStyle(
+                        fontStyle: FontStyle
+                            .italic)), // to update accordingly with // if ticket is disabled icon displayed in grey
+              ],
             ),
             Expanded(
               child: Column(
@@ -53,10 +60,11 @@ class FlockOverviewWidget extends StatelessWidget {
                 children: <Widget>[
                   Text(
                     flock.status == true
-                        ? '${flock.type} : ${flock.items.fold(0, (prev, element) => prev + element.quantity)}'
+                        ? '${flock.type} : ${numberFormatter.format(flock.items.fold(0, (prev, element) => prev + element.quantity))}'
                         : '${flock.status}',
                   ),
-                  Text('${thisHerder.firstName} ${thisHerder.lastName}'),
+                  Text(
+                      '${thisHerder.firstName} ${thisHerder.lastName} n°${thisHerder.bidon}'),
                   Text(
                     '${flock.date.year}_${flock.date.month}_${flock.date.day} a ${flock.date.hour}:${flock.date.minute}',
                     style: TextStyle(
@@ -66,12 +74,6 @@ class FlockOverviewWidget extends StatelessWidget {
                 ],
               ),
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Text('#${flock.id}'),
-              ],
-            )
           ],
         ),
       ),

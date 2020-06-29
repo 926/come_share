@@ -1,5 +1,6 @@
 //import 'dart:async';
 
+import 'package:come_share/src/views/flocks/flock_overview.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
@@ -27,7 +28,6 @@ class _HerderDetailWidgetState extends State<HerderDetailWidget> {
   void initState() {
     super.initState();
     herderStatus = widget.herder.status;
-    ;
   }
 
   String makeItPretty(Map<String, Herder> map) {
@@ -44,10 +44,6 @@ class _HerderDetailWidgetState extends State<HerderDetailWidget> {
   Widget build(BuildContext context) {
     //final shopStore = Provider.of<ShopStore>(context);
     //final thisShop = shopStore.shop.first;
-    var flocksStore = Provider.of<FlocksStore>(context);
-
-    DateTime now = new DateTime.now();
-    DateTime date = new DateTime(now.year, now.month, now.day);
 
     return WillPopScope(
       onWillPop: () async =>
@@ -275,11 +271,10 @@ class HerderFlocksList extends StatelessWidget {
         reverse: true,
         shrinkWrap: true,
         children: <Widget>[
-          // TODO
-          //for (final flock in herderFlockss)
-          //  FlockOverviewWidget(
-          //    flock: flock,
-          //  )
+          for (final flock in herderFlockss)
+            FlockOverviewWidget(
+              flock: flock,
+            )
         ],
       ),
     );
