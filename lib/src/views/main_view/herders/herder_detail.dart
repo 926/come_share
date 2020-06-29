@@ -59,7 +59,7 @@ class _HerderDetailWidgetState extends State<HerderDetailWidget> {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        colors: [Colors.white, Colors.blue[900]],
+                        colors: [Colors.white, Colors.blue[700]],
                         begin: Alignment.bottomCenter,
                         end: Alignment(0.0, 0.9),
                         tileMode: TileMode.clamp),
@@ -81,9 +81,8 @@ class _HerderDetailWidgetState extends State<HerderDetailWidget> {
                             ),
                             Text(
                               '${widget.herder.firstName} ${widget.herder.lastName}',
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 16),
                             ),
                           ],
                         ),

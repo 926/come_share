@@ -1,4 +1,5 @@
 import 'package:come_share/src/routes/collector_detail.dart';
+import 'package:come_share/src/routes/commodities/commodity_detail.dart';
 import 'package:come_share/src/routes/commodities/lot_detail.dart';
 import 'package:come_share/src/routes/export.dart';
 import 'package:come_share/src/routes/flocks/flock_detail_frame.dart';
@@ -32,18 +33,18 @@ class _MyAppState extends State<MyApp> {
 
     rcRoutes = RcRoutes(
       routes: [
-        CollectRoute(navigatorKey),
         CommoditiesRoute(navigatorKey),
+        CommodityDetailRoute(),
         LotDetailRoute(),
-        CommoditiesRoute(navigatorKey),
+        CollectRoute(navigatorKey),
         HerdersRoute(navigatorKey),
         HerderDetailRoute(),
         SyncRoute(navigatorKey),
-        SettingsImportRoute(),
-        ExportRoute(),
+        CollectorRoute(),
         FlocksRoute(),
         FlockDetailRoute(),
-        CollectorRoute(),
+        SettingsImportRoute(),
+        ExportRoute(),
         // aboutRoute
       ],
     );

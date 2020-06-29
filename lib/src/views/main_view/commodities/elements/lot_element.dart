@@ -20,23 +20,27 @@ class LotItemWidget extends StatelessWidget {
       },
       child: ListTile(
         leading: SizedBox(
-          width: 75,
-          height: 50,
-          child: Icon(Icons.check_box_outline_blank)
-        ),
+            width: 75,
+            //height: 50,
+            child: Text(lot.id == 1 ? 'lot' : '${lot.commodityId}.${lot.id}',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.grey))),
         title: Row(
           children: <Widget>[
             Expanded(
-              child: Text(
-                  lot.id == 1
-                      ? 'lot par défaut'
-                      : 'lot ${lot.commodityId}.${lot.id}',
-                  style: TextStyle(color: Colors.grey)),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Text('${numberFormatter?.format(lot?.quantity)}',
+                    style: TextStyle(color: Colors.grey)),
+              ),
             ),
-            Text('${numberFormatter?.format(lot?.quantity)}',
-                style: TextStyle(color: Colors.grey)),
-            SizedBox(width: ScreenUtil().setWidth(10)),
-            Icon(Icons.opacity, color: Colors.grey),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                SizedBox(width: ScreenUtil().setWidth(10)),
+                Icon(Icons.opacity, color: Colors.grey),
+              ],
+            ),
           ],
         ),
         trailing: Icon(Icons.free_breakfast, color: Colors.transparent),

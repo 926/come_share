@@ -35,8 +35,9 @@ class _LotDetailWidgetState extends State<LotDetailWidget> {
             builder: (BuildContext c) {
               return IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: () => CommodityDetailRoute.generateRoute(
-                    '${widget.lot.commodityId}'),
+                onPressed: () => Navigator.of(context).pushNamed(
+                    CommodityDetailRoute.generateRoute(
+                        '${widget.lot.commodityId}')),
                 tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
               );
             },
@@ -64,7 +65,7 @@ class _LotDetailWidgetState extends State<LotDetailWidget> {
                           child: Column(
                             children: <Widget>[
                               //TODO
-                              Icon(Icons.ac_unit),
+                              Icon(Icons.check_box_outline_blank),
                             ],
                           ),
                         ),
@@ -97,7 +98,7 @@ class _LotDetailWidgetState extends State<LotDetailWidget> {
                           "Quantité : ",
                         ),
                         Text(
-                          "${numberFormatter?.format(widget.lot?.quantity)}/∞",
+                          "${numberFormatter?.format(widget.lot?.quantity)}",
                         ),
                       ],
                     ),
@@ -160,14 +161,10 @@ class _LotDetailWidgetState extends State<LotDetailWidget> {
                         Text(
                           "Date de création : ",
                         ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Container(
-                            width: 200,
-                            child: Text(
-                              "${widget.lot?.lotDate}",
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
+                        Expanded(
+                          child: Text(
+                            "${widget.lot?.lotDate.toString().substring(0, 19)}",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],

@@ -27,4 +27,3 @@ Note : a qr code is in the assets if you play with the qr code scan and the samp
 Big thanks to Kevin Segaud aka (Kleak)[https://github.com/Kleak] for showing the way to Dart development,
 Cheers Hugo for onboarding a rolling boat,
 Big cheers to (Tom Seidel)[https://pixabay.com/users/desater-13463957/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4440811] for providing a dairy cool logo 
-> ![](assets/milk-logo.png).

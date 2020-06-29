@@ -4,6 +4,7 @@ import 'package:come_share/src/routes/export.dart';
 import 'package:come_share/src/routes/flocks/flocks.dart';
 import 'package:come_share/src/routes/settings_import.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 // import 'package:provider/provider.dart';
 // import 'package:weebi/src/views/onboarding/onboarding.dart';
 // import 'package:weebi/src/routes/cashcount/cashcount.dart';
@@ -23,7 +24,10 @@ class AppDrawer extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     ListTile(
-                      leading: Icon(Icons.home, color: Colors.teal),
+                      leading: SvgPicture.asset(
+                        'assets/svg/calculator.svg',
+                        color: Colors.teal,
+                      ),
                       title: Text('Come Share'),
                       onTap: () {
                         Navigator.of(context)
@@ -31,7 +35,7 @@ class AppDrawer extends StatelessWidget {
                       },
                     ),
                     ListTile(
-                      leading: Icon(Icons.motorcycle),
+                      leading: Icon(Icons.motorcycle, color: Colors.red[400]),
                       title: Text('Info collecteur'),
                       onTap: () {
                         Navigator.of(context).pop();

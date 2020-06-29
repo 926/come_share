@@ -8,7 +8,7 @@ class GetCollectorRpc implements EndpointBase<List<Collector>, void> {
   GetCollectorRpc(this._database);
 
   Future<List<Collector>> request(void _) async {
-    final data = (await _database.get('collector') as List ?? [])
+    final data = (await _database.get('collectors') as List ?? [])
         .cast<Map>()
         .cast<Map<String, dynamic>>();
     return data.map((json) => Collector.fromJson(json)).toList();

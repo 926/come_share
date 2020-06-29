@@ -1,4 +1,6 @@
+import 'package:come_share/src/servives/collector.dart';
 import 'package:come_share/src/servives/commodities.dart';
+import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/stores/commodities.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
@@ -7,8 +9,7 @@ import 'package:come_share/src/servives/herders.dart';
 import 'package:come_share/src/stores/herders.dart';
 import 'package:come_share/src/stores/app.dart';
 import 'package:come_share/src/stores/flocks.dart';
-
-import '../stores/cart.dart';
+import 'package:come_share/src/stores/cart.dart';
 
 class StoresProvider extends StatelessWidget {
   final Widget child;
@@ -34,20 +35,23 @@ class StoresProvider extends StatelessWidget {
             return previousStore ?? CommoditiesStore(service);
           },
         ),
+        ProxyProvider<CollectorService, CollectorStore>(
+          update: (c, service, previousStore) {
+            return previousStore ?? CollectorStore(service);
+          },
+        ),
         ProxyProvider<CommoditiesStore, CartStore>(
           update: (c, commoditiesStore, previousStore) {
             return CartStore(commoditiesStore);
           },
         ),
-        ProxyProvider3<FlocksStore, HerdersStore, CommoditiesStore, AppStore>(
-          update:
-              (c, flocksStore, herdersStore, commoditiesStore, previousStore) {
+        ProxyProvider4<FlocksStore, HerdersStore, CommoditiesStore,
+            CollectorStore, AppStore>(
+          update: (c, flocksStore, herdersStore, commoditiesStore,
+              collectorStore, previousStore) {
             return previousStore ??
-                AppStore(
-                  flocksStore,
-                  herdersStore,
-                  commoditiesStore,
-                );
+                AppStore(flocksStore, herdersStore, commoditiesStore,
+                    collectorStore);
           },
         ),
       ],

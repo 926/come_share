@@ -122,7 +122,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
 
     for (final item in cartStore.items) {
       print('we are in view, show me the lot : ${item.lot} ${item.quantity}');
-      await commoditiesStore.removeLotDouble(
+      await commoditiesStore.incrementLotDouble(
         item.lot,
         item.quantity,
       );

@@ -38,6 +38,7 @@ class _FlocksViewState extends State<FlocksView> {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blueGrey,
         title: Text('Recus'),
       ),
       drawer: AppDrawer(),
@@ -46,13 +47,13 @@ class _FlocksViewState extends State<FlocksView> {
           _activeSearch
               ? Container()
               : Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 60),
+                  padding: EdgeInsets.symmetric(horizontal: 42),
                   child: Align(
                     alignment: Alignment.bottomRight,
                     child: FloatingActionButton(
                       child: Icon(Icons.search, color: Colors.white),
                       heroTag: 'bt1',
-                      backgroundColor: Color(0xFF20272B),
+                      backgroundColor: Colors.blueGrey,
                       onPressed: () {
                         setState(() {
                           _activeSearch = true;

@@ -27,6 +27,7 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Collecteur'),
+        backgroundColor: Colors.red[400],
       ),
       body: Column(
         children: [
@@ -37,18 +38,20 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
                 child: Column(
                   children: <Widget>[
                     Icon(
-                      Icons.face, // get filter number
+                      Icons.motorcycle, // get filter number
                     ),
                   ],
                 ),
               ),
               Text(
-                "Nom ",
+                "Nom : ",
               ),
-              Text(
-                "${thisCollector.firstName} ${thisCollector.lastName}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  "${thisCollector.firstName} ${thisCollector.lastName}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -68,10 +71,12 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
               Text(
                 "Numéro de téléphone : ",
               ),
-              Text(
-                "${thisCollector.tel}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  "${thisCollector.tel}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -91,10 +96,12 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
               Text(
                 "Mail : ",
               ),
-              Text(
-                "${thisCollector.mail}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  "${thisCollector.mail}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
@@ -114,10 +121,12 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
               Text(
                 "Adresse : ",
               ),
-              Text(
-                "${thisCollector.address}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+              Expanded(
+                child: Text(
+                  "${thisCollector.address}",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],

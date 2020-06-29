@@ -1,4 +1,5 @@
 import 'package:come_share/src/stores/commodities.dart';
+import 'package:come_share/src/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
@@ -27,10 +28,10 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    //final shopStore = Provider.of<ShopStore>(context, listen: false);
+    //final collectorStore = Provider.of<ShopStore>(context, listen: false);
     final herdersStore = Provider.of<HerdersStore>(context, listen: false);
-    final commoditiesStore =
-        Provider.of<CommoditiesStore>(context, listen: false);
+    // final commoditiesStore =
+    //     Provider.of<CommoditiesStore>(context, listen: false);
     final herders = herdersStore.herders;
     Herder thisHerder;
 
@@ -47,6 +48,20 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            for (final item in widget.flock.items)
+              Row(
+                children: <Widget>[
+                  Icon(Icons.local_drink),
+                  SizedBox(
+                    width: 28,
+                  ),
+                  Expanded(
+                    child: Text('${numberFormatter.format(item.quantity)} l',
+                        style: TextStyle(fontSize: 16)),
+                  ),
+                ],
+              ),
+            Divider(),
             Row(
               children: <Widget>[
                 Icon(
@@ -55,7 +70,7 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
                 SizedBox(
                   width: 28,
                 ),
-                Text('${widget.flock.id}'),
+                Text('#${widget.flock.id}'),
               ],
             ),
             Row(
@@ -77,17 +92,6 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
                 Text('${widget.flock.type}'),
               ],
             ), */
-            Divider(),
-            for (final item in widget.flock.items)
-              Row(
-                children: <Widget>[
-                  Text(
-                      '${commoditiesStore.commodities.firstWhere((c) => c.id == item.lot.commodityId).name ?? 'inconnu'} : '),
-                  Expanded(
-                    child: Text('${item.quantity}'),
-                  ),
-                ],
-              ),
             Divider(),
             widget.flock.comment != null && widget.flock.comment != ''
                 ? Row(

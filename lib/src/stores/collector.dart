@@ -22,17 +22,18 @@ abstract class CollectorStoreBase with Store {
 
   @action
   Future<void> loadTasks() async {
-    collector = await _collectorService.getCollectorRpc.request(null);
-  }
-
-  @action
-  Future<void> init() async {
     final _collectors = await _collectorService.getCollectorRpc.request(null);
     collector = ObservableList.of(_collectors);
     initialLoading = false;
   }
 
-  /* @action
+  @action
+  Future<void> init() async {
+    await loadTasks();
+    initialLoading = false;
+  }
+
+/* @action
   Future<List<Collector>> importCollectorFromMongo(List<Collector> _collector) async {
     collector = _collector;
     await _collectorService.saveCollectorRpc.request(_collector);

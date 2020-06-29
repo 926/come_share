@@ -25,7 +25,6 @@ class _CommodityDetailWidgetState extends State<CommodityDetailWidget> {
     commodityStatus = widget.commodity.status;
   }
 
-
   Gradient getcommodityGradient(bool widgetcommodityStatus) {
     if (widgetcommodityStatus == true) {
       return LinearGradient(
@@ -76,7 +75,7 @@ class _CommodityDetailWidgetState extends State<CommodityDetailWidget> {
             },
           ),
           title: Text(
-            'Fiche Produit',
+            'Fiche Produit ${widget.commodity.id}',
             style: TextStyle(color: Colors.white),
           ),
           actions: <Widget>[],
@@ -104,35 +103,6 @@ class _CommodityDetailWidgetState extends State<CommodityDetailWidget> {
                                       image: AssetImage(
                                           'assets/photos/${widget.commodity.photo}')))
                               : Container(),
-                          Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 20),
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(
-                                      Icons.dialpad,
-                                      color: Colors.black,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "Numéro : ",
-                                  style: TextStyle(),
-                                ),
-                              ),
-                              Text(
-                                "${widget.commodity.id}",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
                           Row(
                             children: <Widget>[
                               Padding(
@@ -210,35 +180,6 @@ class _CommodityDetailWidgetState extends State<CommodityDetailWidget> {
                                   ],
                                 )
                               : Container(),
-                          Divider(
-                            height: 15,
-                          ),
-                          Row(
-                            children: <Widget>[
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5, horizontal: 20),
-                                child: Column(
-                                  children: <Widget>[
-                                    Icon(Icons.format_list_numbered,
-                                        color: Colors.black),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Text(
-                                  "Nombre de lots : ",
-                                  style: TextStyle(),
-                                ),
-                              ),
-                              Text(
-                                "${widget.commodity.lots.length}",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
                           Row(
                             children: <Widget>[
                               Padding(

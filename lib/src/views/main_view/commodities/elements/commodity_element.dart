@@ -53,11 +53,16 @@ class _CommodityItemWidgetState extends State<CommodityItemWidget> {
                 ),
               ),
             ),
-            Text(widget.commodity.id != 0
-                ? '${numberFormatter?.format(widget.commodity.lots.fold(0, (lotValue, lot) => lotValue + (lot?.quantity)))}'
-                : ''),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(widget.commodity.id != 0
+                    ? '${numberFormatter?.format(widget.commodity.lots.fold(0, (lotValue, lot) => lotValue + (lot?.quantity)))}'
+                    : ''),
+                Icon(Icons.opacity, color: iconColor)
+              ],
+            ),
             //SizedBox(width: ScreenUtil().setWidth(10)),
-            Icon(Icons.opacity, color: iconColor)
           ],
         ),
         children: <Widget>[
