@@ -26,6 +26,7 @@ class AppDrawer extends StatelessWidget {
                             thisCollector.companyPhoto.isEmpty
                         ? Container()
                         : Container(
+                            height: 80,
                             child: Image(
                               image: AssetImage(
                                   'assets/photos/${thisCollector.companyPhoto}'),
@@ -42,22 +43,20 @@ class AppDrawer extends StatelessWidget {
                             .pushReplacementNamed(CollectRoute.routePath);
                       },
                     ),
-                    ListTile(
-                      leading: Icon(Icons.motorcycle, color: Colors.red[400]),
-                      title: Text('Info collecteur'),
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context)
-                            .pushNamed(CollectorRoute.routePath); // for now
-                      },
-                    ),
                   ],
                 ),
               ),
             ),
-            // thisCollector.isLocked == true
-            //     ? Container()
-            //     :
+
+            ListTile(
+              leading: Icon(Icons.motorcycle, color: Colors.red[400]),
+              title: Text('Info collecteur'),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context)
+                    .pushNamed(CollectorRoute.routePath); // for now
+              },
+            ),
             ListTile(
               leading: Icon(Icons.receipt),
               title: Text('Recus'),
