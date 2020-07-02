@@ -1,4 +1,4 @@
-import 'package:come_share/src/stores/commodities.dart';
+// import 'package:come_share/src/stores/commodities.dart';
 import 'package:come_share/src/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/herder.dart';
@@ -43,9 +43,10 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
       thisHerder = null;
     }
 
-    return Scaffold(
-      body: SingleChildScrollView(
+    return Scrollbar(
+      child: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             for (final item in widget.flock.items)
@@ -85,13 +86,13 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
               ],
             ),
             /* Row(
-              children: <Widget>[
-                SizedBox(
-                  width: 28,
-                ),
-                Text('${widget.flock.type}'),
-              ],
-            ), */
+                children: <Widget>[
+                  SizedBox(
+                    width: 28,
+                  ),
+                  Text('${widget.flock.type}'),
+                ],
+              ), */
             Divider(),
             widget.flock.comment != null && widget.flock.comment != ''
                 ? Row(

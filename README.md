@@ -24,6 +24,17 @@ Note : a qr code is in the assets if you play with the qr code scan and the samp
 
 ***
 
-Big thanks to Kevin Segaud aka (Kleak)[https://github.com/Kleak] for showing the way to Dart development,
+Big thanks to Kevin Segaud aka [Kleak](https://github.com/Kleak) for showing the way to Dart development,
 Cheers Hugo for onboarding a rolling boat,
-Big cheers to (Tom Seidel)[https://pixabay.com/users/desater-13463957/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4440811] for providing a dairy cool logo 
+Big cheers to [Tom Seidel](https://pixabay.com/users/desater-13463957/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4440811) for providing a dairy cool logo 
+
+## Screenshots
+### Commodities view
+![e](assets/come_share_screenshot_1.jpg)
+### Collect view
+#### Collect view 1 - type quantity
+![z](assets/come_share_screenshot_2.jpg)
+#### Collect view 2 - select herder/contact
+![a](assets/come_share_screenshot_3.jpg)
+#### Collect view 3 - receipt
+![s](assets/come_share_screenshot_4.jpg)

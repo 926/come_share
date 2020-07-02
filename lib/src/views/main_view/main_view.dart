@@ -41,7 +41,7 @@ class _MainViewState extends State<MainView> {
     Colors.orange[800],
     Colors.blue[800],
     Colors.teal,
-    Colors.red[800],
+    Color(0xff82AAED),
   ];
 
   @override
