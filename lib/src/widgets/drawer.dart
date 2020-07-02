@@ -3,17 +3,16 @@ import 'package:come_share/src/routes/collector_detail.dart';
 import 'package:come_share/src/routes/export.dart';
 import 'package:come_share/src/routes/flocks/flocks.dart';
 import 'package:come_share/src/routes/settings_import.dart';
+import 'package:come_share/src/stores/collector.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-// import 'package:provider/provider.dart';
-// import 'package:weebi/src/views/onboarding/onboarding.dart';
-// import 'package:weebi/src/routes/cashcount/cashcount.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //final collectorStore = Provider.of<CollectorStore>(context);
-    //final thisCollector = collectorStore.shop.first;
+    final collectorStore = Provider.of<CollectorStore>(context);
+    final thisCollector = collectorStore.collector.first;
 
     return Drawer(
       child: SingleChildScrollView(
@@ -23,6 +22,15 @@ class AppDrawer extends StatelessWidget {
               child: Container(
                 child: Column(
                   children: <Widget>[
+                    thisCollector.companyPhoto == null ||
+                            thisCollector.companyPhoto.isEmpty
+                        ? Container()
+                        : Container(
+                            child: Image(
+                              image: AssetImage(
+                                  'assets/photos/${thisCollector.companyPhoto}'),
+                            ),
+                          ),
                     ListTile(
                       leading: SvgPicture.asset(
                         'assets/svg/calculator.svg',

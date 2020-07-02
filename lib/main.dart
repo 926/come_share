@@ -82,6 +82,8 @@ void main() async {
       Collector(
         id: 0,
         uuid: '0',
+        companyPhoto: 'ldb_logo.jpg',
+        collectorPhoto: 'biker.jpg',
         firstName: 'James',
         lastName: 'Brown',
         tel: '123456789',

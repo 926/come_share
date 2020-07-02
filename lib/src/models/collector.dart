@@ -10,6 +10,10 @@ class Collector {
   @JsonKey(includeIfNull: false, nullable: true)
   String uuid;
   @JsonKey(includeIfNull: false, nullable: true)
+  String companyPhoto;
+  @JsonKey(includeIfNull: false, nullable: true)
+  String collectorPhoto;
+  @JsonKey(includeIfNull: false, nullable: true)
   String firstName;
   @JsonKey(includeIfNull: false, nullable: true)
   String lastName;
@@ -44,6 +48,8 @@ class Collector {
   Collector(
       {this.id,
       this.uuid,
+      this.collectorPhoto,
+      this.companyPhoto,
       this.firstName,
       this.lastName,
       this.tel,

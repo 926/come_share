@@ -4,6 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/views/main_view/collect/collect.dart';
 
+// ! si tu fais évoluer la calculatrice pour par exemple  :
+// ! choisir x ou y produit
+// ! **verrouille les lots,
+// pas plus d'un lot par produit
+// voir même un produit == un lot
+
 class CalculatorView extends StatefulWidget {
   @override
   _CalculatorViewState createState() => _CalculatorViewState();

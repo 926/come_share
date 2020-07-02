@@ -24,6 +24,7 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
   Widget build(BuildContext context) {
     final collectorStore = Provider.of<CollectorStore>(context);
     final thisCollector = collectorStore.collector.first;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Collecteur'),
@@ -31,6 +32,15 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
       ),
       body: Column(
         children: [
+          thisCollector.collectorPhoto == null ||
+                  thisCollector.collectorPhoto.isEmpty
+              ? Container()
+              : Container(
+                  child: Image(
+                    image: AssetImage(
+                        'assets/photos/${thisCollector.collectorPhoto}'),
+                  ),
+                ),
           Row(
             children: <Widget>[
               Padding(
