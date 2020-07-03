@@ -1,14 +1,15 @@
 import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:package_info/package_info.dart';
+
 import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
 import 'package:come_share/src/utils/back_pressed.dart';
-import 'package:flutter/material.dart';
 import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/widgets/drawer.dart';
-import 'package:flutter/rendering.dart';
-import 'package:package_info/package_info.dart';
 
 class MainView extends StatefulWidget {
   final Widget body;

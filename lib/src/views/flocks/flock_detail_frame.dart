@@ -120,18 +120,17 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
 
   PreferredSizeWidget _appBarTrue() {
     return AppBar(
+      title: Text('Detail du reçu'),
+      backgroundColor: Colors.blueGrey,
       leading: Builder(
         builder: (BuildContext context) {
           return IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            onPressed: () => Navigator.of(context).pop(),
             tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
           );
         },
       ),
-      title: Text('Detail du ticket'),
     );
   }
 
@@ -142,9 +141,7 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
         builder: (BuildContext context) {
           return IconButton(
             icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            onPressed: () => Navigator.of(context).pop(),
             tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
           );
         },

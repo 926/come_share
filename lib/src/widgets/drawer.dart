@@ -1,3 +1,4 @@
+import 'package:come_share/src/models/collector.dart';
 import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/routes/collector_detail.dart';
 import 'package:come_share/src/routes/export.dart';
@@ -12,85 +13,94 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final collectorStore = Provider.of<CollectorStore>(context);
-    final thisCollector = collectorStore.collector.first;
+    final thisCollector = collectorStore.collector?.first ?? Collector();
 
     return Drawer(
-      child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            DrawerHeader(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    thisCollector.companyPhoto == null ||
-                            thisCollector.companyPhoto.isEmpty
-                        ? Container()
-                        : Container(
-                            height: 80,
-                            child: Image(
-                              image: AssetImage(
-                                  'assets/photos/${thisCollector.companyPhoto}'),
+      child: Scrollbar(
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              DrawerHeader(
+                child: Container(
+                  child: Column(
+                    children: <Widget>[
+                      thisCollector.companyPhoto == null ||
+                              thisCollector.companyPhoto.isEmpty
+                          ? Container()
+                          : Container(
+                              height: 80,
+                              child: Image(
+                                image: AssetImage(
+                                    'assets/photos/${thisCollector.companyPhoto}'),
+                              ),
                             ),
-                          ),
-                    ListTile(
-                      leading: SvgPicture.asset(
-                        'assets/svg/calculator.svg',
-                        color: Colors.teal,
+                      ListTile(
+                        leading: SvgPicture.asset(
+                          'assets/svg/calculator.svg',
+                          color: Colors.teal,
+                        ),
+                        title: Text('Come Share'),
+                        onTap: () {
+                          Navigator.of(context)
+                              .pushReplacementNamed(CollectRoute.routePath);
+                        },
                       ),
-                      title: Text('Come Share'),
-                      onTap: () {
-                        Navigator.of(context)
-                            .pushReplacementNamed(CollectRoute.routePath);
-                      },
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
+              ListTile(
+                leading: Icon(Icons.motorcycle, color: Colors.red[400]),
+                title: Text('Info collecteur'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .pushNamed(CollectorRoute.routePath); // for now
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.receipt),
+                title: Text('Recus'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .pushNamed(FlocksRoute.routePath); // for now
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.file_upload),
+                title: Text('Import .json'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context)
+                      .pushNamed(SettingsImportRoute.routePath);
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.save),
+                title: Text('Export .csv / .xlsl'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushNamed(ExportRoute.routePath);
+                },
+              ), //
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-            ListTile(
-              leading: Icon(Icons.motorcycle, color: Colors.red[400]),
-              title: Text('Info collecteur'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context)
-                    .pushNamed(CollectorRoute.routePath); // for now
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.receipt),
-              title: Text('Recus'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context)
-                    .pushNamed(FlocksRoute.routePath); // for now
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.file_upload),
-              title: Text('Import .json'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(SettingsImportRoute.routePath);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.save),
-              title: Text('Export .csv / .xlsl'),
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pushNamed(ExportRoute.routePath);
-              },
-            ), //
-            //ListTile(
-            //  leading: Icon(Icons.help_outline),
-            //  title: Text('A propos'),
-            //  onTap: () {
-            //    Navigator.of(context).pop();
-            //    // Navigator.of(context).pushNamed(AboutRoute.routePath);
-            //  },
-            //),
-            /* ListTile(
+//ListTile(
+//  leading: Icon(Icons.help_outline),
+//  title: Text('A propos'),
+//  onTap: () {
+//    Navigator.of(context).pop();
+//    // Navigator.of(context).pushNamed(AboutRoute.routePath);
+//  },
+//),
+/* ListTile(
               leading: Icon(Icons.important_devices),
               title: Text('Config test/prod'),
               onTap: () {
@@ -99,7 +109,7 @@ class AppDrawer extends StatelessWidget {
                     .pushNamed(ShopLdbViewRoute.generateRoute('0'));
               },
             ), */
-            /* ListTile(
+/* ListTile(
               leading: Icon(
                 Icons.layers,
                 color: Colors.orange[800],
@@ -110,9 +120,3 @@ class AppDrawer extends StatelessWidget {
                 // Navigator.of(context).pushNamed(StatsStockRoute.routePath);
               },
             ), */
-          ],
-        ),
-      ),
-    );
-  }
-}

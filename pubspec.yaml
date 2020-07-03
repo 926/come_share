@@ -14,7 +14,7 @@ dependencies:
   path: ^1.6.2
   crypto: ^2.0.6
   provider: ^3.0.0
-  sembast: ^1.16.0+2
+  sembast: ^2.3.0
   pedantic: ^1.0.0
   mobx: ^0.3.4
   flutter_mobx: ^0.3.0+1
