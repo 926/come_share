@@ -30,11 +30,11 @@ Big cheers to [Tom Seidel](https://pixabay.com/users/desater-13463957/?utm_sourc
 
 ## Screenshots
 ### Commodities view
-![e](assets/come_share_screenshot_1.jpg)
+![e](come_share_screenshot_1.jpg)
 ### Collect view
 #### Collect view 1 - type quantity
-![z](assets/come_share_screenshot_2.jpg)
+![z](come_share_screenshot_2.jpg)
 #### Collect view 2 - select herder/contact
-![a](assets/come_share_screenshot_3.jpg)
+![a](come_share_screenshot_3.jpg)
 #### Collect view 3 - receipt
-![s](assets/come_share_screenshot_4.jpg)
+![s](come_share_screenshot_4.jpg)
