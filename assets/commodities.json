@@ -1,0 +1,40 @@
+[
+  {
+    "companyUuid": "0",
+    "id": 0,
+    "name": "*",
+    "weight":1,
+    "photo": "",
+    "status": true,
+    "statusUpdateDate": "2020-06-07T09:13:47.775Z",
+    "lots": [
+      {
+        "companyUuid": "entrepot",
+        "commodityId": 0,
+        "id": 1,
+        "isDefault": true,
+        "quantity": 0.0,
+        "lotDate": "2020-06-07T19:01:14.278"
+      }
+    ]
+  },
+    {
+    "companyUuid": "0",
+    "id": 1,
+    "name": "super Milk",
+    "weight":1,
+    "photo": "",
+    "status": true,
+    "statusUpdateDate": "2020-06-07T09:13:47.775Z",
+    "lots": [
+      {
+        "companyUuid": "0",
+        "commodityId": 1,
+        "id": 1,
+        "isDefault": true,
+        "quantity": 0.0,
+        "lotDate": "2020-06-07T19:01:14.278"
+      }
+    ]
+  }
+]

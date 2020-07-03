@@ -20,28 +20,22 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeDateFormatting('fr');
+  DateTime now = DateTime.now();
+
   Directory appDocDir = await getApplicationDocumentsDirectory();
   String path = join(appDocDir.path, 'cs.db');
   DatabaseFactory dbFactory = databaseFactoryIo;
+
+  var store = StoreRef<String, List<dynamic>>.main();
   Database database = await dbFactory.openDatabase(path, version: 1);
-  DateTime now = DateTime.now();
 
-  /* List<dynamic> passwords = await database.get('passwords') ?? [];
-  if (passwords.isEmpty) {
-    passwords = [
-      {'id': '0', 'name': 'default', 'password': '2020'},
-    ];
-    await database.put(passwords, 'passwords');
-  }
-  if (passwords.isEmpty) {
-    final jsonPasswords =
-        passwords.map((passwords) => passwords.toJson()).toList();
+  // this is the old version
+  //List<dynamic> herders = await database.get('herders') ?? [];
 
-    await database.put(jsonPasswords, 'passwords');
-  }
- */
-  // this is used for unknown
-  List<dynamic> herders = await database.get('herders') ?? [];
+  List<dynamic> herders = await store.record('herders').get(database) ?? [];
+// TODO try below
+// var herders = store.record('herders').exists(database);
+
   if (herders.isEmpty) {
     final _herders = [
       Herder(
@@ -73,20 +67,25 @@ void main() async {
           status: true,
           statusUpdateDate: now),
     ];
-    await database.put(_herders.map((h) => h.toJson()).toList(), 'herders');
+    //await database.put(_herders.map((h) => h.toJson()).toList(), 'herders');
+    var herders = store.record('herders');
+    await herders.put(database, _herders.map((h) => h.toJson()).toList());
   }
 
-  List<dynamic> collectors = await database.get('collectors') ?? [];
-  if (collectors.isEmpty) {
-    final _collectors = [
+  List<dynamic> collector = await store.record('collector').get(database) ?? [];
+  //List<dynamic> collectors = await database.get('collectors') ?? [];
+  if (collector.isEmpty) {
+    final _collector = [
       Collector(
         id: 0,
         uuid: '0',
-        firstName: 'James',
-        lastName: 'Brown',
+        companyPhoto: 'ldb_logo.png',
+        collectorPhoto: 'biker.png',
+        firstName: 'Jorja',
+        lastName: 'Smith',
         tel: '123456789',
-        mail: 'bootsy@bass.com',
-        address: 'Heaven',
+        mail: 'be_honest@dancetillyoudrop.com',
+        address: '3rd Grooving Boulevard',
         lat: '1',
         long: '-1',
         status: true,
@@ -99,10 +98,14 @@ void main() async {
         updateDate: now,
       ),
     ];
-    await database.put(
-        _collectors.map((h) => h.toJson()).toList(), 'collectors');
+    //await database.put(_collectors.map((h) => h.toJson()).toList(), 'collectors');
+    var collector = store.record('collector');
+    await collector.put(database, _collector.map((c) => c.toJson()).toList());
   }
-  List<dynamic> commodities = await database.get('commodities') ?? [];
+
+  List<dynamic> commodities =
+      await store.record('commodities').get(database) ?? [];
+  //List<dynamic> commodities = await database.get('commodities') ?? [];
   if (commodities.isEmpty) {
     final _commodities = [
       Commodity(
@@ -129,7 +132,7 @@ void main() async {
       Commodity(
         companyUuid: '0',
         id: 1,
-        name: 'Milk',
+        name: 'Lait l.',
         weight: 1,
         photo: 'milk-logo.png',
         status: true,
@@ -148,8 +151,11 @@ void main() async {
         ],
       ),
     ];
-    await database.put(
-        _commodities.map((c) => c.toJson()).toList(), 'commodities');
+    var commodities = store.record('commodities');
+
+    await commodities.put(
+        database, _commodities.map((c) => c.toJson()).toList());
+    //await database.put(_commodities.map((c) => c.toJson()).toList(), 'commodities');
   }
 
   runApp(ComeShareApp(database: database));

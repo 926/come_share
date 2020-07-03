@@ -10,6 +10,8 @@ Collector _$CollectorFromJson(Map<String, dynamic> json) {
   return Collector(
     id: json['id'] as int,
     uuid: json['uuid'] as String,
+    collectorPhoto: json['collectorPhoto'] as String,
+    companyPhoto: json['companyPhoto'] as String,
     firstName: json['firstName'] as String,
     lastName: json['lastName'] as String,
     tel: json['tel'] as String,
@@ -45,6 +47,8 @@ Map<String, dynamic> _$CollectorToJson(Collector instance) {
 
   writeNotNull('id', instance.id);
   writeNotNull('uuid', instance.uuid);
+  writeNotNull('companyPhoto', instance.companyPhoto);
+  writeNotNull('collectorPhoto', instance.collectorPhoto);
   writeNotNull('firstName', instance.firstName);
   writeNotNull('lastName', instance.lastName);
   writeNotNull('tel', instance.tel);

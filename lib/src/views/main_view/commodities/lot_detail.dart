@@ -64,7 +64,6 @@ class _LotDetailWidgetState extends State<LotDetailWidget> {
                               EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                           child: Column(
                             children: <Widget>[
-                              //TODO
                               Icon(Icons.check_box_outline_blank),
                             ],
                           ),

@@ -14,7 +14,7 @@ dependencies:
   path: ^1.6.2
   crypto: ^2.0.6
   provider: ^3.0.0
-  sembast: ^1.16.0+2
+  sembast: ^2.3.0
   pedantic: ^1.0.0
   mobx: ^0.3.4
   flutter_mobx: ^0.3.0+1
@@ -41,8 +41,7 @@ dependencies:
   flutter_svg: ^0.17.3+1
   package_info: ^0.4.0+16
   spreadsheet_decoder: ^1.1.0
-  #rive: ^0.0.1
-
+  flare_flutter: ^2.0.4
 
   #audioplayer: ^0.7.0  # buggy as f*
   #printing: any
@@ -72,7 +71,11 @@ flutter:
     - assets/svg/calculator.svg
     - assets/collecte.xlsx
     - assets/ksde_qr.png
+    - assets/rive/cow.flr
+    - assets/no_network.flr
     - assets/photos/milk-logo.png
+    - assets/photos/ldb_logo.png
+    - assets/photos/biker.png
 
   # fonts:
   #   - family: Schyler

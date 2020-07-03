@@ -4,14 +4,15 @@ import 'package:sembast/sembast.dart' as sembast;
 
 class GetCommoditiesRpc implements EndpointBase<List<Commodity>, void> {
   final sembast.Database _database;
+  var store = sembast.StoreRef<String, List>.main();
 
   GetCommoditiesRpc(this._database);
 
   @override
-  Future<List<Commodity>> request(void data) async =>
-      (await _database.get('commodities') as List ?? [])
-          .cast<Map>()
-          .cast<Map<String, dynamic>>()
-          .map((c) => Commodity.fromJson(c))
-          .toList();
+  Future<List<Commodity>> request(void data) async => (await store
+              .record('commodities')
+              .get(_database) ??
+          [])
+      .map((item) => Commodity.fromJson((item as Map)?.cast<String, dynamic>()))
+      .toList();
 }

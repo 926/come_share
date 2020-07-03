@@ -6,6 +6,7 @@ import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/views/main_view/main_view.dart';
+import 'package:flare_flutter/flare_actor.dart';
 // import 'package:provider/provider.dart';
 // import 'package:come_share/src/stores/commodities.dart';
 // import 'package:come_share/src/stores/collector.dart';
@@ -30,12 +31,16 @@ class _SyncViewState extends State<SyncView>
   final navigatorKey = GlobalKey<NavigatorState>();
 
   bool submitting;
+  bool isThereNetwork;
   List<Flock> dlFlocks;
   List<Herder> downloadedHerders;
+  String animationName = "no_netwrok";
 
   @override
   void initState() {
     super.initState();
+    submitting = false;
+    isThereNetwork = true; // bold assumption
     submitting = false;
   }
 
@@ -72,19 +77,18 @@ class _SyncViewState extends State<SyncView>
                   padding: const EdgeInsets.all(8.0),
                   child: IconButton(
                     tooltip: 'Envoyer les données sur le serveur',
-                    icon: Icon(Icons.cloud_upload, size: 63),
-                    splashColor: Colors.red[800],
-                    highlightColor: Colors.redAccent,
+                    icon: Icon(Icons.cloud_upload,
+                        size: 64, color: Color(0xff82AAED)),
                     onPressed: () async {
                       var connectivityResult =
                           await Connectivity().checkConnectivity();
                       if (connectivityResult == ConnectivityResult.none) {
-                        showDialogCSNotOk(
-                            'Il n\'y a pas de connexion à internet', context);
+                        setState(() => isThereNetwork = false);
                       } else if (connectivityResult ==
                               ConnectivityResult.mobile ||
                           connectivityResult == ConnectivityResult.wifi) {
                         setState(() {
+                          isThereNetwork = true;
                           submitting = true;
                         });
                         _scaffoldKey.currentState.showSnackBar(SnackBar(
@@ -121,9 +125,32 @@ class _SyncViewState extends State<SyncView>
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Text('Envoyer les données sur le serveur'),
+              SizedBox(
+                height: 20,
+              ),
+              isThereNetwork == true
+                  ? Text(
+                      'Envoyer les données',
+                      textAlign: TextAlign.center,
+                      //style: TextStyle(fontWeight: FontWeight.bold),
+                    )
+                  : Text(
+                      'Pas de réseau',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+              LayoutBuilder(
+                builder: (context, constraints) => isThereNetwork == true
+                    ? Container(
+                        height: 150,
+                      )
+                    : Container(
+                        width: constraints.maxWidth,
+                        height: 150,
+                        child: FlareActor("assets/rive/no_network.flr",
+                            alignment: Alignment.center,
+                            fit: BoxFit.contain,
+                            animation: animationName),
+                      ),
               ),
             ],
           ),
