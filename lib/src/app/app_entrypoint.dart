@@ -33,9 +33,7 @@ class ComeShareAppEntrypoint extends StatelessWidget {
       database: database,
       child: RpcsProvider(
         child: ServicesProvider(
-          child: StoresProvider(
-            child: child,
-          ),
+          child: StoresProvider(child: child, database: database),
         ),
       ),
     );

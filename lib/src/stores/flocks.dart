@@ -3,6 +3,7 @@ import 'package:mobx/mobx.dart';
 
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/servives/flocks.dart';
+import 'package:sembast/sembast.dart' as sembast;
 
 part 'flocks.g.dart';
 
@@ -20,7 +21,13 @@ abstract class FlocksStoreBase with Store {
   @observable
   DateTime now;
 
-  FlocksStoreBase(this._flocksService) {
+  final sembast.Database _database;
+  var store = sembast.StoreRef<String, List>.main();
+
+  static const String folderName = "flocks";
+  final _flocksFolder = sembast.intMapStoreFactory.store(folderName);
+
+  FlocksStoreBase(this._flocksService, this._database) {
     initialLoading = true;
     flocks = ObservableList<Flock>();
   }
@@ -31,6 +38,11 @@ abstract class FlocksStoreBase with Store {
     flocks = ObservableList.of(_flocks);
     initialLoading = false;
   }
+
+  /* Future<List<Flock>> getAllFlocks() async {
+    final recordSnapshot = await _flocksFolder.find(_database);
+    return recordSnapshot.map((item) => Flock.fromJson(item.value)).toList();
+  } */
 
   @action
   Future<List<Flock>> saveAllFlocks(List<Flock> _flocks) async {
@@ -57,6 +69,51 @@ abstract class FlocksStoreBase with Store {
     flocks.add(flock);
     return flock;
   }
+
+//TODO
+/*   Future insert(Flock flockData) async {}
+  Future<Flock> addFlock(Flock flockData) async {
+    /* var flock = Flock(
+        id: flocks.isEmpty
+            ? 0
+            : flocks.fold<int>(0, (max, e) => e.id > max ? e.id : max) + 1,
+        axeUuid: flockData?.axeUuid ?? '0',
+        items: flockData.items,
+        date: flockData.date,
+        received: flockData.received,
+        comment: flockData.comment,
+        flockType: flockData.flockType,
+        herderId: flockData.herderId,
+        status: flockData.status,
+        statusUpdateDate: flockData.statusUpdateDate,
+        creationDate: flockData.creationDate);
+    flocks.add(flock); */
+    var key;
+    var t;
+    try {
+      // Add the object, get the auto incremented id
+      key = await _flocksFolder.add(_database, flockData.toJson());
+      // Set the Id in the object
+      if (key != null) {
+        print('key is not null $key');
+        t = await _flocksFolder.record(key).get(_database);
+      }
+    } catch (e) {
+      print('error: $e');
+    }
+    var j = await _flocksFolder.update(
+      _database, {'id': key},
+      //finder: sembast.Finder(filter: sembast.Filter.byKey(key))
+    );
+    print('updated key $j');
+    return Flock.fromJson(t);
+  } */
+
+//TODO
+  /* Future<Flock> disableFlock(Flock flockData) async {
+    final finder = sembast.Finder(filter: sembast.Filter.byKey(flockData.id));
+    await _flocksFolder.update(_database, flockData.toJson(), finder: finder);
+  } */
 
   @action
   Future<Flock> disableFlock(Flock flockData) async {
