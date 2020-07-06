@@ -108,17 +108,23 @@ class _HerderCollectViewState extends State<HerderCollectView> {
 
     final flockManager = Provider.of<FlockManager>(context);
     final flock = Flock(
-        axeUuid: 'test',
-        items: cartStore.items,
-        comment: cartStore?.comment ?? '',
-        received: 0,
-        date: DateTime.now(),
-        flockType: FlockType.gathered,
-        herderId:
-            '${cartStore?.herder?.id ?? 0}', // if no herder then use default
-        status: true,
-        statusUpdateDate: DateTime.now(),
-        creationDate: DateTime.now());
+      id: flocksStore.flocks.isEmpty
+          ? 0
+          : flocksStore.flocks
+                  .fold<int>(0, (max, e) => e.id > max ? e.id : max) +
+              1,
+      axeUuid: 'test',
+      items: cartStore.items,
+      comment: cartStore?.comment ?? '',
+      received: 0,
+      date: DateTime.now(),
+      creationDate: DateTime.now(),
+      flockType: FlockType.gathered,
+      herderId:
+          '${cartStore?.herder?.id ?? 0}', // if no herder then use default
+      status: true,
+      statusUpdateDate: DateTime.now(),
+    );
 
     for (final item in cartStore.items) {
       print('we are in view, show me the lot : ${item.lot} ${item.quantity}');

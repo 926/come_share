@@ -69,6 +69,13 @@ class _CalculatorViewState extends State<CalculatorView> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
+    /*24 is for notification bar on Android*/
+    final double itemHeight =
+        (size.height - kToolbarHeight - size.height * 0.25) / 2;
+    final double itemWidth = (size.width + size.width * 0.1) / 2;
+
     final cartStore = Provider.of<CartStore>(context, listen: false);
     cartStore.clearItems();
     cartStore.clearHerder();
@@ -77,56 +84,52 @@ class _CalculatorViewState extends State<CalculatorView> {
       child: Container(
         padding: EdgeInsets.all(5),
         color: Colors.transparent,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              child: LayoutBuilder(
-                builder: (context, constraints) => Container(
-                  child: Column(
-                    children: <Widget>[
-                      _calculView(),
-                      SizedBox(
-                        height: constraints.maxWidth,
-                        child: GridView.count(
-                          padding: EdgeInsets.zero,
-                          crossAxisCount: 4,
-                          children: _buttons(),
-                        ),
-                      ),
-                    ],
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              //mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                // TODO keep on making calc responsive
+                _calculView(),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.60,
+                  child: GridView.count(
+                    childAspectRatio: (itemWidth / itemHeight),
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    crossAxisCount: 4,
+                    children: _buttons(),
                   ),
                 ),
-              ),
-            ),
-            LayoutBuilder(
-              builder: (context, constraints) {
-                return SizedBox(
-                  width: constraints.maxWidth,
-                  height: 80,
-                  child: _validateButton(
-                    context,
-                    roundedCorner: RoundedCorner.bottom,
+                LayoutBuilder(
+                  builder: (context, constraints) => SizedBox(
+                    width: constraints.maxWidth,
+                    height: MediaQuery.of(context).size.height * 0.1,
+                    child: _validateButton(
+                      context,
+                      roundedCorner: RoundedCorner.bottom,
+                    ),
                   ),
-                );
-              },
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
   }
 
   Widget _calculView() {
-    return LayoutBuilder(
-      builder: (context, constraints) => Container(
-        width: constraints.maxWidth,
-        padding: EdgeInsets.only(right: 25),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: <Widget>[
-            /* FittedBox(
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.50,
+      height: MediaQuery.of(context).size.width * 0.1,
+      padding: EdgeInsets.only(right: 25),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          /* FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(
                 currentCaptureValueText,
@@ -136,26 +139,24 @@ class _CalculatorViewState extends State<CalculatorView> {
                 ),
               ),
             ), */
-            FittedBox(
-              fit: BoxFit.fitWidth,
-              child: RichText(
-                text: TextSpan(
-                  style: informationTextStyle.copyWith(color: Colors.black),
-                  children: <TextSpan>[
-                    TextSpan(
-                        text: fullCalculText == '0' ? ' ' : fullCalculText),
-                    //if (pastvalues.length > 0)
-                    TextSpan(
-                      text: total == 0 ? '' : total.toString(),
-                      style: informationTextStyle.copyWith(
-                          color: Colors.black, fontSize: 28),
-                    ),
-                  ],
-                ),
+          FittedBox(
+            fit: BoxFit.fitWidth,
+            child: RichText(
+              text: TextSpan(
+                style: informationTextStyle.copyWith(color: Colors.black),
+                children: <TextSpan>[
+                  TextSpan(text: fullCalculText == '0' ? ' ' : fullCalculText),
+                  //if (pastvalues.length > 0)
+                  TextSpan(
+                    text: total == 0 ? '' : total.toString(),
+                    style: informationTextStyle.copyWith(
+                        color: Colors.black, fontSize: 28),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

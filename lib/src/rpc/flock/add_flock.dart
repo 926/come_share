@@ -14,9 +14,9 @@ class AddFlockRpc implements EndpointBase<Flock, Flock> {
         .map((item) => Flock.fromJson((item as Map)?.cast<String, dynamic>()))
         .toList();
     final flock = Flock(
-        id: flocks.isEmpty
-            ? 0
-            : flocks.fold<int>(0, (max, e) => e.id > max ? e.id : max) + 1,
+        //id: flocks.isEmpty
+        //    ? 0
+        //    : flocks.fold<int>(0, (max, e) => e.id > max ? e.id : max) + 1,
         axeUuid: data?.axeUuid ?? '0',
         items: data.items,
         date: data.date,

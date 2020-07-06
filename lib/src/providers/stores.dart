@@ -10,11 +10,13 @@ import 'package:come_share/src/stores/herders.dart';
 import 'package:come_share/src/stores/app.dart';
 import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/stores/cart.dart';
+import 'package:sembast/sembast.dart' as sembast;
 
 class StoresProvider extends StatelessWidget {
   final Widget child;
+  final sembast.Database database;
 
-  StoresProvider({@required this.child});
+  StoresProvider({@required this.child, this.database});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class StoresProvider extends StatelessWidget {
       providers: [
         ProxyProvider<FlocksService, FlocksStore>(
           update: (c, service, previousStore) {
-            return previousStore ?? FlocksStore(service);
+            return previousStore ?? FlocksStore(service, database);
           },
         ),
         ProxyProvider<HerdersService, HerdersStore>(

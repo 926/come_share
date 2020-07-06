@@ -27,12 +27,14 @@ void main() async {
   DatabaseFactory dbFactory = databaseFactoryIo;
 
   var store = StoreRef<String, List<dynamic>>.main();
+
   Database database = await dbFactory.openDatabase(path, version: 1);
 
   // this is the old version
   //List<dynamic> herders = await database.get('herders') ?? [];
 
   List<dynamic> herders = await store.record('herders').get(database) ?? [];
+
 // TODO try below
 // var herders = store.record('herders').exists(database);
 

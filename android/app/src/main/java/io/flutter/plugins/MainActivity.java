@@ -1,4 +1,4 @@
-package com.app.come_share;
+package com.weebi.come_share;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
