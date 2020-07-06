@@ -24,17 +24,17 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
     flockStatus = widget.flock.status;
   }
 
-  Future<Flock> _onDisable() async {
+  Future<Flock> _onDisable(Flock thisFlock) async {
     final soonToBeDisabledFlock = Flock(
-      id: widget.flock.id,
-      axeUuid: widget.flock?.axeUuid ?? '0',
-      items: widget.flock.items,
-      comment: widget.flock.comment,
-      received: widget.flock.received,
-      date: widget.flock.date,
-      creationDate: widget.flock.creationDate,
-      flockType: widget.flock.flockType,
-      herderId: widget.flock.herderId,
+      id: thisFlock.id,
+      axeUuid: thisFlock?.axeUuid ?? '0',
+      items: thisFlock.items,
+      comment: thisFlock.comment,
+      received: thisFlock.received,
+      date: thisFlock.date,
+      creationDate: thisFlock.creationDate,
+      flockType: thisFlock.flockType,
+      herderId: thisFlock.herderId,
       status: false,
       statusUpdateDate: DateTime.now(),
     );
@@ -49,17 +49,17 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
     return disableingTicket;
   }
 
-  Future<Flock> _onRestore() async {
+  Future<Flock> _onRestore(Flock thisFlock) async {
     final soonToBeRestoredFlock = Flock(
-      id: widget.flock.id,
-      axeUuid: widget.flock?.axeUuid ?? '0',
-      items: widget.flock.items,
-      comment: widget.flock.comment,
-      received: widget.flock.received,
-      date: widget.flock.date,
-      creationDate: widget.flock.creationDate,
-      flockType: widget.flock.flockType,
-      herderId: widget.flock.herderId,
+      id: thisFlock.id,
+      axeUuid: thisFlock?.axeUuid ?? '0',
+      items: thisFlock.items,
+      comment: thisFlock.comment,
+      received: thisFlock.received,
+      date: thisFlock.date,
+      creationDate: thisFlock.creationDate,
+      flockType: thisFlock.flockType,
+      herderId: thisFlock.herderId,
       status: true,
       statusUpdateDate: DateTime.now(),
     );
@@ -96,7 +96,7 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
                   onPressed: () async {
                     try {
                       final awkwardUncleDrunkAndNakedAtChristmasTicket =
-                          await _onDisable();
+                          await _onDisable(widget.flock);
                       setState(() {
                         flockStatus =
                             awkwardUncleDrunkAndNakedAtChristmasTicket.status;
@@ -119,7 +119,7 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
                   onPressed: () async {
                     try {
                       final fakeGanstaRapWithGoldenChainTicket =
-                          await _onRestore();
+                          await _onRestore(widget.flock);
                       setState(() {
                         flockStatus = fakeGanstaRapWithGoldenChainTicket
                             .status; // not sure this is enough to rebuild the whole

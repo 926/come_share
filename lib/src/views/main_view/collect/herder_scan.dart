@@ -105,11 +105,11 @@ class _HerderCollectViewState extends State<HerderCollectView> {
     final commoditiesStore =
         Provider.of<CommoditiesStore>(context, listen: false);
     final flocksStore = Provider.of<FlocksStore>(context, listen: false);
-
     final flockManager = Provider.of<FlockManager>(context);
+
     final flock = Flock(
       id: flocksStore.flocks.isEmpty
-          ? 0
+          ? 1
           : flocksStore.flocks
                   .fold<int>(0, (max, e) => e.id > max ? e.id : max) +
               1,
