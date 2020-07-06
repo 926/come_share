@@ -28,6 +28,8 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.flock.key);
+    print(widget.flock.id);
     //final collectorStore = Provider.of<ShopStore>(context, listen: false);
     final herdersStore = Provider.of<HerdersStore>(context, listen: false);
     // final commoditiesStore =

@@ -44,7 +44,6 @@ abstract class FlocksStoreBase with Store {
     final recordSnapshot = await _flockDbStore.find(_database);
     return recordSnapshot.map((item) => Flock.fromJson(item.value)).toList();
   }
-  // *
 
   /// Create a flock from a snapshot, setting its content and key
   Flock flockFromSnapshot(RecordSnapshot<int, Map<String, dynamic>> snapshot) {
@@ -55,31 +54,17 @@ abstract class FlocksStoreBase with Store {
   }
 
   /// Get a flock by key
-  Future<Flock> getFlock(int key) async {
-    var snapshot = await _flockDbStore.record(key).getSnapshot(_database);
+  Future<Flock> getFlock(int id) async {
+    var snapshot = await _flockDbStore.record(id).getSnapshot(_database);
     return flockFromSnapshot(snapshot);
   }
 
   /// Add a flock, return and save its key in [flock] object.
   Future<Flock> addFlock(Flock flock) async {
     flock.key = await _flockDbStore.add(_database, flock.toJson());
-    /* if (flock.id != null) {
-      await _flockDbStore.record(flock.id).put(_database, flock.toJson());
-    } else {
-      flock.id = await _flockDbStore.add(_database, flock.toJson());
-    } */
-
     final dbFlock = await getFlock(flock.key);
     flocks.add(dbFlock);
     return dbFlock;
-  }
-
-  Future saveNote(Flock flock) async {
-    if (flock.id != null) {
-      await _flockDbStore.record(flock.id).put(_database, flock.toJson());
-    } else {
-      //flock.id = await _flockDbStore.add(_database, flock.toJson());
-    }
   }
 
   /// Add multiple flocks, return and save its keys in [flocks] objects.
@@ -92,6 +77,7 @@ abstract class FlocksStoreBase with Store {
     return keys;
   }
 
+//TOBE sembast updated
   @action
   Future<List<Flock>> saveAllFlocks(List<Flock> _flocks) async {
     flocks = ObservableList.of(_flocks);
@@ -99,6 +85,7 @@ abstract class FlocksStoreBase with Store {
     return flocks;
   }
 
+//TOBE sembast updated
   @action
   Future<ObservableList<Flock>> importPastFlocks(String json) async {
     final _flocks = (convert.json.decode(json) as List)
@@ -111,32 +98,25 @@ abstract class FlocksStoreBase with Store {
     return flocks;
   }
 
-  /* @action
-  Future<Flock> addFlock(Flock flockData) async {
-    final flock = await _flocksService.addFlockRpc.request(flockData);
-    flocks.add(flock);
-    return flock;
-  } */
-
   Future<Flock> disableFlock(Flock flockData) async {
-    final finder = sembast.Finder(filter: sembast.Filter.byKey(flockData.key));
-    await _flockDbStore.update(_database, flockData.toJson(), finder: finder);
+    final coolKey = await _flockDbStore.record(flockData.id).update(
+          _database,
+          flockData.toJson(),
+        );
+    final newFlock = Flock.fromJson(coolKey);
+    flocks[flockData.id - 1] = newFlock;
+    return newFlock;
   }
-
-/*   @action
-  Future<Flock> disableFlock(Flock flockData) async {
-    final disabledFlock =
-        await _flocksService.disableFlockRpc.request(flockData);
-    flocks[disabledFlock.key] = disabledFlock;
-    return disabledFlock;
-  } */
 
   @action
   Future<Flock> restoreFlock(Flock flockData) async {
-    final restoredFlock =
-        await _flocksService.restoreFlockRpc.request(flockData);
-    flocks[restoredFlock.key] = restoredFlock;
-    return restoredFlock;
+    final coolKey = await _flockDbStore.record(flockData.id).update(
+          _database,
+          flockData.toJson(),
+        );
+    final newFlock = Flock.fromJson(coolKey);
+    flocks[flockData.id - 1] = newFlock;
+    return newFlock;
   }
 
   @action

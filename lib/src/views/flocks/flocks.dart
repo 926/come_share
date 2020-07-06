@@ -32,7 +32,7 @@ class _FlocksViewState extends State<FlocksView> {
 
   @override
   Widget build(BuildContext context) {
-    final flocksStore = Provider.of<FlocksStore>(context);
+    final flocksStore = Provider.of<FlocksStore>(context, listen: true);
     /* final shopStore = Provider.of<ShopStore>(context);
     final thisShop = shopStore.shop.first; */
 
@@ -104,7 +104,7 @@ class _FlocksViewState extends State<FlocksView> {
   }
 
   Widget buildBody(BuildContext context, int index) {
-    final flocksStore = Provider.of<FlocksStore>(context);
+    final flocksStore = Provider.of<FlocksStore>(context, listen: true);
     var reversedflocksStore = flocksStore.flocks.reversed.toList();
     return FlockOverviewWidget(flock: reversedflocksStore[index]);
   }
