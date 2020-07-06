@@ -38,14 +38,12 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
               ? Container()
               : Align(
                   alignment: Alignment.bottomCenter,
-                  child: LayoutBuilder(
-                    builder: (context, constraints) => Container(
-                      width: constraints.maxWidth,
-                      child: Image(
-                        width: constraints.maxWidth,
-                        image: AssetImage(
-                            'assets/photos/${thisCollector.collectorPhoto}'),
-                      ),
+                  child: Container(
+                    color: Colors.blue[900],
+                    child: Image(
+                      width: MediaQuery.of(context).size.height * 0.60,
+                      image: AssetImage(
+                          'assets/photos/${thisCollector.collectorPhoto}'),
                     ),
                   ),
                 ),

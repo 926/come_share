@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart';
@@ -17,6 +18,8 @@ import 'package:come_share/src/app/app_entrypoint.dart';
 // import 'package:tekartik_common_utils/common_utils_import.dart';
 
 void main() async {
+  //debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+
   WidgetsFlutterBinding.ensureInitialized();
 
   await initializeDateFormatting('fr');
