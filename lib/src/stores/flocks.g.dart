@@ -12,14 +12,14 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
   final _$flocksAtom = Atom(name: 'FlocksStoreBase.flocks');
 
   @override
-  ObservableList<Flock> get flocks {
+  List<Flock> get flocks {
     _$flocksAtom.context.enforceReadPolicy(_$flocksAtom);
     _$flocksAtom.reportObserved();
     return super.flocks;
   }
 
   @override
-  set flocks(ObservableList<Flock> value) {
+  set flocks(List<Flock> value) {
     _$flocksAtom.context.conditionallyRunInAction(() {
       super.flocks = value;
       _$flocksAtom.reportChanged();
@@ -80,20 +80,6 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
   Future<ObservableList<Flock>> importPastFlocks(String json) {
     return _$importPastFlocksAsyncAction
         .run(() => super.importPastFlocks(json));
-  }
-
-  final _$addFlockAsyncAction = AsyncAction('addFlock');
-
-  @override
-  Future<Flock> addFlock(Flock flockData) {
-    return _$addFlockAsyncAction.run(() => super.addFlock(flockData));
-  }
-
-  final _$disableFlockAsyncAction = AsyncAction('disableFlock');
-
-  @override
-  Future<Flock> disableFlock(Flock flockData) {
-    return _$disableFlockAsyncAction.run(() => super.disableFlock(flockData));
   }
 
   final _$restoreFlockAsyncAction = AsyncAction('restoreFlock');

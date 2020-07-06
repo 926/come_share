@@ -13,9 +13,11 @@ enum FlockType { gathered }
 @JsonSerializable()
 class Flock {
   @JsonKey(ignore: true)
-  final int key;
-  @JsonKey(includeIfNull: false, nullable: true, ignore: true)
+  int key;
+
+  @JsonKey(includeIfNull: false, nullable: true)
   final int id;
+
   @JsonKey(includeIfNull: false, nullable: true)
   final String axeUuid; // shopUuid shopId
 

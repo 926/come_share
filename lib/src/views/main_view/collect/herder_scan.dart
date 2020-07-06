@@ -108,7 +108,11 @@ class _HerderCollectViewState extends State<HerderCollectView> {
 
     final flockManager = Provider.of<FlockManager>(context);
     final flock = Flock(
-      id: 0, //temps
+      id: flocksStore.flocks.isEmpty
+          ? 0
+          : flocksStore.flocks
+                  .fold<int>(0, (max, e) => e.id > max ? e.id : max) +
+              1,
       axeUuid: 'test',
       items: cartStore.items,
       comment: cartStore?.comment ?? '',

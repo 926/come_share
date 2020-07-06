@@ -4,6 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/servives/flocks.dart';
 import 'package:sembast/sembast.dart' as sembast;
+import 'package:sembast/sembast.dart';
 
 part 'flocks.g.dart';
 
@@ -13,7 +14,7 @@ abstract class FlocksStoreBase with Store {
   final FlocksService _flocksService;
 
   @observable
-  ObservableList<Flock> flocks;
+  List<Flock> flocks;
 
   @observable
   bool initialLoading;
@@ -24,25 +25,72 @@ abstract class FlocksStoreBase with Store {
   final sembast.Database _database;
   var store = sembast.StoreRef<String, List>.main();
 
-  static const String folderName = "flocks";
-  final _flocksFolder = sembast.intMapStoreFactory.store(folderName);
+  final _flockDbStore = sembast.intMapStoreFactory.store("flocks");
 
   FlocksStoreBase(this._flocksService, this._database) {
     initialLoading = true;
-    flocks = ObservableList<Flock>();
+    flocks = List<Flock>();
   }
 
   @action
   Future<void> init() async {
-    final _flocks = await _flocksService.getFlocksRpc.request(null);
-    flocks = ObservableList.of(_flocks);
+    var _flocks = await _flockDbStore.find(_database);
+    flocks = _flocks.map((item) => Flock.fromJson(item.value)).toList();
+    //flocks = ObservableList.of(_flocks);
     initialLoading = false;
   }
 
-  /* Future<List<Flock>> getAllFlocks() async {
-    final recordSnapshot = await _flocksFolder.find(_database);
+  Future<List<Flock>> getAllFlocks() async {
+    final recordSnapshot = await _flockDbStore.find(_database);
     return recordSnapshot.map((item) => Flock.fromJson(item.value)).toList();
-  } */
+  }
+  // *
+
+  /// Create a flock from a snapshot, setting its content and key
+  Flock flockFromSnapshot(RecordSnapshot<int, Map<String, dynamic>> snapshot) {
+    if (snapshot != null) {
+      return Flock.fromJson(snapshot.value)..key = snapshot.key;
+    }
+    return null;
+  }
+
+  /// Get a flock by key
+  Future<Flock> getFlock(int key) async {
+    var snapshot = await _flockDbStore.record(key).getSnapshot(_database);
+    return flockFromSnapshot(snapshot);
+  }
+
+  /// Add a flock, return and save its key in [flock] object.
+  Future<Flock> addFlock(Flock flock) async {
+    flock.key = await _flockDbStore.add(_database, flock.toJson());
+    /* if (flock.id != null) {
+      await _flockDbStore.record(flock.id).put(_database, flock.toJson());
+    } else {
+      flock.id = await _flockDbStore.add(_database, flock.toJson());
+    } */
+
+    final dbFlock = await getFlock(flock.key);
+    flocks.add(dbFlock);
+    return dbFlock;
+  }
+
+  Future saveNote(Flock flock) async {
+    if (flock.id != null) {
+      await _flockDbStore.record(flock.id).put(_database, flock.toJson());
+    } else {
+      //flock.id = await _flockDbStore.add(_database, flock.toJson());
+    }
+  }
+
+  /// Add multiple flocks, return and save its keys in [flocks] objects.
+  Future<List<int>> addFlocks(List<Flock> flocks) async {
+    var keys = await _flockDbStore.addAll(_database,
+        flocks.map((flock) => flock.toJson()).toList(growable: false));
+    for (var i = 0; i < keys.length; i++) {
+      flocks[i].key = keys[i];
+    }
+    return keys;
+  }
 
   @action
   Future<List<Flock>> saveAllFlocks(List<Flock> _flocks) async {
@@ -63,77 +111,37 @@ abstract class FlocksStoreBase with Store {
     return flocks;
   }
 
-  @action
+  /* @action
   Future<Flock> addFlock(Flock flockData) async {
     final flock = await _flocksService.addFlockRpc.request(flockData);
     flocks.add(flock);
     return flock;
+  } */
+
+  Future<Flock> disableFlock(Flock flockData) async {
+    final finder = sembast.Finder(filter: sembast.Filter.byKey(flockData.key));
+    await _flockDbStore.update(_database, flockData.toJson(), finder: finder);
   }
 
-//TODO
-/*   Future insert(Flock flockData) async {}
-  Future<Flock> addFlock(Flock flockData) async {
-    /* var flock = Flock(
-        id: flocks.isEmpty
-            ? 0
-            : flocks.fold<int>(0, (max, e) => e.id > max ? e.id : max) + 1,
-        axeUuid: flockData?.axeUuid ?? '0',
-        items: flockData.items,
-        date: flockData.date,
-        received: flockData.received,
-        comment: flockData.comment,
-        flockType: flockData.flockType,
-        herderId: flockData.herderId,
-        status: flockData.status,
-        statusUpdateDate: flockData.statusUpdateDate,
-        creationDate: flockData.creationDate);
-    flocks.add(flock); */
-    var key;
-    var t;
-    try {
-      // Add the object, get the auto incremented id
-      key = await _flocksFolder.add(_database, flockData.toJson());
-      // Set the Id in the object
-      if (key != null) {
-        print('key is not null $key');
-        t = await _flocksFolder.record(key).get(_database);
-      }
-    } catch (e) {
-      print('error: $e');
-    }
-    var j = await _flocksFolder.update(
-      _database, {'id': key},
-      //finder: sembast.Finder(filter: sembast.Filter.byKey(key))
-    );
-    print('updated key $j');
-    return Flock.fromJson(t);
-  } */
-
-//TODO
-  /* Future<Flock> disableFlock(Flock flockData) async {
-    final finder = sembast.Finder(filter: sembast.Filter.byKey(flockData.id));
-    await _flocksFolder.update(_database, flockData.toJson(), finder: finder);
-  } */
-
-  @action
+/*   @action
   Future<Flock> disableFlock(Flock flockData) async {
     final disabledFlock =
         await _flocksService.disableFlockRpc.request(flockData);
-    flocks[disabledFlock.id] = disabledFlock;
+    flocks[disabledFlock.key] = disabledFlock;
     return disabledFlock;
-  }
+  } */
 
   @action
   Future<Flock> restoreFlock(Flock flockData) async {
     final restoredFlock =
         await _flocksService.restoreFlockRpc.request(flockData);
-    flocks[restoredFlock.id] = restoredFlock;
+    flocks[restoredFlock.key] = restoredFlock;
     return restoredFlock;
   }
 
   @action
   List<Flock> searchFlockById(String queryString) =>
-      flocks.where((f) => f.id.toString() == queryString).toList();
+      flocks.where((f) => f.key.toString() == queryString).toList();
 
   @action
   int todayFlockCount(DateTime date) =>
@@ -152,7 +160,7 @@ abstract class FlocksStoreBase with Store {
               f.date.month == date.month &&
               f.date.day == date.day,
           orElse: () => null)
-      ?.id;
+      ?.key;
 
   @action
   int todayFlockLast(DateTime date) => flocks
@@ -162,5 +170,5 @@ abstract class FlocksStoreBase with Store {
               f.date.month == date.month &&
               f.date.day == date.day,
           orElse: () => null)
-      ?.id;
+      ?.key;
 }

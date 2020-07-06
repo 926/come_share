@@ -24,27 +24,53 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
     flockStatus = widget.flock.status;
   }
 
-  Future<Flock> _onDisable(Flock flockToDisable) async {
+  Future<Flock> _onDisable() async {
+    final soonToBeDisabledFlock = Flock(
+      id: widget.flock.id,
+      axeUuid: widget.flock?.axeUuid ?? '0',
+      items: widget.flock.items,
+      comment: widget.flock.comment,
+      received: widget.flock.received,
+      date: widget.flock.date,
+      creationDate: widget.flock.creationDate,
+      flockType: widget.flock.flockType,
+      herderId: widget.flock.herderId,
+      status: false,
+      statusUpdateDate: DateTime.now(),
+    );
     final flockStore = Provider.of<FlocksStore>(context, listen: false);
     final commoditiesStore =
         Provider.of<CommoditiesStore>(context, listen: false);
-    for (final item in flockToDisable.items) {
+    for (final item in soonToBeDisabledFlock.items) {
       await commoditiesStore.disableLotDouble(item.lot, item.quantity);
     }
-    final disableingTicket = await flockStore.disableFlock(flockToDisable);
+    final disableingTicket =
+        await flockStore.disableFlock(soonToBeDisabledFlock);
     return disableingTicket;
   }
 
-  Future<Flock> _onRestore(Flock flockToRestore) async {
+  Future<Flock> _onRestore() async {
+    final soonToBeRestoredFlock = Flock(
+      id: widget.flock.id,
+      axeUuid: widget.flock?.axeUuid ?? '0',
+      items: widget.flock.items,
+      comment: widget.flock.comment,
+      received: widget.flock.received,
+      date: widget.flock.date,
+      creationDate: widget.flock.creationDate,
+      flockType: widget.flock.flockType,
+      herderId: widget.flock.herderId,
+      status: true,
+      statusUpdateDate: DateTime.now(),
+    );
     final flockStore = Provider.of<FlocksStore>(context, listen: false);
     final commoditiesStore =
         Provider.of<CommoditiesStore>(context, listen: false);
-    for (final item in flockToRestore.items) {
-      await commoditiesStore.removeLotDouble(item.lot,
-          item.quantity); // if bigQuantity then there can be only be a single item.lot
-
+    for (final item in soonToBeRestoredFlock.items) {
+      await commoditiesStore.removeLotDouble(item.lot, item.quantity);
     }
-    final restoringTicket = await flockStore.restoreFlock(flockToRestore);
+    final restoringTicket =
+        await flockStore.restoreFlock(soonToBeRestoredFlock);
     return restoringTicket;
   }
 
@@ -70,7 +96,7 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
                   onPressed: () async {
                     try {
                       final awkwardUncleDrunkAndNakedAtChristmasTicket =
-                          await _onDisable(widget.flock);
+                          await _onDisable();
                       setState(() {
                         flockStatus =
                             awkwardUncleDrunkAndNakedAtChristmasTicket.status;
@@ -88,22 +114,21 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: FloatingActionButton(
-                    heroTag: 2,
-                    child: Icon(Icons.restore_from_trash),
-                    onPressed: () async {
-                      try {
-                        final fakeGanstaRapWithGoldenChainTicket =
-                            await _onRestore(widget.flock);
-                        setState(() {
-                          flockStatus = fakeGanstaRapWithGoldenChainTicket
-                              .status; // not sure this is enough to rebuild the whole
-                        });
-                      } catch (e) {
-                        print('$e');
-                      }
-
-                      //_restoreBottomSheet(context);
-                    }),
+                  heroTag: 2,
+                  child: Icon(Icons.restore_from_trash),
+                  onPressed: () async {
+                    try {
+                      final fakeGanstaRapWithGoldenChainTicket =
+                          await _onRestore();
+                      setState(() {
+                        flockStatus = fakeGanstaRapWithGoldenChainTicket
+                            .status; // not sure this is enough to rebuild the whole
+                      });
+                    } catch (e) {
+                      print('$e');
+                    }
+                  },
+                ),
               ),
             )
         ],
