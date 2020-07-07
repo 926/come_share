@@ -6,58 +6,55 @@ part of 'herders.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HerdersStore on HerdersStoreBase, Store {
   final _$initialLoadingAtom = Atom(name: 'HerdersStoreBase.initialLoading');
 
   @override
   bool get initialLoading {
-    _$initialLoadingAtom.context.enforceReadPolicy(_$initialLoadingAtom);
-    _$initialLoadingAtom.reportObserved();
+    _$initialLoadingAtom.reportRead();
     return super.initialLoading;
   }
 
   @override
   set initialLoading(bool value) {
-    _$initialLoadingAtom.context.conditionallyRunInAction(() {
+    _$initialLoadingAtom.reportWrite(value, super.initialLoading, () {
       super.initialLoading = value;
-      _$initialLoadingAtom.reportChanged();
-    }, _$initialLoadingAtom, name: '${_$initialLoadingAtom.name}_set');
+    });
   }
 
   final _$herdersAtom = Atom(name: 'HerdersStoreBase.herders');
 
   @override
   ObservableList<Herder> get herders {
-    _$herdersAtom.context.enforceReadPolicy(_$herdersAtom);
-    _$herdersAtom.reportObserved();
+    _$herdersAtom.reportRead();
     return super.herders;
   }
 
   @override
   set herders(ObservableList<Herder> value) {
-    _$herdersAtom.context.conditionallyRunInAction(() {
+    _$herdersAtom.reportWrite(value, super.herders, () {
       super.herders = value;
-      _$herdersAtom.reportChanged();
-    }, _$herdersAtom, name: '${_$herdersAtom.name}_set');
+    });
   }
 
-  final _$initAsyncAction = AsyncAction('init');
+  final _$initAsyncAction = AsyncAction('HerdersStoreBase.init');
 
   @override
   Future<void> init() {
     return _$initAsyncAction.run(() => super.init());
   }
 
-  final _$loadTasksAsyncAction = AsyncAction('loadTasks');
+  final _$loadTasksAsyncAction = AsyncAction('HerdersStoreBase.loadTasks');
 
   @override
   Future<void> loadTasks() {
     return _$loadTasksAsyncAction.run(() => super.loadTasks());
   }
 
-  final _$saveAllHerdersAsyncAction = AsyncAction('saveAllHerders');
+  final _$saveAllHerdersAsyncAction =
+      AsyncAction('HerdersStoreBase.saveAllHerders');
 
   @override
   Future<ObservableList<Herder>> saveAllHerders(List<Herder> _herders) {
@@ -65,7 +62,8 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
         .run(() => super.saveAllHerders(_herders));
   }
 
-  final _$deleteAllHerdersAsyncAction = AsyncAction('deleteAllHerders');
+  final _$deleteAllHerdersAsyncAction =
+      AsyncAction('HerdersStoreBase.deleteAllHerders');
 
   @override
   Future<ObservableList<Herder>> deleteAllHerders(List<Herder> theseHerders) {
@@ -73,7 +71,8 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
         .run(() => super.deleteAllHerders(theseHerders));
   }
 
-  final _$importHerdersAsyncAction = AsyncAction('importHerders');
+  final _$importHerdersAsyncAction =
+      AsyncAction('HerdersStoreBase.importHerders');
 
   @override
   Future<ObservableList<Herder>> importHerders(String json) {
@@ -81,7 +80,7 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
   }
 
   final _$importHerdersFromMongoAsyncAction =
-      AsyncAction('importHerdersFromMongo');
+      AsyncAction('HerdersStoreBase.importHerdersFromMongo');
 
   @override
   Future<ObservableList<Herder>> importHerdersFromMongo(List<Herder> _herders) {
@@ -94,11 +93,20 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
 
   @override
   List<Herder> searchHerderByQr(String queryString) {
-    final _$actionInfo = _$HerdersStoreBaseActionController.startAction();
+    final _$actionInfo = _$HerdersStoreBaseActionController.startAction(
+        name: 'HerdersStoreBase.searchHerderByQr');
     try {
       return super.searchHerderByQr(queryString);
     } finally {
       _$HerdersStoreBaseActionController.endAction(_$actionInfo);
     }
+  }
+
+  @override
+  String toString() {
+    return '''
+initialLoading: ${initialLoading},
+herders: ${herders}
+    ''';
   }
 }

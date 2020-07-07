@@ -6,7 +6,7 @@ part of 'commodities.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
   final _$initialLoadingAtom =
@@ -14,51 +14,48 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
 
   @override
   bool get initialLoading {
-    _$initialLoadingAtom.context.enforceReadPolicy(_$initialLoadingAtom);
-    _$initialLoadingAtom.reportObserved();
+    _$initialLoadingAtom.reportRead();
     return super.initialLoading;
   }
 
   @override
   set initialLoading(bool value) {
-    _$initialLoadingAtom.context.conditionallyRunInAction(() {
+    _$initialLoadingAtom.reportWrite(value, super.initialLoading, () {
       super.initialLoading = value;
-      _$initialLoadingAtom.reportChanged();
-    }, _$initialLoadingAtom, name: '${_$initialLoadingAtom.name}_set');
+    });
   }
 
   final _$commoditiesAtom = Atom(name: 'CommoditiesStoreBase.commodities');
 
   @override
   ObservableList<Commodity> get commodities {
-    _$commoditiesAtom.context.enforceReadPolicy(_$commoditiesAtom);
-    _$commoditiesAtom.reportObserved();
+    _$commoditiesAtom.reportRead();
     return super.commodities;
   }
 
   @override
   set commodities(ObservableList<Commodity> value) {
-    _$commoditiesAtom.context.conditionallyRunInAction(() {
+    _$commoditiesAtom.reportWrite(value, super.commodities, () {
       super.commodities = value;
-      _$commoditiesAtom.reportChanged();
-    }, _$commoditiesAtom, name: '${_$commoditiesAtom.name}_set');
+    });
   }
 
-  final _$initAsyncAction = AsyncAction('init');
+  final _$initAsyncAction = AsyncAction('CommoditiesStoreBase.init');
 
   @override
   Future<void> init() {
     return _$initAsyncAction.run(() => super.init());
   }
 
-  final _$loadTasksAsyncAction = AsyncAction('loadTasks');
+  final _$loadTasksAsyncAction = AsyncAction('CommoditiesStoreBase.loadTasks');
 
   @override
   Future<void> loadTasks() {
     return _$loadTasksAsyncAction.run(() => super.loadTasks());
   }
 
-  final _$saveCommoditiesAsyncAction = AsyncAction('saveCommodities');
+  final _$saveCommoditiesAsyncAction =
+      AsyncAction('CommoditiesStoreBase.saveCommodities');
 
   @override
   Future<ObservableList<Commodity>> saveCommodities(
@@ -67,14 +64,15 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
         .run(() => super.saveCommodities(_commoditiesToSave));
   }
 
-  final _$removeLotAsyncAction = AsyncAction('removeLot');
+  final _$removeLotAsyncAction = AsyncAction('CommoditiesStoreBase.removeLot');
 
   @override
   Future<ObservableList<Commodity>> removeLot(Lot lot, int quantity) {
     return _$removeLotAsyncAction.run(() => super.removeLot(lot, quantity));
   }
 
-  final _$removeLotDoubleAsyncAction = AsyncAction('removeLotDouble');
+  final _$removeLotDoubleAsyncAction =
+      AsyncAction('CommoditiesStoreBase.removeLotDouble');
 
   @override
   Future<ObservableList<Commodity>> removeLotDouble(Lot lot, double quantity) {
@@ -82,7 +80,8 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
         .run(() => super.removeLotDouble(lot, quantity));
   }
 
-  final _$incrementLotAsyncAction = AsyncAction('incrementLot');
+  final _$incrementLotAsyncAction =
+      AsyncAction('CommoditiesStoreBase.incrementLot');
 
   @override
   Future<ObservableList<Commodity>> incrementLot(Lot lot, int quantity) {
@@ -90,7 +89,8 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
         .run(() => super.incrementLot(lot, quantity));
   }
 
-  final _$incrementLotDoubleAsyncAction = AsyncAction('incrementLotDouble');
+  final _$incrementLotDoubleAsyncAction =
+      AsyncAction('CommoditiesStoreBase.incrementLotDouble');
 
   @override
   Future<ObservableList<Commodity>> incrementLotDouble(
@@ -99,14 +99,16 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
         .run(() => super.incrementLotDouble(lot, quantity));
   }
 
-  final _$disableLotAsyncAction = AsyncAction('disableLot');
+  final _$disableLotAsyncAction =
+      AsyncAction('CommoditiesStoreBase.disableLot');
 
   @override
   Future<ObservableList<Commodity>> disableLot(Lot lot, int quantity) {
     return _$disableLotAsyncAction.run(() => super.disableLot(lot, quantity));
   }
 
-  final _$disableLotDoubleAsyncAction = AsyncAction('disableLotDouble');
+  final _$disableLotDoubleAsyncAction =
+      AsyncAction('CommoditiesStoreBase.disableLotDouble');
 
   @override
   Future<ObservableList<Commodity>> disableLotDouble(Lot lot, double quantity) {
@@ -114,7 +116,8 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
         .run(() => super.disableLotDouble(lot, quantity));
   }
 
-  final _$importCatalogueAsyncAction = AsyncAction('importCatalogue');
+  final _$importCatalogueAsyncAction =
+      AsyncAction('CommoditiesStoreBase.importCatalogue');
 
   @override
   Future<ObservableList<Commodity>> importCatalogue(String json) {
@@ -122,7 +125,7 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
   }
 
   final _$importCommoditiesFromMongoAsyncAction =
-      AsyncAction('importCommoditiesFromMongo');
+      AsyncAction('CommoditiesStoreBase.importCommoditiesFromMongo');
 
   @override
   Future<ObservableList<Commodity>> importCommoditiesFromMongo(
@@ -131,12 +134,21 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
         .run(() => super.importCommoditiesFromMongo(_commodities));
   }
 
-  final _$deleteAllCommoditiesAsyncAction = AsyncAction('deleteAllCommodities');
+  final _$deleteAllCommoditiesAsyncAction =
+      AsyncAction('CommoditiesStoreBase.deleteAllCommodities');
 
   @override
   Future<ObservableList<Commodity>> deleteAllCommodities(
       List<Commodity> theseCommodities) {
     return _$deleteAllCommoditiesAsyncAction
         .run(() => super.deleteAllCommodities(theseCommodities));
+  }
+
+  @override
+  String toString() {
+    return '''
+initialLoading: ${initialLoading},
+commodities: ${commodities}
+    ''';
   }
 }
