@@ -54,8 +54,8 @@ abstract class FlocksStoreBase with Store {
   }
 
   /// Get a flock by key
-  Future<Flock> getFlock(int id) async {
-    var snapshot = await _flockDbStore.record(id).getSnapshot(_database);
+  Future<Flock> getFlock(int key) async {
+    var snapshot = await _flockDbStore.record(key).getSnapshot(_database);
     return flockFromSnapshot(snapshot);
   }
 
@@ -99,24 +99,23 @@ abstract class FlocksStoreBase with Store {
   }
 
   Future<Flock> disableFlock(Flock flockData) async {
-    final coolKey = await _flockDbStore.record(flockData.id).update(
+    final flockRaw = await _flockDbStore.record(flockData.key).update(
           _database,
           flockData.toJson(),
         );
-    final newFlock = Flock.fromJson(coolKey);
-    flocks[flockData.id - 1] = newFlock;
-    return newFlock;
+    flocks[flockData.key - 1] = Flock.fromJson(flockRaw);
+    return Flock.fromJson(flockRaw);
   }
 
   @action
   Future<Flock> restoreFlock(Flock flockData) async {
-    final coolKey = await _flockDbStore.record(flockData.id).update(
+    final flockRaw = await _flockDbStore.record(flockData.key).update(
           _database,
           flockData.toJson(),
         );
-    final newFlock = Flock.fromJson(coolKey);
-    flocks[flockData.id - 1] = newFlock;
-    return newFlock;
+
+    flocks[flockData.key - 1] = Flock.fromJson(flockRaw);
+    return Flock.fromJson(flockRaw);
   }
 
   @action

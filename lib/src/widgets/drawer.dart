@@ -1,6 +1,7 @@
 import 'package:come_share/src/models/collector.dart';
 import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/routes/collector_detail.dart';
+import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/export.dart';
 import 'package:come_share/src/routes/flocks/flocks.dart';
 import 'package:come_share/src/routes/settings_import.dart';
@@ -59,12 +60,13 @@ class AppDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.receipt),
-                title: Text('Recus'),
+                leading: Icon(Icons.widgets),
+                title: Text('Commodités'),
                 onTap: () {
                   Navigator.of(context).pop();
-                  Navigator.of(context)
-                      .pushNamed(FlocksRoute.routePath); // for now
+                  Navigator.of(context).pushNamed(
+                    CommoditiesRoute.routePath,
+                  );
                 },
               ),
               ListTile(

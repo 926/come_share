@@ -1,6 +1,6 @@
 //import 'dart:async';
 
-import 'package:come_share/src/views/flocks/flock_overview.dart';
+import 'package:come_share/src/views/main_view/flocks/flock_overview.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/routes/herders/herders.dart';

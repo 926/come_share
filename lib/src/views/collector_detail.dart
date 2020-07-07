@@ -1,4 +1,5 @@
 import 'package:come_share/src/stores/collector.dart';
+import 'package:come_share/src/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,7 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
     //print(thisCollector.name);
 
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text('Collecteur'),
         backgroundColor: Colors.red[400],

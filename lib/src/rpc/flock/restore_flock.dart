@@ -14,7 +14,7 @@ class RestoreFlockRpc implements EndpointBase<Flock, Flock> {
         .map((item) => Flock.fromJson((item as Map)?.cast<String, dynamic>()))
         .toList();
     final soonToBeRestoredFlock = Flock(
-        id: data.id,
+        key: data.key,
         axeUuid: data?.axeUuid ?? '0',
         items: data.items,
         date: data.date,
@@ -25,8 +25,7 @@ class RestoreFlockRpc implements EndpointBase<Flock, Flock> {
         status: true,
         statusUpdateDate: DateTime.now(),
         creationDate: data.creationDate);
-    var flockIndex = soonToBeRestoredFlock.id;
-    flocks[flockIndex] = soonToBeRestoredFlock;
+    flocks[soonToBeRestoredFlock.key] = soonToBeRestoredFlock;
 
     //await _database.put(flocks.map((flock) => flock.toJson()).toList(), 'flocks');
     var flockRecord = store.record('flocks');

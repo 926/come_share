@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/views/flocks/flock_detail.dart';
+import 'package:come_share/src/views/main_view/flocks/flock_detail.dart';
 import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/stores/commodities.dart';
 //import 'package:come_share/src/stores/collector.dart';
@@ -26,7 +26,7 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
 
   Future<Flock> _onDisable(Flock thisFlock) async {
     final soonToBeDisabledFlock = Flock(
-      id: thisFlock.id,
+      key: thisFlock.key,
       axeUuid: thisFlock?.axeUuid ?? '0',
       items: thisFlock.items,
       comment: thisFlock.comment,
@@ -51,7 +51,7 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
 
   Future<Flock> _onRestore(Flock thisFlock) async {
     final soonToBeRestoredFlock = Flock(
-      id: thisFlock.id,
+      key: thisFlock.key,
       axeUuid: thisFlock?.axeUuid ?? '0',
       items: thisFlock.items,
       comment: thisFlock.comment,

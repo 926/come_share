@@ -1,4 +1,5 @@
 import 'dart:convert' as convert;
+import 'package:come_share/src/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/commodity.dart';
@@ -118,6 +119,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
       appBar: AppBar(
         title: Text('Importer des listes'),
       ),
+      drawer: AppDrawer(),
       body: Center(
         child: Scrollbar(
           child: SingleChildScrollView(

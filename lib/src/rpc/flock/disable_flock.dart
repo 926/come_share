@@ -14,7 +14,7 @@ class DisableFlockRpc implements EndpointBase<Flock, Flock> {
         .map((item) => Flock.fromJson((item as Map)?.cast<String, dynamic>()))
         .toList();
     final soonToBeDisabledFlock = Flock(
-      id: data.id,
+      key: data.key,
       axeUuid: data?.axeUuid ?? '0',
       items: data.items,
       comment: data.comment,
@@ -27,7 +27,7 @@ class DisableFlockRpc implements EndpointBase<Flock, Flock> {
       statusUpdateDate: DateTime.now(),
     );
 
-    flocks[soonToBeDisabledFlock.id] = soonToBeDisabledFlock;
+    flocks[soonToBeDisabledFlock.key] = soonToBeDisabledFlock;
     var flockRecord = store.record('flocks');
     await flockRecord.put(_database, flocks.map((f) => f.toJson()).toList());
     //await _database.put(flocks.map((flock) => flock.toJson()).toList(), 'flocks');

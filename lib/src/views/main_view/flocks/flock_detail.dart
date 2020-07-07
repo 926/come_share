@@ -1,4 +1,5 @@
 // import 'package:come_share/src/stores/commodities.dart';
+import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/utils/formatters.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/herder.dart';
@@ -28,8 +29,11 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.flock.key);
-    print(widget.flock.id);
+    final flocksStore = Provider.of<FlocksStore>(context);
+
+    print('key ${widget.flock.key}');
+    //print('key ${flocksStore.getFlock(key)}');
+
     //final collectorStore = Provider.of<ShopStore>(context, listen: false);
     final herdersStore = Provider.of<HerdersStore>(context, listen: false);
     // final commoditiesStore =
@@ -73,7 +77,7 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
                 SizedBox(
                   width: 28,
                 ),
-                Text('#${widget.flock.id}'),
+                Text('#${widget.flock.key}'),
               ],
             ),
             Row(

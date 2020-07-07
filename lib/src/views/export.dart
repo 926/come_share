@@ -1,4 +1,5 @@
 import 'dart:async' show Future;
+import 'package:come_share/src/widgets/drawer.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -78,6 +79,7 @@ class ExportState extends State<Export> {
     // final collectorStore = Provider.of<CollectorStore>(context);
     // final thiscollector = collectorStore.collector.first;
     return Scaffold(
+      drawer: AppDrawer(),
       appBar: AppBar(
         title: Text('Export .csv / .xlsl'),
       ),
@@ -309,7 +311,7 @@ getFlocksCsv(BuildContext context) async {
             .name;
       }
       List<dynamic> cells = List();
-      cells.add(flocksStore.flocks[i].id);
+      cells.add(flocksStore.flocks[i].key);
       //cells.add(flocksStore.flocks[i].received);
       cells.add(flocksStore.flocks[i].date.toString().substring(0, 19));
       //cells.add(flocksStore.flocks[i].flockType.toString());
@@ -387,7 +389,7 @@ Future<void> getFlocksExcel(BuildContext context) async {
         }
         decoder
           ..insertRow(sheet, newRow)
-          ..updateCell(sheet, 0, newRow, '${thisFlock.id}')
+          ..updateCell(sheet, 0, newRow, '${thisFlock.key}')
           ..updateCell(sheet, 1, newRow,
               '${thisFlock?.date.toString().substring(0, 19)}')
           ..updateCell(sheet, 2, newRow, "$bidon")

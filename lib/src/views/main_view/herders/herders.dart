@@ -106,7 +106,7 @@ class _HerdersViewState extends State<HerdersView> {
 
     return MainView(
         mainNavigatorKey: widget.mainNavigator,
-        selectedIndex: 1,
+        selectedIndex: 0,
         actions: <Widget>[
           IconButton(
             icon: _isBidonAscending == true

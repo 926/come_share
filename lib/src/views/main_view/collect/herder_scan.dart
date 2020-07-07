@@ -15,8 +15,8 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/utils/formatters.dart';
 
-import 'collect.dart';
 //import 'package:come_share/src/stores/collector.dart';
+import 'collect.dart';
 
 class HerderCollectView extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigatorKey;
@@ -106,12 +106,13 @@ class _HerderCollectViewState extends State<HerderCollectView> {
         Provider.of<CommoditiesStore>(context, listen: false);
     final flocksStore = Provider.of<FlocksStore>(context, listen: false);
     final flockManager = Provider.of<FlockManager>(context);
-    final idInt = flocksStore.flocks.isEmpty
-        ? 1
-        : flocksStore.flocks.fold<int>(0, (max, e) => e.id > max ? e.id : max) +
-            1;
+    /* final idInt = flocksStore.flocks.isEmpty
+        ? 0
+        : flocksStore.flocks
+                .fold<int>(0, (max, e) => e.key > max ? e.key : max) +
+            1; */
     final flock = Flock(
-      id: idInt,
+      //key: idInt,
       axeUuid: 'test',
       items: cartStore.items,
       comment: cartStore?.comment ?? '',

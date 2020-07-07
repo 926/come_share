@@ -1,18 +1,14 @@
 //import 'dart:async';
+import 'package:come_share/src/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/stores/commodities.dart';
 //import 'package:come_share/src/stores/collector.dart';
-import 'package:come_share/src/views/main_view/main_view.dart';
-import 'package:come_share/src/views/main_view/commodities/elements/commodity_element.dart';
+import 'package:come_share/src/views/commodities/elements/commodity_element.dart';
 
 class CommoditiesView extends StatefulWidget {
-  final GlobalKey<NavigatorState> mainNavigator;
-
-  CommoditiesView({@required this.mainNavigator});
-
   @override
   _CommoditiesViewState createState() => _CommoditiesViewState();
 }
@@ -120,27 +116,30 @@ class _CommoditiesViewState extends State<CommoditiesView> {
     // final collectorStore = Provider.of<CollectorStore>(context);
     // var thisCollector = collectorStore.collector.first;
 
-    return MainView(
-      selectedIndex: 0,
-      actions: <Widget>[
-        IconButton(
-          icon: isIdAscending == true
-              ? Icon(Icons.keyboard_arrow_up)
-              : Icon(Icons.keyboard_arrow_down),
-          onPressed: () {
-            _orderById(isIdAscending);
-          },
-        ),
-        IconButton(
-          icon: isNameAscending == true
-              ? Icon(Icons.sort_by_alpha)
-              : Icon(Icons.sort_by_alpha),
-          onPressed: () {
-            _orderByName(isNameAscending);
-          },
-        ),
-      ],
-      mainNavigatorKey: widget.mainNavigator,
+    return Scaffold(
+      drawer: AppDrawer(),
+      appBar: AppBar(
+        title: Text('Commodités'),
+        backgroundColor: Colors.orange[800],
+        actions: <Widget>[
+          IconButton(
+            icon: isIdAscending == true
+                ? Icon(Icons.keyboard_arrow_up)
+                : Icon(Icons.keyboard_arrow_down),
+            onPressed: () {
+              _orderById(isIdAscending);
+            },
+          ),
+          IconButton(
+            icon: isNameAscending == true
+                ? Icon(Icons.sort_by_alpha)
+                : Icon(Icons.sort_by_alpha),
+            onPressed: () {
+              _orderByName(isNameAscending);
+            },
+          ),
+        ],
+      ),
       body: Scaffold(
         body: Builder(builder: (BuildContext context) {
           return Container(
@@ -218,7 +217,7 @@ class _CommoditiesViewState extends State<CommoditiesView> {
           );
         }),
       ),
-      floatingButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
         heroTag: "btnSearchCommodities",
         backgroundColor: Color(0xFF20272B),
         //mini: true,

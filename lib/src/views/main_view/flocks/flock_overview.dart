@@ -24,7 +24,7 @@ class FlockOverviewWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(FlockDetailRoute.generateRoute('${flock.id}'));
+            .pushNamed(FlockDetailRoute.generateRoute('${flock.key}'));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -36,7 +36,7 @@ class FlockOverviewWidget extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('#${flock.id}'),
+                  child: Text('#${flock.key}'),
                 ),
               ],
             ),
