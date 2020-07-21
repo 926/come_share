@@ -1,5 +1,4 @@
 import 'package:come_share/src/views/main_view/main_view.dart';
-import 'package:come_share/src/widgets/drawer.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +28,7 @@ class _FlocksViewState extends State<FlocksView> {
 
   void _search(String queryString) {
     final flocksStore = Provider.of<FlocksStore>(context);
-    List<Flock> searching = flocksStore.searchFlockById(queryString);
+    List<Flock> searching = flocksStore.searchFlockByKey(queryString);
     setState(() {
       _searchResults = searching;
     });

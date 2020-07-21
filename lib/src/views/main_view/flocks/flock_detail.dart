@@ -121,7 +121,9 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
                     width: 28,
                   ),
                   Expanded(child: Text("Collecte desactivee le : ")),
-                  Text(widget.flock.statusUpdateDate.toString()),
+                  Text(widget.flock.statusUpdateDate
+                      .toString()
+                      .substring(0, 19)),
                 ],
               ),
             if (widget.flock?.herderId == '0' || widget.flock?.herderId == null)

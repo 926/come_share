@@ -81,58 +81,62 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
     //final thiscollector = collectorStore.shop.first;
 
     return Scaffold(
-      floatingActionButton: Stack(
-        children: <Widget>[
-          if (flockStatus == true)
-            Padding(
-              padding: EdgeInsets.only(left: 31),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: FloatingActionButton(
-                  heroTag: 1,
-                  tooltip: "Désactiver le ticket",
-                  backgroundColor: Colors.grey,
-                  child: Icon(Icons.delete),
-                  onPressed: () async {
-                    try {
-                      final awkwardUncleDrunkAndNakedAtChristmasTicket =
-                          await _onDisable(widget.flock);
-                      setState(() {
-                        flockStatus =
-                            awkwardUncleDrunkAndNakedAtChristmasTicket.status;
-                      });
-                    } catch (e) {
-                      print('$e');
-                    }
-                  },
-                ),
-              ),
+      floatingActionButton: 'settingsBool' ==
+              'settingsBool' // user permission disabled by default
+          ? Container()
+          : Stack(
+              children: <Widget>[
+                if (flockStatus == true)
+                  Padding(
+                    padding: EdgeInsets.only(left: 31),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: FloatingActionButton(
+                        heroTag: 1,
+                        tooltip: "Désactiver le ticket",
+                        backgroundColor: Colors.grey,
+                        child: Icon(Icons.delete),
+                        onPressed: () async {
+                          try {
+                            final awkwardUncleDrunkAndNakedAtChristmasTicket =
+                                await _onDisable(widget.flock);
+                            setState(() {
+                              flockStatus =
+                                  awkwardUncleDrunkAndNakedAtChristmasTicket
+                                      .status;
+                            });
+                          } catch (e) {
+                            print('$e');
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+                if (flockStatus == false)
+                  Padding(
+                    padding: EdgeInsets.only(right: 31),
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: FloatingActionButton(
+                        heroTag: 2,
+                        child: Icon(Icons.restore_from_trash),
+                        onPressed: () async {
+                          try {
+                            final fakeGanstaRapWithGoldenChainTicket =
+                                await _onRestore(widget.flock);
+                            setState(() {
+                              flockStatus = fakeGanstaRapWithGoldenChainTicket
+                                  .status; // not sure this is enough to rebuild the whole
+                            });
+                          } catch (e) {
+                            print('$e');
+                          }
+                        },
+                      ),
+                    ),
+                  )
+              ],
             ),
-          if (flockStatus == false)
-            Padding(
-              padding: EdgeInsets.only(right: 31),
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: FloatingActionButton(
-                  heroTag: 2,
-                  child: Icon(Icons.restore_from_trash),
-                  onPressed: () async {
-                    try {
-                      final fakeGanstaRapWithGoldenChainTicket =
-                          await _onRestore(widget.flock);
-                      setState(() {
-                        flockStatus = fakeGanstaRapWithGoldenChainTicket
-                            .status; // not sure this is enough to rebuild the whole
-                      });
-                    } catch (e) {
-                      print('$e');
-                    }
-                  },
-                ),
-              ),
-            )
-        ],
-      ),
       appBar: flockStatus == true ? _appBarTrue() : _appBarFalse(),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

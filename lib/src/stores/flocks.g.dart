@@ -61,21 +61,28 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
     return _$initAsyncAction.run(() => super.init());
   }
 
-  final _$saveAllFlocksAsyncAction =
-      AsyncAction('FlocksStoreBase.saveAllFlocks');
+  final _$loadTasksAsyncAction = AsyncAction('FlocksStoreBase.loadTasks');
 
   @override
-  Future<List<Flock>> saveAllFlocks(List<Flock> _flocks) {
-    return _$saveAllFlocksAsyncAction.run(() => super.saveAllFlocks(_flocks));
+  Future<void> loadTasks() {
+    return _$loadTasksAsyncAction.run(() => super.loadTasks());
   }
 
-  final _$importPastFlocksAsyncAction =
-      AsyncAction('FlocksStoreBase.importPastFlocks');
+  final _$addFlocksJsonAsyncAction =
+      AsyncAction('FlocksStoreBase.addFlocksJson');
 
   @override
-  Future<ObservableList<Flock>> importPastFlocks(String json) {
-    return _$importPastFlocksAsyncAction
-        .run(() => super.importPastFlocks(json));
+  Future<List<Flock>> addFlocksJson(String json) {
+    return _$addFlocksJsonAsyncAction.run(() => super.addFlocksJson(json));
+  }
+
+  final _$replaceFlocksJsonAsyncAction =
+      AsyncAction('FlocksStoreBase.replaceFlocksJson');
+
+  @override
+  Future<List<Flock>> replaceFlocksJson(String json) {
+    return _$replaceFlocksJsonAsyncAction
+        .run(() => super.replaceFlocksJson(json));
   }
 
   final _$restoreFlockAsyncAction = AsyncAction('FlocksStoreBase.restoreFlock');
@@ -89,11 +96,11 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
       ActionController(name: 'FlocksStoreBase');
 
   @override
-  List<Flock> searchFlockById(String queryString) {
+  List<Flock> searchFlockByKey(String queryString) {
     final _$actionInfo = _$FlocksStoreBaseActionController.startAction(
-        name: 'FlocksStoreBase.searchFlockById');
+        name: 'FlocksStoreBase.searchFlockByKey');
     try {
-      return super.searchFlockById(queryString);
+      return super.searchFlockByKey(queryString);
     } finally {
       _$FlocksStoreBaseActionController.endAction(_$actionInfo);
     }

@@ -275,7 +275,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         final _updatedList =
                             preserveOldHerdersAndRemoveDuplicates(
                                 _oldList, _newList);
-                        await herdersStore.saveAllHerders(_updatedList);
+                        await herdersStore.replaceAllHerders(_updatedList);
                         return showDialogCSOk(
                             "Import contacts terminé", context);
                       }
@@ -343,7 +343,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                           return;
                         } else {
                           final _herders = await file.readAsString();
-                          await herdersStore.importHerders(_herders);
+                          await herdersStore.importHerdersJson(_herders);
                         }
                       },
                       child: Row(
@@ -390,7 +390,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         final _updatedList =
                             preserveOldFlocksAndRemoveDuplicates(
                                 _oldList, _newList);
-                        await flocksStore.saveAllFlocks(_updatedList);
+                        await flocksStore.addAllFlocks(_updatedList);
                         return showDialogCSOk(
                             "Import des collectes terminé", context);
                       }
@@ -456,7 +456,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         //  return showDialogWeebi('Permission requise', context);
                       } else {
                         final _flocks = await file.readAsString();
-                        await flocksStore.importPastFlocks(_flocks);
+                        await flocksStore.addFlocksJson(_flocks);
                         return showDialogCSOk(
                             'Import des collectes terminé', context);
                       }

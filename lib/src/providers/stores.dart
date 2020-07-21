@@ -24,12 +24,12 @@ class StoresProvider extends StatelessWidget {
       providers: [
         ProxyProvider<FlocksService, FlocksStore>(
           update: (c, service, previousStore) {
-            return previousStore ?? FlocksStore(service, database);
+            return previousStore ?? FlocksStore(database, service);
           },
         ),
         ProxyProvider<HerdersService, HerdersStore>(
           update: (c, service, previousStore) {
-            return previousStore ?? HerdersStore(service);
+            return previousStore ?? HerdersStore(database, service);
           },
         ),
         ProxyProvider<CommoditiesService, CommoditiesStore>(

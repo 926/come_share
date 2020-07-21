@@ -16,9 +16,9 @@ class CalculatorView extends StatefulWidget {
 }
 
 class _CalculatorViewState extends State<CalculatorView> {
-  static const Color defaultButtonBackgroundColor = Color(0xff42b2a6);
+  static const Color defaultButtonBackgroundColor = Colors.blueGrey;
   static const Color importantButtonsColor = Color(0xfffa5c68);
-  static const Color otherButtonsColor = Color(0xffffb733);
+  static const Color otherButtonsColor = Colors.blue;
   static const Radius buttonCornerRadius = Radius.circular(12);
   final TextStyle textStyle = TextStyle(
     color: Colors.white,
@@ -291,6 +291,7 @@ class _CalculatorViewState extends State<CalculatorView> {
     return _button(
       'Valider',
       () => _validateAndLoadNextView(context),
+      backgroundColor: Colors.blue,
       roundedCorner: roundedCorner,
     );
   }

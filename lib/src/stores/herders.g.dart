@@ -53,13 +53,13 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
     return _$loadTasksAsyncAction.run(() => super.loadTasks());
   }
 
-  final _$saveAllHerdersAsyncAction =
-      AsyncAction('HerdersStoreBase.saveAllHerders');
+  final _$replaceAllHerdersAsyncAction =
+      AsyncAction('HerdersStoreBase.replaceAllHerders');
 
   @override
-  Future<ObservableList<Herder>> saveAllHerders(List<Herder> _herders) {
-    return _$saveAllHerdersAsyncAction
-        .run(() => super.saveAllHerders(_herders));
+  Future<ObservableList<Herder>> replaceAllHerders(List<Herder> _herders) {
+    return _$replaceAllHerdersAsyncAction
+        .run(() => super.replaceAllHerders(_herders));
   }
 
   final _$deleteAllHerdersAsyncAction =
@@ -71,12 +71,13 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
         .run(() => super.deleteAllHerders(theseHerders));
   }
 
-  final _$importHerdersAsyncAction =
-      AsyncAction('HerdersStoreBase.importHerders');
+  final _$importHerdersJsonAsyncAction =
+      AsyncAction('HerdersStoreBase.importHerdersJson');
 
   @override
-  Future<ObservableList<Herder>> importHerders(String json) {
-    return _$importHerdersAsyncAction.run(() => super.importHerders(json));
+  Future<ObservableList<Herder>> importHerdersJson(String json) {
+    return _$importHerdersJsonAsyncAction
+        .run(() => super.importHerdersJson(json));
   }
 
   final _$importHerdersFromMongoAsyncAction =

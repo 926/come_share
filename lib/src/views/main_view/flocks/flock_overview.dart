@@ -36,7 +36,9 @@ class FlockOverviewWidget extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: Text('#${flock.key}'),
+                  child: Container(
+                      width: MediaQuery.of(context).size.width * 0.08,
+                      child: Text('#${flock.key}')),
                 ),
               ],
             ),

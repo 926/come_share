@@ -3,7 +3,6 @@ import 'package:come_share/src/routes/collect/collect.dart';
 import 'package:come_share/src/routes/collector_detail.dart';
 import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/export.dart';
-import 'package:come_share/src/routes/flocks/flocks.dart';
 import 'package:come_share/src/routes/settings_import.dart';
 import 'package:come_share/src/stores/collector.dart';
 import 'package:flutter/material.dart';
