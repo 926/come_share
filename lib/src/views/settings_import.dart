@@ -1,4 +1,5 @@
 import 'dart:convert' as convert;
+import 'package:come_share/src/widgets/drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/commodity.dart';
@@ -118,6 +119,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
       appBar: AppBar(
         title: Text('Importer des listes'),
       ),
+      drawer: AppDrawer(),
       body: Center(
         child: Scrollbar(
           child: SingleChildScrollView(
@@ -154,7 +156,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         final _updatedList =
                             preserveOldCommoditiesAndRemoveDuplicates(
                                 _oldList, _newList);
-                        await commoditiesStore.saveCommodities(_updatedList);
+                        await commoditiesStore.replaceCommodities(_updatedList);
                         return showDialogCSOk(
                             "Import produits terminé", context);
                       }
@@ -223,8 +225,8 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         //      'Permission requise', context);
                       } else {
                         final _products = await file.readAsString();
-                        await commoditiesStore.deleteAllCommodities([]);
-                        await commoditiesStore.importCatalogue(_products);
+                        await commoditiesStore.deleteAllCommodities();
+                        await commoditiesStore.addCommoditiesJson(_products);
                         return showDialogCSOk(
                             'Ancien catalogue effacé. \nIimport du nouveau catalogue terminé',
                             context);
@@ -273,7 +275,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         final _updatedList =
                             preserveOldHerdersAndRemoveDuplicates(
                                 _oldList, _newList);
-                        await herdersStore.saveAllHerders(_updatedList);
+                        await herdersStore.replaceAllHerders(_updatedList);
                         return showDialogCSOk(
                             "Import contacts terminé", context);
                       }
@@ -341,7 +343,8 @@ class SettingsImportViewState extends State<SettingsImportView> {
                           return;
                         } else {
                           final _herders = await file.readAsString();
-                          await herdersStore.importHerders(_herders);
+                          await herdersStore.deleteAllHerders();
+                          await herdersStore.addHerdersJson(_herders);
                         }
                       },
                       child: Row(
@@ -388,7 +391,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         final _updatedList =
                             preserveOldFlocksAndRemoveDuplicates(
                                 _oldList, _newList);
-                        await flocksStore.saveAllFlocks(_updatedList);
+                        await flocksStore.addAllFlocks(_updatedList);
                         return showDialogCSOk(
                             "Import des collectes terminé", context);
                       }
@@ -454,7 +457,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         //  return showDialogWeebi('Permission requise', context);
                       } else {
                         final _flocks = await file.readAsString();
-                        await flocksStore.importPastFlocks(_flocks);
+                        await flocksStore.addFlocksJson(_flocks);
                         return showDialogCSOk(
                             'Import des collectes terminé', context);
                       }

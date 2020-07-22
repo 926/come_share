@@ -6,83 +6,79 @@ part of 'flocks.dart';
 // StoreGenerator
 // **************************************************************************
 
-// ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
+// ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$FlocksStore on FlocksStoreBase, Store {
   final _$flocksAtom = Atom(name: 'FlocksStoreBase.flocks');
 
   @override
   List<Flock> get flocks {
-    _$flocksAtom.context.enforceReadPolicy(_$flocksAtom);
-    _$flocksAtom.reportObserved();
+    _$flocksAtom.reportRead();
     return super.flocks;
   }
 
   @override
   set flocks(List<Flock> value) {
-    _$flocksAtom.context.conditionallyRunInAction(() {
+    _$flocksAtom.reportWrite(value, super.flocks, () {
       super.flocks = value;
-      _$flocksAtom.reportChanged();
-    }, _$flocksAtom, name: '${_$flocksAtom.name}_set');
+    });
   }
 
   final _$initialLoadingAtom = Atom(name: 'FlocksStoreBase.initialLoading');
 
   @override
   bool get initialLoading {
-    _$initialLoadingAtom.context.enforceReadPolicy(_$initialLoadingAtom);
-    _$initialLoadingAtom.reportObserved();
+    _$initialLoadingAtom.reportRead();
     return super.initialLoading;
   }
 
   @override
   set initialLoading(bool value) {
-    _$initialLoadingAtom.context.conditionallyRunInAction(() {
+    _$initialLoadingAtom.reportWrite(value, super.initialLoading, () {
       super.initialLoading = value;
-      _$initialLoadingAtom.reportChanged();
-    }, _$initialLoadingAtom, name: '${_$initialLoadingAtom.name}_set');
+    });
   }
 
   final _$nowAtom = Atom(name: 'FlocksStoreBase.now');
 
   @override
   DateTime get now {
-    _$nowAtom.context.enforceReadPolicy(_$nowAtom);
-    _$nowAtom.reportObserved();
+    _$nowAtom.reportRead();
     return super.now;
   }
 
   @override
   set now(DateTime value) {
-    _$nowAtom.context.conditionallyRunInAction(() {
+    _$nowAtom.reportWrite(value, super.now, () {
       super.now = value;
-      _$nowAtom.reportChanged();
-    }, _$nowAtom, name: '${_$nowAtom.name}_set');
+    });
   }
 
-  final _$initAsyncAction = AsyncAction('init');
+  final _$initAsyncAction = AsyncAction('FlocksStoreBase.init');
 
   @override
   Future<void> init() {
     return _$initAsyncAction.run(() => super.init());
   }
 
-  final _$saveAllFlocksAsyncAction = AsyncAction('saveAllFlocks');
+  final _$addFlocksJsonAsyncAction =
+      AsyncAction('FlocksStoreBase.addFlocksJson');
 
   @override
-  Future<List<Flock>> saveAllFlocks(List<Flock> _flocks) {
-    return _$saveAllFlocksAsyncAction.run(() => super.saveAllFlocks(_flocks));
+  Future<List<Flock>> addFlocksJson(String json) {
+    return _$addFlocksJsonAsyncAction.run(() => super.addFlocksJson(json));
   }
 
-  final _$importPastFlocksAsyncAction = AsyncAction('importPastFlocks');
+  final _$replaceFlocksJsonAsyncAction =
+      AsyncAction('FlocksStoreBase.replaceFlocksJson');
 
   @override
-  Future<ObservableList<Flock>> importPastFlocks(String json) {
-    return _$importPastFlocksAsyncAction
-        .run(() => super.importPastFlocks(json));
+  Future<List<Flock>> replaceFlocksJson(String json) {
+    return _$replaceFlocksJsonAsyncAction
+        .run(() => super.replaceFlocksJson(json));
   }
 
-  final _$restoreFlockAsyncAction = AsyncAction('restoreFlock');
+  final _$restoreFlockAsyncAction = AsyncAction('FlocksStoreBase.restoreFlock');
 
   @override
   Future<Flock> restoreFlock(Flock flockData) {
@@ -93,10 +89,11 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
       ActionController(name: 'FlocksStoreBase');
 
   @override
-  List<Flock> searchFlockById(String queryString) {
-    final _$actionInfo = _$FlocksStoreBaseActionController.startAction();
+  List<Flock> searchFlockByKey(String queryString) {
+    final _$actionInfo = _$FlocksStoreBaseActionController.startAction(
+        name: 'FlocksStoreBase.searchFlockByKey');
     try {
-      return super.searchFlockById(queryString);
+      return super.searchFlockByKey(queryString);
     } finally {
       _$FlocksStoreBaseActionController.endAction(_$actionInfo);
     }
@@ -104,7 +101,8 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
 
   @override
   int todayFlockCount(DateTime date) {
-    final _$actionInfo = _$FlocksStoreBaseActionController.startAction();
+    final _$actionInfo = _$FlocksStoreBaseActionController.startAction(
+        name: 'FlocksStoreBase.todayFlockCount');
     try {
       return super.todayFlockCount(date);
     } finally {
@@ -114,7 +112,8 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
 
   @override
   int todayFlockFirst(DateTime date) {
-    final _$actionInfo = _$FlocksStoreBaseActionController.startAction();
+    final _$actionInfo = _$FlocksStoreBaseActionController.startAction(
+        name: 'FlocksStoreBase.todayFlockFirst');
     try {
       return super.todayFlockFirst(date);
     } finally {
@@ -124,11 +123,21 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
 
   @override
   int todayFlockLast(DateTime date) {
-    final _$actionInfo = _$FlocksStoreBaseActionController.startAction();
+    final _$actionInfo = _$FlocksStoreBaseActionController.startAction(
+        name: 'FlocksStoreBase.todayFlockLast');
     try {
       return super.todayFlockLast(date);
     } finally {
       _$FlocksStoreBaseActionController.endAction(_$actionInfo);
     }
+  }
+
+  @override
+  String toString() {
+    return '''
+flocks: ${flocks},
+initialLoading: ${initialLoading},
+now: ${now}
+    ''';
   }
 }

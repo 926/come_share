@@ -6,8 +6,10 @@ part 'herder.g.dart';
 
 @JsonSerializable()
 class Herder {
+  @JsonKey(ignore: true)
+  int key;
   @JsonKey(includeIfNull: false, nullable: true)
-  int id;
+  final int id;
   @JsonKey(includeIfNull: false, nullable: true)
   int bidon;
   @JsonKey(includeIfNull: false, nullable: true)

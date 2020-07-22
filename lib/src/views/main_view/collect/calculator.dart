@@ -16,9 +16,9 @@ class CalculatorView extends StatefulWidget {
 }
 
 class _CalculatorViewState extends State<CalculatorView> {
-  static const Color defaultButtonBackgroundColor = Color(0xff42b2a6);
+  static const Color defaultButtonBackgroundColor = Colors.blueGrey;
   static const Color importantButtonsColor = Color(0xfffa5c68);
-  static const Color otherButtonsColor = Color(0xffffb733);
+  static const Color otherButtonsColor = Colors.blue;
   static const Radius buttonCornerRadius = Radius.circular(12);
   final TextStyle textStyle = TextStyle(
     color: Colors.white,
@@ -291,6 +291,7 @@ class _CalculatorViewState extends State<CalculatorView> {
     return _button(
       'Valider',
       () => _validateAndLoadNextView(context),
+      backgroundColor: Colors.blue,
       roundedCorner: roundedCorner,
     );
   }
@@ -300,9 +301,10 @@ class _CalculatorViewState extends State<CalculatorView> {
   ) {
     final cartStore = Provider.of<CartStore>(context);
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
+    final _commodities = commoditiesStore.commodities.toList(growable: false);
     final collectorViewManager = Provider.of<CollectorViewsManager>(context);
-    cartStore.addLot(
-        commoditiesStore.commodities[1].lots.first, total.toDouble());
+    //print(_commodities.length);
+    cartStore.addLot(_commodities[1].lots.first, total.toDouble());
     collectorViewManager.activeView = CollectorViews.scanner;
   }
 }

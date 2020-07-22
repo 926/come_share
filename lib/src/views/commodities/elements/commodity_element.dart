@@ -1,8 +1,10 @@
+import 'package:come_share/src/stores/flocks.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/routes/commodities/commodity_detail.dart';
 import 'package:come_share/src/utils/formatters.dart';
-import 'package:come_share/src/views/main_view/commodities/elements/lot_element.dart';
+import 'package:come_share/src/views/commodities/elements/lot_element.dart';
+import 'package:provider/provider.dart';
 
 class CommodityItemWidget extends StatefulWidget {
   final Commodity commodity;
@@ -23,6 +25,9 @@ class _CommodityItemWidgetState extends State<CommodityItemWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final flocksStore = Provider.of<FlocksStore>(context);
+    final commodityQtIn = flocksStore.commodityQuantityIn(widget.commodity);
+
     return InkWell(
       onLongPress: () {
         Navigator.of(context).pushNamed(
@@ -57,7 +62,7 @@ class _CommodityItemWidgetState extends State<CommodityItemWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(widget.commodity.id != 0
-                    ? '${numberFormatter?.format(widget.commodity.lots.fold(0, (lotValue, lot) => lotValue + (lot?.quantity)))}'
+                    ? '${numberFormatter?.format(commodityQtIn ?? 0.0)}'
                     : ''),
                 Icon(Icons.opacity, color: iconColor)
               ],

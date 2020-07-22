@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
 
     rcRoutes = RcRoutes(
       routes: [
-        CommoditiesRoute(navigatorKey),
+        CommoditiesRoute(),
         CommodityDetailRoute(),
         LotDetailRoute(),
         CollectRoute(navigatorKey),
@@ -41,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         HerderDetailRoute(),
         SyncRoute(navigatorKey),
         CollectorRoute(),
-        FlocksRoute(),
+        FlocksRoute(navigatorKey),
         FlockDetailRoute(),
         SettingsImportRoute(),
         ExportRoute(),

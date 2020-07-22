@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sembast/sembast.dart';
+import 'package:sembast/sembast.dart' as sembast;
 import 'package:sembast/sembast_io.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -24,21 +24,16 @@ void main() async {
 
   Directory appDocDir = await getApplicationDocumentsDirectory();
   String path = join(appDocDir.path, 'cs.db');
-  DatabaseFactory dbFactory = databaseFactoryIo;
+  sembast.DatabaseFactory dbFactory = databaseFactoryIo;
+  sembast.Database _database = await dbFactory.openDatabase(path, version: 1);
 
-  var store = StoreRef<String, List<dynamic>>.main();
+  // ? use this for db seetings only
+  //var store = sembast.StoreRef<String, List<dynamic>>.main();
 
-  Database database = await dbFactory.openDatabase(path, version: 1);
+  final _herdersDbStore = sembast.intMapStoreFactory.store('herders');
+  final hiddenHerders = await _herdersDbStore.find(_database);
 
-  // this is the old version
-  //List<dynamic> herders = await database.get('herders') ?? [];
-
-  List<dynamic> herders = await store.record('herders').get(database) ?? [];
-
-// TODO try below
-// var herders = store.record('herders').exists(database);
-
-  if (herders.isEmpty) {
+  if (hiddenHerders.isEmpty) {
     final _herders = [
       Herder(
           id: 0,
@@ -70,13 +65,14 @@ void main() async {
           statusUpdateDate: now),
     ];
     //await database.put(_herders.map((h) => h.toJson()).toList(), 'herders');
-    var herders = store.record('herders');
-    await herders.put(database, _herders.map((h) => h.toJson()).toList());
+    await _herdersDbStore.addAll(
+        _database, _herders.map((h) => h.toJson()).toList());
   }
 
-  List<dynamic> collector = await store.record('collector').get(database) ?? [];
-  //List<dynamic> collectors = await database.get('collectors') ?? [];
-  if (collector.isEmpty) {
+  final _collectorDbStore = sembast.intMapStoreFactory.store('collector');
+  final hiddenCollector = await _collectorDbStore.find(_database);
+
+  if (hiddenCollector.isEmpty) {
     final _collector = [
       Collector(
         id: 0,
@@ -100,15 +96,13 @@ void main() async {
         updateDate: now,
       ),
     ];
-    //await database.put(_collectors.map((h) => h.toJson()).toList(), 'collectors');
-    var collector = store.record('collector');
-    await collector.put(database, _collector.map((c) => c.toJson()).toList());
+    await _collectorDbStore.addAll(
+        _database, _collector.map((c) => c.toJson()).toList());
   }
 
-  List<dynamic> commodities =
-      await store.record('commodities').get(database) ?? [];
-  //List<dynamic> commodities = await database.get('commodities') ?? [];
-  if (commodities.isEmpty) {
+  final _commoditiesDbStore = sembast.intMapStoreFactory.store('commodities');
+  final hiddenCommodities = await _commoditiesDbStore.find(_database);
+  if (hiddenCommodities.isEmpty) {
     final _commodities = [
       Commodity(
         companyUuid: '0',
@@ -126,7 +120,6 @@ void main() async {
               commodityId: 0,
               id: 1,
               comment: '',
-              quantity: 0.0,
               isDefault: true,
               lotDate: now)
         ],
@@ -147,18 +140,15 @@ void main() async {
               commodityId: 1,
               id: 1,
               comment: '',
-              quantity: 0.0,
               isDefault: true,
               lotDate: now),
         ],
       ),
     ];
-    var commodities = store.record('commodities');
 
-    await commodities.put(
-        database, _commodities.map((c) => c.toJson()).toList());
-    //await database.put(_commodities.map((c) => c.toJson()).toList(), 'commodities');
+    await _commoditiesDbStore.addAll(
+        _database, _commodities.map((c) => c.toJson()).toList());
   }
 
-  runApp(ComeShareApp(database: database));
+  runApp(ComeShareApp(database: _database));
 }

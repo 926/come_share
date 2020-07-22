@@ -1,12 +1,9 @@
-// import 'package:come_share/src/stores/commodities.dart';
-import 'package:come_share/src/utils/formatters.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:come_share/src/utils/formatters.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
-import 'package:provider/provider.dart';
 import 'package:come_share/src/stores/herders.dart';
-//import 'package:come_share/src/stores/collector.dart';
-//import 'package:come_share/src/utils/formatters.dart';
 
 class FlockDetailWidget extends StatefulWidget {
   final Flock flock;
@@ -28,19 +25,15 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.flock.key);
-    print(widget.flock.id);
     //final collectorStore = Provider.of<ShopStore>(context, listen: false);
     final herdersStore = Provider.of<HerdersStore>(context, listen: false);
-    // final commoditiesStore =
-    //     Provider.of<CommoditiesStore>(context, listen: false);
     final herders = herdersStore.herders;
     Herder thisHerder;
 
     if (herders.isNotEmpty) {
       thisHerder = herdersStore?.herders?.firstWhere(
           (h) => h.id.toString() == widget?.flock?.herderId,
-          orElse: () => herders.first);
+          orElse: () => null);
     } else {
       thisHerder = null;
     }
@@ -117,7 +110,9 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
                     width: 28,
                   ),
                   Expanded(child: Text("Collecte desactivee le : ")),
-                  Text(widget.flock.statusUpdateDate.toString()),
+                  Text(widget.flock.statusUpdateDate
+                      .toString()
+                      .substring(0, 19)),
                 ],
               ),
             if (widget.flock?.herderId == '0' || widget.flock?.herderId == null)

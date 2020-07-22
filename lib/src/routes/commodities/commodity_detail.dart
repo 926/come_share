@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rc_router/rc_router.dart';
 import 'package:come_share/src/stores/commodities.dart';
-import 'package:come_share/src/views/main_view/commodities/commodity_detail.dart';
+import 'package:come_share/src/views/commodities/commodity_detail.dart';
 
 class CommodityDetailRoute extends RcRoute {
   static String routePath = '/commodity/:id';

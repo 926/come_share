@@ -49,7 +49,6 @@ abstract class CartStoreBase with Store {
 
   @action
   void addLot(Lot lot, double lotQuantity) {
-    print('try to add $qt to lot $lot');
     final _newItems = <Item>[];
     final _commodity = _commoditiesStore.commodities
         .firstWhere((commodity) => commodity.id == lot.commodityId);

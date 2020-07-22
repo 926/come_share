@@ -23,7 +23,6 @@ class Lot {
   int commodityId;
   final int id;
   String comment;
-  double quantity;
   bool isDefault;
   DateTime lotDate;
 
@@ -32,7 +31,6 @@ class Lot {
     @required this.commodityId,
     @required this.id,
     this.comment,
-    this.quantity,
     this.isDefault = false,
     this.lotDate,
   });

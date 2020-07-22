@@ -3,8 +3,6 @@ import 'package:sembast/sembast.dart' as sembast;
 
 import 'package:come_share/src/app/my_app.dart';
 import 'package:come_share/src/providers/database.dart';
-import 'package:come_share/src/providers/rpc/rpcs.dart';
-import 'package:come_share/src/providers/services/services.dart';
 import 'package:come_share/src/providers/stores.dart';
 
 class ComeShareApp extends StatelessWidget {
@@ -16,26 +14,23 @@ class ComeShareApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ComeShareAppEntrypoint(
       database: database,
-      child: MyApp(),
+      materialAppChild: MyApp(),
     );
   }
 }
 
 class ComeShareAppEntrypoint extends StatelessWidget {
-  final Widget child;
+  final Widget materialAppChild;
   final sembast.Database database;
 
-  ComeShareAppEntrypoint({@required this.child, @required this.database});
+  ComeShareAppEntrypoint(
+      {@required this.materialAppChild, @required this.database});
 
   @override
   Widget build(BuildContext context) {
     return DatabaseProvider(
       database: database,
-      child: RpcsProvider(
-        child: ServicesProvider(
-          child: StoresProvider(child: child, database: database),
-        ),
-      ),
+      child: StoresProvider(child: materialAppChild, database: database),
     );
   }
 }

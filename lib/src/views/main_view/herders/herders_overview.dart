@@ -5,16 +5,16 @@ import 'package:come_share/src/routes/herders/herder_detail.dart';
 //import 'package:provider/provider.dart';
 //import 'package:come_share/src/stores/collector.dart';
 
-class HerderOverview extends StatefulWidget {
+class HerdersOverview extends StatefulWidget {
   final Herder herder;
 
-  HerderOverview({@required this.herder});
+  HerdersOverview({@required this.herder});
 
   @override
-  _HerderOverviewState createState() => _HerderOverviewState();
+  _HerdersOverviewState createState() => _HerdersOverviewState();
 }
 
-class _HerderOverviewState extends State<HerderOverview> {
+class _HerdersOverviewState extends State<HerdersOverview> {
   @override
   Widget build(BuildContext context) {
     // final shopStore = Provider.of<ShopStore>(context);

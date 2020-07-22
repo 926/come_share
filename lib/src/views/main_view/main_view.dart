@@ -1,9 +1,9 @@
 import 'dart:ui';
+import 'package:come_share/src/routes/flocks/flocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:package_info/package_info.dart';
 
-import 'package:come_share/src/routes/commodities/commodities.dart';
 import 'package:come_share/src/routes/herders/herders.dart';
 import 'package:come_share/src/routes/sync.dart';
 import 'package:come_share/src/utils/back_pressed.dart';
@@ -32,16 +32,16 @@ class MainView extends StatefulWidget {
 
 class _MainViewState extends State<MainView> {
   List<String> paths = [
-    CommoditiesRoute.routePath,
     HerdersRoute.routePath,
     CollectRoute.routePath,
+    FlocksRoute.routePath,
     SyncRoute.routePath,
   ];
 
   List<Color> selectedColor = [
-    Colors.orange[800],
     Colors.blue[800],
     Colors.teal,
+    Colors.blueGrey,
     Color(0xff82AAED),
   ];
 
@@ -88,16 +88,16 @@ class _MainViewState extends State<MainView> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.widgets),
-            title: Text('Denrees'),
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.contacts),
             title: Text('Eleveurs'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.local_drink),
             title: Text('Collecte'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.receipt),
+            title: Text('Reçus'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.cloud),

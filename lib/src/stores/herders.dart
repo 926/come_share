@@ -1,71 +1,103 @@
 import 'dart:convert' as convert;
 import 'package:mobx/mobx.dart';
+import 'package:sembast/sembast.dart' as sembast;
 import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/servives/herders.dart';
 
 part 'herders.g.dart';
 
 class HerdersStore = HerdersStoreBase with _$HerdersStore;
 
 abstract class HerdersStoreBase with Store {
-  final HerdersService _herdersService;
+  final sembast.Database _database;
+  var store = sembast.StoreRef<String, List>.main();
 
   @observable
   bool initialLoading;
 
   @observable
-  ObservableList<Herder> herders;
+  List<Herder> herders;
 
-  HerdersStoreBase(this._herdersService) {
+  HerdersStoreBase(this._database) {
     initialLoading = true;
-    herders = ObservableList<Herder>();
+    herders = List<Herder>();
   }
+
+  final _herdersDbStore = sembast.intMapStoreFactory.store('herders');
 
   @action
   Future<void> init() async {
-    await loadTasks();
+    herders = await getAllHerders();
     initialLoading = false;
   }
 
-  @action
-  Future<void> loadTasks() async {
-    final _herders = await _herdersService.getHerdersRpc.request(null);
-    herders = ObservableList.of(_herders);
-    initialLoading = false;
+  Future<List<Herder>> getAllHerders() async {
+    final recordSnapshot = await _herdersDbStore.find(_database);
+    return recordSnapshot.map((e) => Herder.fromJson(e.value)).toList();
+  }
+
+  /// Create a herder from a snapshot, setting its content and key
+  Herder herderFromSnapshot(
+      sembast.RecordSnapshot<int, Map<String, dynamic>> snapshot) {
+    if (snapshot != null) {
+      return Herder.fromJson(snapshot.value)..key = snapshot.key;
+    }
+    return null;
+  }
+
+  /// Get a flock by key / id ?
+  Future<Herder> getHerder(int key) async {
+    var snapshot = await _herdersDbStore.record(key).getSnapshot(_database);
+    return herderFromSnapshot(snapshot);
+  }
+
+  /// Add a herder, return and save its key in [herder] object.
+  Future<Herder> addHerder(Herder herder) async {
+    herder.key = await _herdersDbStore.add(_database, herder.toJson());
+    final dbFlock = await getHerder(herder.key);
+    herders.add(dbFlock);
+    return dbFlock;
+  }
+
+  Future<List<Herder>> addAllHerders(List<Herder> _herders) async {
+    var keys = await _herdersDbStore.addAll(_database,
+        _herders.map((herder) => herder.toJson()).toList(growable: false));
+    for (var i = 0; i < keys.length; i++) {
+      _herders[i].key = keys[i];
+    }
+    final recordSnapshots =
+        await _herdersDbStore.records(keys).getSnapshots(_database);
+    herders.addAll(recordSnapshots
+        .map((item) => Herder.fromJson(item.value))
+        .toList(growable: false));
+    return recordSnapshots
+        .map((item) => Herder.fromJson(item.value))
+        .toList(growable: false);
   }
 
   @action
-  Future<ObservableList<Herder>> saveAllHerders(List<Herder> _herders) async {
-    herders = ObservableList.of(_herders);
-    await _herdersService.saveAllHerdersRpc.request(herders);
+  Future<List<Herder>> replaceAllHerders(List<Herder> _herders) async {
+    deleteAllHerders();
+    final jazzyHerders = await addAllHerders(_herders);
+    herders = List.of(jazzyHerders);
     return herders;
   }
 
   @action
-  Future<ObservableList<Herder>> deleteAllHerders(
-      List<Herder> theseHerders) async {
-    await _herdersService.deleteAllHerdersRpc.request(theseHerders);
+  Future<void> deleteAllHerders() async {
+    //await _herdersService.deleteAllHerdersRpc.request(theseHerders);
+    _herdersDbStore.delete(_database);
     herders.clear();
-    return herders;
   }
 
   @action
-  Future<ObservableList<Herder>> importHerders(String json) async {
+  Future<List<Herder>> addHerdersJson(String json) async {
     final _herders = (convert.json.decode(json) as List)
         .cast<Map>()
         .cast<Map<String, dynamic>>()
         .map((herder) => Herder.fromJson(herder))
         .toList();
-    herders = ObservableList.of(_herders);
-    await _herdersService.saveAllHerdersRpc.request(herders);
-    return herders;
-  }
-
-  @action
-  Future<ObservableList<Herder>> importHerdersFromMongo(
-      List<Herder> _herders) async {
-    herders = ObservableList.of(_herders);
-    await _herdersService.saveAllHerdersRpc.request(_herders.toList());
+    final jazzyHerders = await addAllHerders(_herders);
+    herders = List.of(jazzyHerders);
     return herders;
   }
 

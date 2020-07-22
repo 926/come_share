@@ -70,7 +70,7 @@ class _CollectState extends State<Collect> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return MainView(
       mainNavigatorKey: widget.mainNavigator,
-      selectedIndex: 2,
+      selectedIndex: 1,
       body: ChangeNotifierProvider<CollectorViewsManager>.value(
         value: _collectorViewsManager,
         child: Container(

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/stores/commodities.dart';
 import 'package:come_share/src/stores/flocks.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,6 @@ import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/utils/formatters.dart';
 
 import 'collect.dart';
-//import 'package:come_share/src/stores/collector.dart';
 
 class HerderCollectView extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigatorKey;
@@ -102,17 +100,16 @@ class _HerderCollectViewState extends State<HerderCollectView> {
 
   Future<void> _onSubmit() async {
     final cartStore = Provider.of<CartStore>(context, listen: false);
-    final commoditiesStore =
-        Provider.of<CommoditiesStore>(context, listen: false);
+
     final flocksStore = Provider.of<FlocksStore>(context, listen: false);
     final flockManager = Provider.of<FlockManager>(context);
-
+    /* final idInt = flocksStore.flocks.isEmpty
+        ? 0
+        : flocksStore.flocks
+                .fold<int>(0, (max, e) => e.key > max ? e.key : max) +
+            1; */
     final flock = Flock(
-      id: flocksStore.flocks.isEmpty
-          ? 1
-          : flocksStore.flocks
-                  .fold<int>(0, (max, e) => e.id > max ? e.id : max) +
-              1,
+      id: flocksStore.flocks.length + 1,
       axeUuid: 'test',
       items: cartStore.items,
       comment: cartStore?.comment ?? '',
@@ -120,19 +117,11 @@ class _HerderCollectViewState extends State<HerderCollectView> {
       date: DateTime.now(),
       creationDate: DateTime.now(),
       flockType: FlockType.gathered,
-      herderId:
-          '${cartStore?.herder?.id ?? 0}', // if no herder then use default
+      herderId: '${cartStore?.herder?.id ?? 0}', // if no herder then default
       status: true,
       statusUpdateDate: DateTime.now(),
     );
 
-    for (final item in cartStore.items) {
-      print('we are in view, show me the lot : ${item.lot} ${item.quantity}');
-      await commoditiesStore.incrementLotDouble(
-        item.lot,
-        item.quantity,
-      );
-    }
     final coolFlock = await flocksStore.addFlock(flock);
 
     cartStore.clearItems();

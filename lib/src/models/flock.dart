@@ -42,7 +42,6 @@ class Flock {
   final DateTime statusUpdateDate;
 
   Flock({
-    this.key,
     this.id,
     this.axeUuid,
     this.items,

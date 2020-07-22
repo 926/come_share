@@ -1,7 +1,9 @@
 import 'package:come_share/src/routes/commodities/commodity_detail.dart';
+import 'package:come_share/src/stores/flocks.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/lot.dart';
 import 'package:come_share/src/utils/formatters.dart';
+import 'package:provider/provider.dart';
 //import 'package:come_share/src/stores/collector.dart';
 //import 'package:provider/provider.dart';
 
@@ -24,6 +26,10 @@ class _LotDetailWidgetState extends State<LotDetailWidget> {
   Widget build(BuildContext context) {
     // final collectorStore = Provider.of<CollectorStore>(context);
     // final thisCollector = collectorStore.collector.first;
+
+    final flocksStore = Provider.of<FlocksStore>(context);
+    final _lotQtIn = flocksStore.lotQuantityIn(widget.lot);
+    //final _commodityQtOut = flocksStore.commodityQuantityOut(widget.commodity);
 
     return WillPopScope(
       onWillPop: () async => Navigator.of(context).popAndPushNamed(
@@ -97,7 +103,7 @@ class _LotDetailWidgetState extends State<LotDetailWidget> {
                           "Quantité : ",
                         ),
                         Text(
-                          "${numberFormatter?.format(widget.lot?.quantity)}",
+                          "${numberFormatter?.format(_lotQtIn ?? 0.0)}", // TODO get lot full qt
                         ),
                       ],
                     ),
