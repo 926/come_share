@@ -27,7 +27,8 @@ void main() async {
   sembast.DatabaseFactory dbFactory = databaseFactoryIo;
   sembast.Database _database = await dbFactory.openDatabase(path, version: 1);
 
-  var store = sembast.StoreRef<String, List<dynamic>>.main();
+  // ? use this for db seetings only
+  //var store = sembast.StoreRef<String, List<dynamic>>.main();
 
   final _herdersDbStore = sembast.intMapStoreFactory.store('herders');
   final hiddenHerders = await _herdersDbStore.find(_database);
