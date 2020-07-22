@@ -231,14 +231,14 @@ class _HerdersViewState extends State<HerdersView> {
 
   Widget buildBody(
       BuildContext context, int index, List<Herder> listHerdersStore) {
-    return HerderOverview(herder: listHerdersStore[index]);
+    return HerdersOverview(herder: listHerdersStore[index]);
   }
 
   Widget buildSearchBody(BuildContext context, int index) {
-    return HerderOverview(herder: _searchResults[index]);
+    return HerdersOverview(herder: _searchResults[index]);
   }
 
   Widget buildReorderedList(BuildContext context, int index) {
-    return HerderOverview(herder: herdersListReordered[index]);
+    return HerdersOverview(herder: herdersListReordered[index]);
   }
 }

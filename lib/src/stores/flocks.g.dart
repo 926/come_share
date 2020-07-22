@@ -61,13 +61,6 @@ mixin _$FlocksStore on FlocksStoreBase, Store {
     return _$initAsyncAction.run(() => super.init());
   }
 
-  final _$loadTasksAsyncAction = AsyncAction('FlocksStoreBase.loadTasks');
-
-  @override
-  Future<void> loadTasks() {
-    return _$loadTasksAsyncAction.run(() => super.loadTasks());
-  }
-
   final _$addFlocksJsonAsyncAction =
       AsyncAction('FlocksStoreBase.addFlocksJson');
 

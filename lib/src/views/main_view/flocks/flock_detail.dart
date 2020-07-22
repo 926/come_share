@@ -1,13 +1,9 @@
-// import 'package:come_share/src/stores/commodities.dart';
-import 'package:come_share/src/stores/flocks.dart';
-import 'package:come_share/src/utils/formatters.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:come_share/src/utils/formatters.dart';
 import 'package:come_share/src/models/herder.dart';
 import 'package:come_share/src/models/flock.dart';
-import 'package:provider/provider.dart';
 import 'package:come_share/src/stores/herders.dart';
-//import 'package:come_share/src/stores/collector.dart';
-//import 'package:come_share/src/utils/formatters.dart';
 
 class FlockDetailWidget extends StatefulWidget {
   final Flock flock;
@@ -29,22 +25,15 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    final flocksStore = Provider.of<FlocksStore>(context);
-
-    print('key ${widget.flock.key}');
-    //print('key ${flocksStore.getFlock(key)}');
-
     //final collectorStore = Provider.of<ShopStore>(context, listen: false);
     final herdersStore = Provider.of<HerdersStore>(context, listen: false);
-    // final commoditiesStore =
-    //     Provider.of<CommoditiesStore>(context, listen: false);
     final herders = herdersStore.herders;
     Herder thisHerder;
 
     if (herders.isNotEmpty) {
       thisHerder = herdersStore?.herders?.firstWhere(
           (h) => h.id.toString() == widget?.flock?.herderId,
-          orElse: () => herders.first);
+          orElse: () => null);
     } else {
       thisHerder = null;
     }
@@ -77,7 +66,7 @@ class _FlockDetailWidgetState extends State<FlockDetailWidget> {
                 SizedBox(
                   width: 28,
                 ),
-                Text('#${widget.flock.key}'),
+                Text('#${widget.flock.id}'),
               ],
             ),
             Row(

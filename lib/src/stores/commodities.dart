@@ -1,9 +1,8 @@
 import 'dart:convert' as convert;
 
 import 'package:mobx/mobx.dart';
-//import 'package:come_share/src/models/lot.dart';
+
 import 'package:come_share/src/models/commodity.dart';
-import 'package:come_share/src/servives/commodities.dart';
 import 'package:sembast/sembast.dart' as sembast;
 
 part 'commodities.g.dart';
@@ -11,7 +10,6 @@ part 'commodities.g.dart';
 class CommoditiesStore = CommoditiesStoreBase with _$CommoditiesStore;
 
 abstract class CommoditiesStoreBase with Store {
-  final CommoditiesService _commoditiesService;
   final sembast.Database _database;
   var store = sembast.StoreRef<String, List>.main();
 
@@ -19,25 +17,18 @@ abstract class CommoditiesStoreBase with Store {
   bool initialLoading;
 
   @observable
-  ObservableList<Commodity> commodities;
+  List<Commodity> commodities;
 
-  CommoditiesStoreBase(this._database, this._commoditiesService) {
+  CommoditiesStoreBase(this._database) {
     initialLoading = true;
-    commodities = ObservableList<Commodity>();
+    commodities = List<Commodity>();
   }
 
   final _commoditiesDbStore = sembast.intMapStoreFactory.store("commodities");
 
   @action
-  Future<void> loadTasks() async {
-    var _commodities = await _commoditiesDbStore.find(_database);
-    commodities = _commodities.map((e) => Commodity.fromJson(e.value)).toList();
-    initialLoading = false;
-  }
-
-  @action
   Future<void> init() async {
-    await loadTasks();
+    commodities = await getAllCommodities();
     initialLoading = false;
   }
 
@@ -77,11 +68,11 @@ abstract class CommoditiesStoreBase with Store {
   }
 
   @action
-  Future<ObservableList<Commodity>> replaceAllCommodities(
+  Future<List<Commodity>> replaceAllCommodities(
       List<Commodity> _commodities) async {
     deleteAllCommodities();
     final jazzyHerders = await addAllCommodities(_commodities);
-    commodities = ObservableList.of(jazzyHerders);
+    commodities = List.of(jazzyHerders);
     return commodities;
   }
 
@@ -93,11 +84,11 @@ abstract class CommoditiesStoreBase with Store {
   }
 
   @action
-  Future<ObservableList<Commodity>> replaceCommodities(
+  Future<List<Commodity>> replaceCommodities(
       List<Commodity> _commoditiesToSave) async {
     await deleteAllCommodities();
     final _commodities = await addAllCommodities(_commoditiesToSave);
-    commodities = ObservableList.of(_commodities);
+    commodities = List.of(_commodities);
     return commodities;
   }
 
@@ -113,9 +104,9 @@ abstract class CommoditiesStoreBase with Store {
   }
 
   /* @action
-  Future<ObservableList<Commodity>> importCommoditiesFromMongo(
+  Future<List<Commodity>> importCommoditiesFromMongo(
       List<Commodity> _commodities) async {
-    commodities = ObservableList.of(_commodities);
+    commodities = List.of(_commodities);
     await _commoditiesService.saveAllCommoditiesRpc.request(_commodities);
     return commodities;
   } */

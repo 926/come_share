@@ -301,9 +301,10 @@ class _CalculatorViewState extends State<CalculatorView> {
   ) {
     final cartStore = Provider.of<CartStore>(context);
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
+    final _commodities = commoditiesStore.commodities.toList(growable: false);
     final collectorViewManager = Provider.of<CollectorViewsManager>(context);
-    cartStore.addLot(
-        commoditiesStore.commodities[1].lots.first, total.toDouble());
+    //print(_commodities.length);
+    cartStore.addLot(_commodities[1].lots.first, total.toDouble());
     collectorViewManager.activeView = CollectorViews.scanner;
   }
 }

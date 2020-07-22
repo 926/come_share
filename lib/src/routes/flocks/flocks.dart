@@ -3,7 +3,7 @@ import 'package:come_share/src/views/main_view/flocks/flocks.dart';
 import 'package:flutter/widgets.dart';
 
 class FlocksRoute extends AppRouteBase {
-  static String routePath = '/tickets';
+  static String routePath = '/flocks';
 
   FlocksRoute(GlobalKey<NavigatorState> mainNavigator)
       : super(

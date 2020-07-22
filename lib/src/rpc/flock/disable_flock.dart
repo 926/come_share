@@ -14,7 +14,7 @@ class DisableFlockRpc implements EndpointBase<Flock, Flock> {
         .map((item) => Flock.fromJson((item as Map)?.cast<String, dynamic>()))
         .toList();
     final soonToBeDisabledFlock = Flock(
-      key: data.key,
+      id: data.id,
       axeUuid: data?.axeUuid ?? '0',
       items: data.items,
       comment: data.comment,

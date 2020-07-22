@@ -20,11 +20,11 @@ class FlockOverviewWidget extends StatelessWidget {
     final herdersStore = Provider.of<HerdersStore>(context, listen: false);
     Herder thisHerder = herdersStore.herders.firstWhere(
         (h) => h.id.toString() == flock.herderId,
-        orElse: () => herdersStore.herders.first);
+        orElse: () => null);
     return InkWell(
       onTap: () {
         Navigator.of(context)
-            .pushNamed(FlockDetailRoute.generateRoute('${flock.key}'));
+            .pushNamed(FlockDetailRoute.generateRoute('${flock.creationDate}'));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
@@ -38,7 +38,7 @@ class FlockOverviewWidget extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: Container(
                       width: MediaQuery.of(context).size.width * 0.08,
-                      child: Text('#${flock.key}')),
+                      child: Text('#${flock.id}')),
                 ),
               ],
             ),
@@ -65,8 +65,9 @@ class FlockOverviewWidget extends StatelessWidget {
                         ? '${flock.type} : ${numberFormatter.format(flock.items.fold(0, (prev, element) => prev + element.quantity))}'
                         : '${flock.status}',
                   ),
-                  Text(
-                      '${thisHerder.firstName} ${thisHerder.lastName} n°${thisHerder.bidon}'),
+                  Text(thisHerder == null
+                      ? ''
+                      : '${thisHerder.firstName} ${thisHerder.lastName} n°${thisHerder.bidon}'),
                   Text(
                     '${flock.date.year}_${flock.date.month}_${flock.date.day} a ${flock.date.hour}:${flock.date.minute}',
                     style: TextStyle(

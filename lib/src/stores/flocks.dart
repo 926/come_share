@@ -1,8 +1,8 @@
 import 'dart:convert' as convert;
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/models/lot.dart';
-import 'package:come_share/src/servives/flocks.dart';
 import 'package:mobx/mobx.dart';
+//import 'package:come_share/src/servives/flocks.dart';
 
 import 'package:come_share/src/models/flock.dart';
 
@@ -13,7 +13,7 @@ part 'flocks.g.dart';
 class FlocksStore = FlocksStoreBase with _$FlocksStore;
 
 abstract class FlocksStoreBase with Store {
-  final FlocksService _flocksService;
+//  final FlocksService _flocksService;
 
   final sembast.Database _database;
   var store = sembast.StoreRef<String, List>.main();
@@ -24,7 +24,7 @@ abstract class FlocksStoreBase with Store {
   @observable
   bool initialLoading;
 
-  FlocksStoreBase(this._database, this._flocksService) {
+  FlocksStoreBase(this._database) {
     initialLoading = true;
     flocks = List<Flock>();
   }
@@ -36,14 +36,7 @@ abstract class FlocksStoreBase with Store {
 
   @action
   Future<void> init() async {
-    await loadTasks();
-    initialLoading = false;
-  }
-
-  @action
-  Future<void> loadTasks() async {
-    var _flocks = await _flocksDbStore.find(_database);
-    flocks = _flocks.map((item) => Flock.fromJson(item.value)).toList();
+    flocks = await getAllFlocks();
     initialLoading = false;
   }
 

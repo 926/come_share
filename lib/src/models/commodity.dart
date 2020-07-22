@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:come_share/src/models/lot.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:come_share/src/utils/formatters.dart';
+//import 'package:come_share/src/utils/formatters.dart';
 import 'package:meta/meta.dart';
 
 part 'commodity.g.dart';
@@ -26,10 +26,10 @@ class Commodity {
   String name;
   double weight;
   String photo;
-  final bool status;
-  final DateTime statusUpdateDate;
   final DateTime date;
   final DateTime updateDate;
+  final bool status;
+  final DateTime statusUpdateDate;
   @JsonKey(
     fromJson: lotsFromJson,
     toJson: lotsToJson,
@@ -42,21 +42,14 @@ class Commodity {
       @required this.name,
       this.weight,
       this.photo,
-      this.status,
-      this.statusUpdateDate,
       this.date,
       this.updateDate,
+      this.status,
+      this.statusUpdateDate,
       this.lots});
 
   String get sharableText {
-    final truc = StringBuffer();
-    lots.forEach((l) {
-      truc.write(
-          '${numberFormatter?.format(lots?.fold(0, (value, lot) => value + lot?.quantity))}');
-    });
-    final sb = StringBuffer()
-      ..writeln('# $id - $name')
-      ..writeln('stock : ${truc.toString()}');
+    final sb = StringBuffer()..writeln('# $id - $name');
     return sb.toString();
   }
 

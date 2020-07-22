@@ -12,8 +12,11 @@ enum FlockType { gathered }
 
 @JsonSerializable()
 class Flock {
-  @JsonKey(includeIfNull: false, nullable: true)
+  @JsonKey(ignore: true)
   int key;
+
+  @JsonKey(includeIfNull: false, nullable: true)
+  final int id;
 
   @JsonKey(includeIfNull: false, nullable: true)
   final String axeUuid; // shopUuid shopId
@@ -39,7 +42,7 @@ class Flock {
   final DateTime statusUpdateDate;
 
   Flock({
-    this.key,
+    this.id,
     this.axeUuid,
     this.items,
     this.comment,

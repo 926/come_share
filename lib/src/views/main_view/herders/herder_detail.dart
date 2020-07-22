@@ -9,7 +9,6 @@ import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/utils/formatters.dart';
 //import 'package:come_share/src/stores/collector.dart';
 //import 'package:come_share/src/views/main_view/flocks/flock_overview.dart';
-//import 'package:come_share/src/webhooks/upload_tickets_sell.dart';
 
 class HerderDetailWidget extends StatefulWidget {
   final Herder herder;

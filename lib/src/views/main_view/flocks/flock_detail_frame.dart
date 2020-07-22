@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:come_share/src/models/flock.dart';
 import 'package:come_share/src/views/main_view/flocks/flock_detail.dart';
 import 'package:come_share/src/stores/flocks.dart';
-import 'package:come_share/src/stores/commodities.dart';
-//import 'package:come_share/src/stores/collector.dart';
 
 class FlockDetailFrame extends StatefulWidget {
   final Flock flock;
@@ -26,7 +24,7 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
 
   Future<Flock> _onDisable(Flock thisFlock) async {
     final soonToBeDisabledFlock = Flock(
-      key: thisFlock.key,
+      id: thisFlock.id,
       axeUuid: thisFlock?.axeUuid ?? '0',
       items: thisFlock.items,
       comment: thisFlock.comment,
@@ -51,7 +49,7 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
 
   Future<Flock> _onRestore(Flock thisFlock) async {
     final soonToBeRestoredFlock = Flock(
-      key: thisFlock.key,
+      id: thisFlock.id,
       axeUuid: thisFlock?.axeUuid ?? '0',
       items: thisFlock.items,
       comment: thisFlock.comment,

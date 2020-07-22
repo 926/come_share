@@ -1,17 +1,13 @@
 import 'dart:convert' as convert;
 import 'package:mobx/mobx.dart';
-import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/servives/herders.dart';
-
 import 'package:sembast/sembast.dart' as sembast;
+import 'package:come_share/src/models/herder.dart';
 
 part 'herders.g.dart';
 
 class HerdersStore = HerdersStoreBase with _$HerdersStore;
 
 abstract class HerdersStoreBase with Store {
-  final HerdersService _herdersService;
-
   final sembast.Database _database;
   var store = sembast.StoreRef<String, List>.main();
 
@@ -21,23 +17,16 @@ abstract class HerdersStoreBase with Store {
   @observable
   List<Herder> herders;
 
-  HerdersStoreBase(this._database, this._herdersService) {
+  HerdersStoreBase(this._database) {
     initialLoading = true;
     herders = List<Herder>();
   }
 
-  final _herdersDbStore = sembast.intMapStoreFactory.store("herders");
-
-  @action
-  Future<void> loadTasks() async {
-    var _herders = await _herdersDbStore.find(_database);
-    herders = _herders.map((e) => Herder.fromJson(e.value)).toList();
-    initialLoading = false;
-  }
+  final _herdersDbStore = sembast.intMapStoreFactory.store('herders');
 
   @action
   Future<void> init() async {
-    await loadTasks();
+    herders = await getAllHerders();
     initialLoading = false;
   }
 
@@ -50,7 +39,7 @@ abstract class HerdersStoreBase with Store {
   Herder herderFromSnapshot(
       sembast.RecordSnapshot<int, Map<String, dynamic>> snapshot) {
     if (snapshot != null) {
-      return Herder.fromJson(snapshot.value)..id = snapshot.key;
+      return Herder.fromJson(snapshot.value)..key = snapshot.key;
     }
     return null;
   }
@@ -63,8 +52,8 @@ abstract class HerdersStoreBase with Store {
 
   /// Add a herder, return and save its key in [herder] object.
   Future<Herder> addHerder(Herder herder) async {
-    herder.id = await _herdersDbStore.add(_database, herder.toJson());
-    final dbFlock = await getHerder(herder.id);
+    herder.key = await _herdersDbStore.add(_database, herder.toJson());
+    final dbFlock = await getHerder(herder.key);
     herders.add(dbFlock);
     return dbFlock;
   }
@@ -73,7 +62,7 @@ abstract class HerdersStoreBase with Store {
     var keys = await _herdersDbStore.addAll(_database,
         _herders.map((herder) => herder.toJson()).toList(growable: false));
     for (var i = 0; i < keys.length; i++) {
-      _herders[i].id = keys[i];
+      _herders[i].key = keys[i];
     }
     final recordSnapshots =
         await _herdersDbStore.records(keys).getSnapshots(_database);

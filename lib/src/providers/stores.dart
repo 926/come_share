@@ -1,16 +1,13 @@
-import 'package:come_share/src/servives/collector.dart';
-import 'package:come_share/src/servives/commodities.dart';
-import 'package:come_share/src/stores/collector.dart';
-import 'package:come_share/src/stores/commodities.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/servives/flocks.dart';
-import 'package:come_share/src/servives/herders.dart';
+import 'package:sembast/sembast.dart' as sembast;
+
+import 'package:come_share/src/stores/collector.dart';
+import 'package:come_share/src/stores/commodities.dart';
 import 'package:come_share/src/stores/herders.dart';
 import 'package:come_share/src/stores/app.dart';
 import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/stores/cart.dart';
-import 'package:sembast/sembast.dart' as sembast;
 
 class StoresProvider extends StatelessWidget {
   final Widget child;
@@ -22,24 +19,22 @@ class StoresProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ProxyProvider<FlocksService, FlocksStore>(
-          update: (c, service, previousStore) {
-            return previousStore ?? FlocksStore(database, service);
+        Provider<FlocksStore>(
+          create: (_) => FlocksStore(database),
+        ),
+        Provider<HerdersStore>(
+          create: (_) {
+            return HerdersStore(database);
           },
         ),
-        ProxyProvider<HerdersService, HerdersStore>(
-          update: (c, service, previousStore) {
-            return previousStore ?? HerdersStore(database, service);
+        Provider<CommoditiesStore>(
+          create: (_) {
+            return CommoditiesStore(database);
           },
         ),
-        ProxyProvider<CommoditiesService, CommoditiesStore>(
-          update: (c, service, previousStore) {
-            return previousStore ?? CommoditiesStore(database, service);
-          },
-        ),
-        ProxyProvider<CollectorService, CollectorStore>(
-          update: (c, service, previousStore) {
-            return previousStore ?? CollectorStore(database, service);
+        Provider<CollectorStore>(
+          create: (_) {
+            return CollectorStore(database);
           },
         ),
         ProxyProvider<CommoditiesStore, CartStore>(
@@ -50,8 +45,8 @@ class StoresProvider extends StatelessWidget {
         ProxyProvider4<FlocksStore, HerdersStore, CommoditiesStore,
             CollectorStore, AppStore>(
           update: (c, flocksStore, herdersStore, commoditiesStore,
-              collectorStore, previousStore) {
-            return previousStore ??
+              collectorStore, appStore) {
+            return appStore ??
                 AppStore(flocksStore, herdersStore, commoditiesStore,
                     collectorStore);
           },

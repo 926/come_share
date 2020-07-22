@@ -39,13 +39,6 @@ mixin _$CollectorStore on CollectorStoreBase, Store {
     });
   }
 
-  final _$loadTasksAsyncAction = AsyncAction('CollectorStoreBase.loadTasks');
-
-  @override
-  Future<void> loadTasks() {
-    return _$loadTasksAsyncAction.run(() => super.loadTasks());
-  }
-
   final _$initAsyncAction = AsyncAction('CollectorStoreBase.init');
 
   @override

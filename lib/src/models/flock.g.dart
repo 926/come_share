@@ -8,7 +8,7 @@ part of 'flock.dart';
 
 Flock _$FlockFromJson(Map<String, dynamic> json) {
   return Flock(
-    key: json['key'] as int,
+    id: json['id'] as int,
     axeUuid: json['axeUuid'] as String,
     items: (json['items'] as List)
         ?.map(
@@ -38,7 +38,7 @@ Map<String, dynamic> _$FlockToJson(Flock instance) {
     }
   }
 
-  writeNotNull('key', instance.key);
+  writeNotNull('id', instance.id);
   writeNotNull('axeUuid', instance.axeUuid);
   writeNotNull('items', _itemsToJson(instance.items));
   writeNotNull('comment', instance.comment);

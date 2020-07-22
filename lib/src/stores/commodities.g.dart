@@ -28,23 +28,16 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
   final _$commoditiesAtom = Atom(name: 'CommoditiesStoreBase.commodities');
 
   @override
-  ObservableList<Commodity> get commodities {
+  List<Commodity> get commodities {
     _$commoditiesAtom.reportRead();
     return super.commodities;
   }
 
   @override
-  set commodities(ObservableList<Commodity> value) {
+  set commodities(List<Commodity> value) {
     _$commoditiesAtom.reportWrite(value, super.commodities, () {
       super.commodities = value;
     });
-  }
-
-  final _$loadTasksAsyncAction = AsyncAction('CommoditiesStoreBase.loadTasks');
-
-  @override
-  Future<void> loadTasks() {
-    return _$loadTasksAsyncAction.run(() => super.loadTasks());
   }
 
   final _$initAsyncAction = AsyncAction('CommoditiesStoreBase.init');
@@ -58,8 +51,7 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
       AsyncAction('CommoditiesStoreBase.replaceAllCommodities');
 
   @override
-  Future<ObservableList<Commodity>> replaceAllCommodities(
-      List<Commodity> _commodities) {
+  Future<List<Commodity>> replaceAllCommodities(List<Commodity> _commodities) {
     return _$replaceAllCommoditiesAsyncAction
         .run(() => super.replaceAllCommodities(_commodities));
   }
@@ -77,7 +69,7 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
       AsyncAction('CommoditiesStoreBase.replaceCommodities');
 
   @override
-  Future<ObservableList<Commodity>> replaceCommodities(
+  Future<List<Commodity>> replaceCommodities(
       List<Commodity> _commoditiesToSave) {
     return _$replaceCommoditiesAsyncAction
         .run(() => super.replaceCommodities(_commoditiesToSave));

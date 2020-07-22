@@ -17,8 +17,12 @@ abstract class AppStoreBase with Store {
   @observable
   bool initialLoading;
 
-  AppStoreBase(this._flocksStore, this._herdersStore, this._commoditiesStore,
-      this._collectorStore) {
+  AppStoreBase(
+    this._flocksStore,
+    this._herdersStore,
+    this._commoditiesStore,
+    this._collectorStore,
+  ) {
     initialLoading = true;
 
     when(

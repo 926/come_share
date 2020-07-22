@@ -39,13 +39,6 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
     });
   }
 
-  final _$loadTasksAsyncAction = AsyncAction('HerdersStoreBase.loadTasks');
-
-  @override
-  Future<void> loadTasks() {
-    return _$loadTasksAsyncAction.run(() => super.loadTasks());
-  }
-
   final _$initAsyncAction = AsyncAction('HerdersStoreBase.init');
 
   @override
