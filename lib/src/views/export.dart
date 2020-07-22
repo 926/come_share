@@ -56,7 +56,7 @@ class ExportState extends State<Export> {
     );
   }
 
-//TODO test on android, check ios
+//TOBE tested on android, check ios
   Future<void> shareExcelFile(String string) async {
     Directory directory = await getApplicationDocumentsDirectory();
     var dbPath = join(directory.path, "collecte.");

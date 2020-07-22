@@ -90,7 +90,6 @@ class _CalculatorViewState extends State<CalculatorView> {
               mainAxisAlignment: MainAxisAlignment.end,
               //mainAxisSize: MainAxisSize.max,
               children: <Widget>[
-                // TODO keep on making calc responsive
                 _calculView(),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.60,
