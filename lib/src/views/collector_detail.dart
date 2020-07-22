@@ -1,3 +1,4 @@
+import 'package:come_share/src/models/collector.dart';
 import 'package:come_share/src/stores/collector.dart';
 import 'package:come_share/src/widgets/drawer.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class _CollectorDetailViewState extends State<CollectorDetailView> {
   @override
   Widget build(BuildContext context) {
     final collectorStore = Provider.of<CollectorStore>(context);
-    final thisCollector = collectorStore.collector.first;
+    final thisCollector = collectorStore.collector ?? Collector();
     //print(thisCollector.name);
 
     return Scaffold(

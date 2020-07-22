@@ -126,13 +126,13 @@ class _HerderCollectViewState extends State<HerderCollectView> {
       statusUpdateDate: DateTime.now(),
     );
 
-    for (final item in cartStore.items) {
-      print('we are in view, show me the lot : ${item.lot} ${item.quantity}');
+    /* for (final item in cartStore.items) {
+//      print('we are in view, show me the lot : ${item.lot} ${item.quantity}');
       await commoditiesStore.incrementLotDouble(
         item.lot,
         item.quantity,
       );
-    }
+    } */
     final coolFlock = await flocksStore.addFlock(flock);
 
     cartStore.clearItems();

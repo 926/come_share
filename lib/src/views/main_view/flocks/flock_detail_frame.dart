@@ -39,11 +39,11 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
       statusUpdateDate: DateTime.now(),
     );
     final flockStore = Provider.of<FlocksStore>(context, listen: false);
-    final commoditiesStore =
+    /* final commoditiesStore =
         Provider.of<CommoditiesStore>(context, listen: false);
     for (final item in soonToBeDisabledFlock.items) {
       await commoditiesStore.disableLotDouble(item.lot, item.quantity);
-    }
+    } */
     final disableingTicket =
         await flockStore.disableFlock(soonToBeDisabledFlock);
     return disableingTicket;
@@ -64,11 +64,11 @@ class _FlocktDetailFrameState extends State<FlockDetailFrame> {
       statusUpdateDate: DateTime.now(),
     );
     final flockStore = Provider.of<FlocksStore>(context, listen: false);
-    final commoditiesStore =
+    /* final commoditiesStore =
         Provider.of<CommoditiesStore>(context, listen: false);
     for (final item in soonToBeRestoredFlock.items) {
       await commoditiesStore.removeLotDouble(item.lot, item.quantity);
-    }
+    } */
     final restoringTicket =
         await flockStore.restoreFlock(soonToBeRestoredFlock);
     return restoringTicket;

@@ -22,7 +22,7 @@ part 'commodity.g.dart';
 @JsonSerializable()
 class Commodity {
   final String companyUuid;
-  final int id;
+  int id;
   String name;
   double weight;
   String photo;

@@ -27,13 +27,13 @@ mixin _$CollectorStore on CollectorStoreBase, Store {
   final _$collectorAtom = Atom(name: 'CollectorStoreBase.collector');
 
   @override
-  List<Collector> get collector {
+  Collector get collector {
     _$collectorAtom.reportRead();
     return super.collector;
   }
 
   @override
-  set collector(List<Collector> value) {
+  set collector(Collector value) {
     _$collectorAtom.reportWrite(value, super.collector, () {
       super.collector = value;
     });

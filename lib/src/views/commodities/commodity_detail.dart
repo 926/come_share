@@ -1,3 +1,4 @@
+import 'package:come_share/src/stores/flocks.dart';
 import 'package:come_share/src/views/commodities/elements/lot_element.dart';
 import 'package:flutter/material.dart';
 import 'package:come_share/src/models/commodity.dart';
@@ -6,6 +7,7 @@ import 'package:come_share/src/routes/commodities/commodities.dart';
 //import 'package:come_share/src/stores/collector.dart';
 //import 'package:come_share/src/utils/basic_dialog.dart';
 import 'package:come_share/src/utils/formatters.dart';
+import 'package:provider/provider.dart';
 
 class CommodityDetailWidget extends StatefulWidget {
   final Commodity commodity;
@@ -51,8 +53,9 @@ class _CommodityDetailWidgetState extends State<CommodityDetailWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // final collectorStore = Provider.of<CollectorStore>(context);
-    // final thisCollector = collectorStore.collector.first;
+    final flocksStore = Provider.of<FlocksStore>(context);
+    final _commodityQtIn = flocksStore.commodityQuantityIn(widget.commodity);
+    //final _commodityQtOut = flocksStore.commodityQuantityOut(widget.commodity);
 
     return WillPopScope(
       onWillPop: () async =>
@@ -201,7 +204,7 @@ class _CommodityDetailWidgetState extends State<CommodityDetailWidget> {
                                 ),
                               ),
                               Text(
-                                '${numberFormatter.format(widget.commodity.lots.fold(0, (lotValue, lot) => lotValue + lot.quantity))}',
+                                '${numberFormatter.format(_commodityQtIn ?? 0.0)}', //TODO accurate qt
                                 style: commodityStatus == true
                                     ? TextStyle(
                                         color: Colors.black,

@@ -1,4 +1,6 @@
 import 'dart:convert' as convert;
+import 'package:come_share/src/models/commodity.dart';
+import 'package:come_share/src/models/lot.dart';
 import 'package:come_share/src/servives/flocks.dart';
 import 'package:mobx/mobx.dart';
 
@@ -168,4 +170,28 @@ abstract class FlocksStoreBase with Store {
               f.date.day == date.day,
           orElse: () => null)
       ?.key;
+
+  double commodityQuantityIn(Commodity commodity) =>
+      flocks.where((f) => f.status == true).fold(
+            0,
+            (val, f) =>
+                val +
+                f.items
+                    .where((i) =>
+                        i.lot.companyUuid == commodity.companyUuid &&
+                        i.lot.commodityId == commodity.id)
+                    .fold(0, (val, i) => val + (i.quantity)),
+          );
+
+  double lotQuantityIn(Lot lot) => flocks.where((f) => f.status == true).fold(
+        0,
+        (val, f) =>
+            val +
+            f.items
+                .where((i) =>
+                    i.lot.companyUuid == lot.companyUuid &&
+                    i.lot.commodityId == lot.commodityId &&
+                    i.lot.id == lot.id)
+                .fold(0, (val, i) => val + (i.quantity)),
+      );
 }

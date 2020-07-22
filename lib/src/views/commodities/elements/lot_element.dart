@@ -1,9 +1,11 @@
+import 'package:come_share/src/stores/flocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/models/lot.dart';
 import 'package:come_share/src/routes/commodities/lot_detail.dart';
 import 'package:come_share/src/utils/formatters.dart';
+import 'package:provider/provider.dart';
 
 class LotItemWidget extends StatelessWidget {
   final Commodity commodity;
@@ -13,6 +15,9 @@ class LotItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final flocksStore = Provider.of<FlocksStore>(context);
+    final _lotQtIn = flocksStore.lotQuantityIn(lot);
+
     return InkWell(
       onLongPress: () {
         Navigator.of(context).pushNamed(
@@ -30,7 +35,7 @@ class LotItemWidget extends StatelessWidget {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Text('${numberFormatter?.format(lot?.quantity)}',
+                child: Text('${numberFormatter?.format(_lotQtIn ?? 0.0)}',
                     style: TextStyle(color: Colors.grey)),
               ),
             ),

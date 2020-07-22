@@ -156,7 +156,7 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         final _updatedList =
                             preserveOldCommoditiesAndRemoveDuplicates(
                                 _oldList, _newList);
-                        await commoditiesStore.saveCommodities(_updatedList);
+                        await commoditiesStore.replaceCommodities(_updatedList);
                         return showDialogCSOk(
                             "Import produits terminé", context);
                       }
@@ -225,8 +225,8 @@ class SettingsImportViewState extends State<SettingsImportView> {
                         //      'Permission requise', context);
                       } else {
                         final _products = await file.readAsString();
-                        await commoditiesStore.deleteAllCommodities([]);
-                        await commoditiesStore.importCatalogue(_products);
+                        await commoditiesStore.deleteAllCommodities();
+                        await commoditiesStore.addCommoditiesJson(_products);
                         return showDialogCSOk(
                             'Ancien catalogue effacé. \nIimport du nouveau catalogue terminé',
                             context);
@@ -343,7 +343,8 @@ class SettingsImportViewState extends State<SettingsImportView> {
                           return;
                         } else {
                           final _herders = await file.readAsString();
-                          await herdersStore.importHerdersJson(_herders);
+                          await herdersStore.deleteAllHerders();
+                          await herdersStore.addHerdersJson(_herders);
                         }
                       },
                       child: Row(

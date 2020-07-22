@@ -13,7 +13,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final collectorStore = Provider.of<CollectorStore>(context);
-    final thisCollector = collectorStore.collector?.first ?? Collector();
+    final thisCollector = collectorStore.collector ?? Collector();
 
     return Drawer(
       child: Scrollbar(

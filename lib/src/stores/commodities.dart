@@ -1,9 +1,10 @@
 import 'dart:convert' as convert;
 
 import 'package:mobx/mobx.dart';
-import 'package:come_share/src/models/lot.dart';
+//import 'package:come_share/src/models/lot.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/servives/commodities.dart';
+import 'package:sembast/sembast.dart' as sembast;
 
 part 'commodities.g.dart';
 
@@ -11,6 +12,8 @@ class CommoditiesStore = CommoditiesStoreBase with _$CommoditiesStore;
 
 abstract class CommoditiesStoreBase with Store {
   final CommoditiesService _commoditiesService;
+  final sembast.Database _database;
+  var store = sembast.StoreRef<String, List>.main();
 
   @observable
   bool initialLoading;
@@ -18,9 +21,18 @@ abstract class CommoditiesStoreBase with Store {
   @observable
   ObservableList<Commodity> commodities;
 
-  CommoditiesStoreBase(this._commoditiesService) {
+  CommoditiesStoreBase(this._database, this._commoditiesService) {
     initialLoading = true;
     commodities = ObservableList<Commodity>();
+  }
+
+  final _commoditiesDbStore = sembast.intMapStoreFactory.store("commodities");
+
+  @action
+  Future<void> loadTasks() async {
+    var _commodities = await _commoditiesDbStore.find(_database);
+    commodities = _commodities.map((e) => Commodity.fromJson(e.value)).toList();
+    initialLoading = false;
   }
 
   @action
@@ -29,113 +41,82 @@ abstract class CommoditiesStoreBase with Store {
     initialLoading = false;
   }
 
-  @action
-  Future<void> loadTasks() async {
-    final _commodities =
-        await _commoditiesService.getCommoditiesRpc.request(null);
-    commodities = ObservableList.of(_commodities);
-    initialLoading = false;
+  Future<List<Commodity>> getAllCommodities() async {
+    final recordSnapshot = await _commoditiesDbStore.find(_database);
+    return recordSnapshot.map((e) => Commodity.fromJson(e.value)).toList();
+  }
+
+  Commodity commodityFromSnapshot(
+      sembast.RecordSnapshot<int, Map<String, dynamic>> snapshot) {
+    if (snapshot != null) {
+      return Commodity.fromJson(snapshot.value)..id;
+    }
+    return null;
+  }
+
+  Future<Commodity> getCommodity(int key) async {
+    final snapshot =
+        await _commoditiesDbStore.record(key).getSnapshot(_database);
+    return commodityFromSnapshot(snapshot);
+  }
+
+  Future<List<Commodity>> addAllCommodities(
+      List<Commodity> _commodities) async {
+    var keys = await _commoditiesDbStore.addAll(
+        _database, _commodities.map((e) => e.toJson()).toList(growable: false));
+    for (var i = 0; i < keys.length; i++) {
+      _commodities[i].id = keys[i];
+    }
+    final recordSnapshots =
+        await _commoditiesDbStore.records(keys).getSnapshots(_database);
+    final krankCommodities = recordSnapshots
+        .map((item) => Commodity.fromJson(item.value))
+        .toList(growable: false);
+    commodities.addAll(krankCommodities);
+    return krankCommodities;
   }
 
   @action
-  Future<ObservableList<Commodity>> saveCommodities(
+  Future<ObservableList<Commodity>> replaceAllCommodities(
+      List<Commodity> _commodities) async {
+    deleteAllCommodities();
+    final jazzyHerders = await addAllCommodities(_commodities);
+    commodities = ObservableList.of(jazzyHerders);
+    return commodities;
+  }
+
+  @action
+  Future<void> deleteAllCommodities() async {
+    //await _herdersService.deleteAllHerdersRpc.request(theseHerders);
+    _commoditiesDbStore.delete(_database);
+    commodities.clear();
+  }
+
+  @action
+  Future<ObservableList<Commodity>> replaceCommodities(
       List<Commodity> _commoditiesToSave) async {
-    commodities = ObservableList.of(_commoditiesToSave);
-    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
-    return commodities;
-  }
-
-// * consider removing
-  @action
-  Future<ObservableList<Commodity>> removeLot(Lot lot, int quantity) async {
-    final _commodity =
-        commodities.firstWhere((commodity) => commodity.id == lot.commodityId);
-    final _lot = _commodity.lots.firstWhere((l) => l.id == lot.id);
-    _lot.quantity -= quantity;
-    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
-    return commodities;
-  }
-
-// * consider removing
-  @action
-  Future<ObservableList<Commodity>> removeLotDouble(
-      Lot lot, double quantity) async {
-    final _commodity =
-        commodities.firstWhere((commodity) => commodity.id == lot.commodityId);
-    final _lot = _commodity.lots.firstWhere((l) => l.id == lot.id);
-    _lot.quantity -= quantity;
-    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
+    await deleteAllCommodities();
+    final _commodities = await addAllCommodities(_commoditiesToSave);
+    commodities = ObservableList.of(_commodities);
     return commodities;
   }
 
   @action
-  Future<ObservableList<Commodity>> incrementLot(Lot lot, int quantity) async {
-    final _commodity =
-        commodities.firstWhere((commodity) => commodity.id == lot.commodityId);
-    final _lot = _commodity.lots.firstWhere((l) => l.id == lot.id);
-    _lot.quantity += quantity;
-    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
-    return commodities;
-  }
-
-  @action
-  Future<ObservableList<Commodity>> incrementLotDouble(
-      Lot lot, double quantity) async {
-    final _commodity =
-        commodities.firstWhere((commodity) => commodity.id == lot.commodityId);
-    final _lot = _commodity.lots.firstWhere((l) => l.id == lot.id);
-    _lot.quantity += quantity;
-    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
-    return commodities;
-  }
-
-  @action
-  Future<ObservableList<Commodity>> disableLot(Lot lot, int quantity) async {
-    final _commodity =
-        commodities.firstWhere((commodity) => commodity.id == lot.commodityId);
-    final _lot = _commodity.lots.firstWhere((l) => l.id == lot.id);
-    _lot.quantity += quantity;
-    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
-    return commodities;
-  }
-
-  @action
-  Future<ObservableList<Commodity>> disableLotDouble(
-      Lot lot, double quantity) async {
-    final _commodity =
-        commodities.firstWhere((commodity) => commodity.id == lot.commodityId);
-    final _lot = _commodity.lots.firstWhere((l) => l.id == lot.id);
-    _lot.quantity += quantity;
-    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
-    return commodities;
-  }
-
-  @action
-  Future<ObservableList<Commodity>> importCatalogue(String json) async {
+  Future<List<Commodity>> addCommoditiesJson(String json) async {
     final _commodities = (convert.json.decode(json) as List)
         .cast<Map>()
         .cast<Map<String, dynamic>>()
         .map((commodity) => Commodity.fromJson(commodity))
         .toList();
-    commodities = ObservableList.of(_commodities);
-    await _commoditiesService.saveAllCommoditiesRpc.request(commodities);
+    commodities = await addAllCommodities(_commodities);
     return commodities;
   }
 
-  @action
+  /* @action
   Future<ObservableList<Commodity>> importCommoditiesFromMongo(
       List<Commodity> _commodities) async {
     commodities = ObservableList.of(_commodities);
     await _commoditiesService.saveAllCommoditiesRpc.request(_commodities);
     return commodities;
-  }
-
-  // below is not different from above importCatalogue yet
-  @action
-  Future<ObservableList<Commodity>> deleteAllCommodities(
-      List<Commodity> theseCommodities) async {
-    await _commoditiesService.saveAllCommoditiesRpc.request(theseCommodities);
-    commodities.clear();
-    return commodities;
-  }
+  } */
 }

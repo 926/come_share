@@ -66,27 +66,16 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
       AsyncAction('HerdersStoreBase.deleteAllHerders');
 
   @override
-  Future<ObservableList<Herder>> deleteAllHerders(List<Herder> theseHerders) {
-    return _$deleteAllHerdersAsyncAction
-        .run(() => super.deleteAllHerders(theseHerders));
+  Future<void> deleteAllHerders() {
+    return _$deleteAllHerdersAsyncAction.run(() => super.deleteAllHerders());
   }
 
-  final _$importHerdersJsonAsyncAction =
-      AsyncAction('HerdersStoreBase.importHerdersJson');
+  final _$addHerdersJsonAsyncAction =
+      AsyncAction('HerdersStoreBase.addHerdersJson');
 
   @override
-  Future<ObservableList<Herder>> importHerdersJson(String json) {
-    return _$importHerdersJsonAsyncAction
-        .run(() => super.importHerdersJson(json));
-  }
-
-  final _$importHerdersFromMongoAsyncAction =
-      AsyncAction('HerdersStoreBase.importHerdersFromMongo');
-
-  @override
-  Future<ObservableList<Herder>> importHerdersFromMongo(List<Herder> _herders) {
-    return _$importHerdersFromMongoAsyncAction
-        .run(() => super.importHerdersFromMongo(_herders));
+  Future<ObservableList<Herder>> addHerdersJson(String json) {
+    return _$addHerdersJsonAsyncAction.run(() => super.addHerdersJson(json));
   }
 
   final _$HerdersStoreBaseActionController =
