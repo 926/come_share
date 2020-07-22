@@ -40,13 +40,6 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
     });
   }
 
-  final _$initAsyncAction = AsyncAction('CommoditiesStoreBase.init');
-
-  @override
-  Future<void> init() {
-    return _$initAsyncAction.run(() => super.init());
-  }
-
   final _$loadTasksAsyncAction = AsyncAction('CommoditiesStoreBase.loadTasks');
 
   @override
@@ -54,8 +47,34 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
     return _$loadTasksAsyncAction.run(() => super.loadTasks());
   }
 
+  final _$initAsyncAction = AsyncAction('CommoditiesStoreBase.init');
+
+  @override
+  Future<void> init() {
+    return _$initAsyncAction.run(() => super.init());
+  }
+
+  final _$replaceAllCommoditiesAsyncAction =
+      AsyncAction('CommoditiesStoreBase.replaceAllCommodities');
+
+  @override
+  Future<ObservableList<Commodity>> replaceAllCommodities(
+      List<Commodity> _commodities) {
+    return _$replaceAllCommoditiesAsyncAction
+        .run(() => super.replaceAllCommodities(_commodities));
+  }
+
+  final _$deleteAllCommoditiesAsyncAction =
+      AsyncAction('CommoditiesStoreBase.deleteAllCommodities');
+
+  @override
+  Future<void> deleteAllCommodities() {
+    return _$deleteAllCommoditiesAsyncAction
+        .run(() => super.deleteAllCommodities());
+  }
+
   final _$replaceCommoditiesAsyncAction =
-      AsyncAction('CommoditiesStoreBase.saveCommodities');
+      AsyncAction('CommoditiesStoreBase.replaceCommodities');
 
   @override
   Future<ObservableList<Commodity>> replaceCommodities(
@@ -63,58 +82,6 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
     return _$replaceCommoditiesAsyncAction
         .run(() => super.replaceCommodities(_commoditiesToSave));
   }
-
-  /* final _$removeLotAsyncAction = AsyncAction('CommoditiesStoreBase.removeLot');
-
-  @override
-  Future<ObservableList<Commodity>> removeLot(Lot lot, int quantity) {
-    return _$removeLotAsyncAction.run(() => super.removeLot(lot, quantity));
-  }
-
-  final _$removeLotDoubleAsyncAction =
-      AsyncAction('CommoditiesStoreBase.removeLotDouble');
-
-  @override
-  Future<ObservableList<Commodity>> removeLotDouble(Lot lot, double quantity) {
-    return _$removeLotDoubleAsyncAction
-        .run(() => super.removeLotDouble(lot, quantity));
-  }
-
-  final _$incrementLotAsyncAction =
-      AsyncAction('CommoditiesStoreBase.incrementLot');
-
-  @override
-  Future<ObservableList<Commodity>> incrementLot(Lot lot, int quantity) {
-    return _$incrementLotAsyncAction
-        .run(() => super.incrementLot(lot, quantity));
-  }
-
-  final _$incrementLotDoubleAsyncAction =
-      AsyncAction('CommoditiesStoreBase.incrementLotDouble');
-
-  @override
-  Future<ObservableList<Commodity>> incrementLotDouble(
-      Lot lot, double quantity) {
-    return _$incrementLotDoubleAsyncAction
-        .run(() => super.incrementLotDouble(lot, quantity));
-  } */
-
-  /* final _$disableLotAsyncAction =
-      AsyncAction('CommoditiesStoreBase.disableLot');
-
-  @override
-  Future<ObservableList<Commodity>> disableLot(Lot lot, int quantity) {
-    return _$disableLotAsyncAction.run(() => super.disableLot(lot, quantity));
-  }
-
-  final _$disableLotDoubleAsyncAction =
-      AsyncAction('CommoditiesStoreBase.disableLotDouble');
-
-  @override
-  Future<ObservableList<Commodity>> disableLotDouble(Lot lot, double quantity) {
-    return _$disableLotDoubleAsyncAction
-        .run(() => super.disableLotDouble(lot, quantity));
-  } */
 
   final _$addCommoditiesJsonAsyncAction =
       AsyncAction('CommoditiesStoreBase.addCommoditiesJson');
@@ -124,16 +91,6 @@ mixin _$CommoditiesStore on CommoditiesStoreBase, Store {
     return _$addCommoditiesJsonAsyncAction
         .run(() => super.addCommoditiesJson(json));
   }
-
-  /* final _$importCommoditiesFromMongoAsyncAction =
-      AsyncAction('CommoditiesStoreBase.importCommoditiesFromMongo');
-
-  @override
-  Future<ObservableList<Commodity>> importCommoditiesFromMongo(
-      List<Commodity> _commodities) {
-    return _$importCommoditiesFromMongoAsyncAction
-        .run(() => super.importCommoditiesFromMongo(_commodities));
-  } */
 
   @override
   String toString() {

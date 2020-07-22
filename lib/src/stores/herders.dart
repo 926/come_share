@@ -19,11 +19,11 @@ abstract class HerdersStoreBase with Store {
   bool initialLoading;
 
   @observable
-  ObservableList<Herder> herders;
+  List<Herder> herders;
 
   HerdersStoreBase(this._database, this._herdersService) {
     initialLoading = true;
-    herders = ObservableList<Herder>();
+    herders = List<Herder>();
   }
 
   final _herdersDbStore = sembast.intMapStoreFactory.store("herders");
@@ -86,11 +86,10 @@ abstract class HerdersStoreBase with Store {
   }
 
   @action
-  Future<ObservableList<Herder>> replaceAllHerders(
-      List<Herder> _herders) async {
+  Future<List<Herder>> replaceAllHerders(List<Herder> _herders) async {
     deleteAllHerders();
     final jazzyHerders = await addAllHerders(_herders);
-    herders = ObservableList.of(jazzyHerders);
+    herders = List.of(jazzyHerders);
     return herders;
   }
 
@@ -102,14 +101,14 @@ abstract class HerdersStoreBase with Store {
   }
 
   @action
-  Future<ObservableList<Herder>> addHerdersJson(String json) async {
+  Future<List<Herder>> addHerdersJson(String json) async {
     final _herders = (convert.json.decode(json) as List)
         .cast<Map>()
         .cast<Map<String, dynamic>>()
         .map((herder) => Herder.fromJson(herder))
         .toList();
     final jazzyHerders = await addAllHerders(_herders);
-    herders = ObservableList.of(jazzyHerders);
+    herders = List.of(jazzyHerders);
     return herders;
   }
 

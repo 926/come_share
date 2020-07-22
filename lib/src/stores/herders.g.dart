@@ -27,23 +27,16 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
   final _$herdersAtom = Atom(name: 'HerdersStoreBase.herders');
 
   @override
-  ObservableList<Herder> get herders {
+  List<Herder> get herders {
     _$herdersAtom.reportRead();
     return super.herders;
   }
 
   @override
-  set herders(ObservableList<Herder> value) {
+  set herders(List<Herder> value) {
     _$herdersAtom.reportWrite(value, super.herders, () {
       super.herders = value;
     });
-  }
-
-  final _$initAsyncAction = AsyncAction('HerdersStoreBase.init');
-
-  @override
-  Future<void> init() {
-    return _$initAsyncAction.run(() => super.init());
   }
 
   final _$loadTasksAsyncAction = AsyncAction('HerdersStoreBase.loadTasks');
@@ -53,11 +46,18 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
     return _$loadTasksAsyncAction.run(() => super.loadTasks());
   }
 
+  final _$initAsyncAction = AsyncAction('HerdersStoreBase.init');
+
+  @override
+  Future<void> init() {
+    return _$initAsyncAction.run(() => super.init());
+  }
+
   final _$replaceAllHerdersAsyncAction =
       AsyncAction('HerdersStoreBase.replaceAllHerders');
 
   @override
-  Future<ObservableList<Herder>> replaceAllHerders(List<Herder> _herders) {
+  Future<List<Herder>> replaceAllHerders(List<Herder> _herders) {
     return _$replaceAllHerdersAsyncAction
         .run(() => super.replaceAllHerders(_herders));
   }
@@ -74,7 +74,7 @@ mixin _$HerdersStore on HerdersStoreBase, Store {
       AsyncAction('HerdersStoreBase.addHerdersJson');
 
   @override
-  Future<ObservableList<Herder>> addHerdersJson(String json) {
+  Future<List<Herder>> addHerdersJson(String json) {
     return _$addHerdersJsonAsyncAction.run(() => super.addHerdersJson(json));
   }
 

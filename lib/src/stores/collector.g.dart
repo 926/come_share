@@ -53,6 +53,24 @@ mixin _$CollectorStore on CollectorStoreBase, Store {
     return _$initAsyncAction.run(() => super.init());
   }
 
+  final _$updateCollectorAsyncAction =
+      AsyncAction('CollectorStoreBase.updateCollector');
+
+  @override
+  Future<Collector> updateCollector(Collector _collector) {
+    return _$updateCollectorAsyncAction
+        .run(() => super.updateCollector(_collector));
+  }
+
+  final _$importCollectorFromJsonAsyncAction =
+      AsyncAction('CollectorStoreBase.importCollectorFromJson');
+
+  @override
+  Future<Collector> importCollectorFromJson(Collector _collector) {
+    return _$importCollectorFromJsonAsyncAction
+        .run(() => super.importCollectorFromJson(_collector));
+  }
+
   @override
   String toString() {
     return '''
