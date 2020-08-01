@@ -80,39 +80,59 @@ class _CalculatorViewState extends State<CalculatorView> {
     cartStore.clearItems();
     cartStore.clearHerder();
     //cartStore.clearComment();
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.all(5),
-        color: Colors.transparent,
-        child: Scrollbar(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              //mainAxisSize: MainAxisSize.max,
-              children: <Widget>[
-                // TODO keep on making calc responsive
-                _calculView(),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.60,
-                  child: GridView.count(
-                    childAspectRatio: (itemWidth / itemHeight),
-                    shrinkWrap: true,
-                    padding: EdgeInsets.zero,
-                    crossAxisCount: 4,
-                    children: _buttons(),
-                  ),
-                ),
-                LayoutBuilder(
-                  builder: (context, constraints) => SizedBox(
-                    width: constraints.maxWidth,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    child: _validateButton(
-                      context,
-                      roundedCorner: RoundedCorner.bottom,
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Text('OK'),
+        onPressed: () => _validateAndLoadNextView(context),
+        backgroundColor: Colors.teal,
+      ),
+      body: SafeArea(
+        child: Container(
+          padding: EdgeInsets.all(5),
+          color: Colors.transparent,
+          child: Scrollbar(
+            child: SingleChildScrollView(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.height * 0.80,
+                    height: MediaQuery.of(context).size.height * 0.9,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      //crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        _calculView(),
+                        GridView.count(
+                          childAspectRatio: (itemWidth / itemHeight),
+                          shrinkWrap: true,
+                          padding: EdgeInsets.zero,
+                          crossAxisCount: 3,
+                          children: _buttons(),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    width: MediaQuery.of(context).size.height * 0.2,
+                    height: MediaQuery.of(context).size.height * 0.4,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Container(
+                            height: MediaQuery.of(context).size.height * 0.11),
+                        Expanded(
+                            child: _additionButton(
+                                roundedCorner: RoundedCorner.topRight)),
+                        Container(
+                            height: MediaQuery.of(context).size.height * 0.1),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -166,19 +186,16 @@ class _CalculatorViewState extends State<CalculatorView> {
     buttons.add(_numberButton(7, roundedCorner: RoundedCorner.topLeft));
     buttons.add(_numberButton(8));
     buttons.add(_numberButton(9, roundedCorner: RoundedCorner.topRight));
-    buttons.add(_emptyButton());
     buttons.add(_numberButton(4));
     buttons.add(_numberButton(5));
     buttons.add(_numberButton(6));
-    buttons.add(_emptyButton());
     buttons.add(_numberButton(1));
     buttons.add(_numberButton(2));
     buttons.add(_numberButton(3));
-    buttons.add(_emptyButton());
     buttons.add(_numberButton(0));
     buttons.add(_resetAllButton());
     buttons.add(_resetButton());
-    buttons.add(_additionButton(roundedCorner: RoundedCorner.topRight));
+
     return buttons;
   }
 
@@ -256,12 +273,10 @@ class _CalculatorViewState extends State<CalculatorView> {
         isCapturing = true;
       });
 
-  Widget _emptyButton() => _button('', null, elevation: 0);
-
   Widget _additionButton({RoundedCorner roundedCorner}) => _button(
         '+',
         _add,
-        backgroundColor: otherButtonsColor,
+        backgroundColor: Colors.grey,
         roundedCorner: roundedCorner,
       );
   void _add() => setState(() {
@@ -283,18 +298,6 @@ class _CalculatorViewState extends State<CalculatorView> {
         isCapturing = true;
         currentCaptureValue = currentCaptureValue * 10 + number;
       });
-
-  Widget _validateButton(
-    BuildContext context, {
-    RoundedCorner roundedCorner,
-  }) {
-    return _button(
-      'Valider',
-      () => _validateAndLoadNextView(context),
-      backgroundColor: Colors.blue,
-      roundedCorner: roundedCorner,
-    );
-  }
 
   void _validateAndLoadNextView(
     BuildContext context,

@@ -6,7 +6,7 @@ import 'package:come_share/src/routes/export.dart';
 import 'package:come_share/src/routes/settings_import.dart';
 import 'package:come_share/src/stores/collector.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+//import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -35,10 +35,10 @@ class AppDrawer extends StatelessWidget {
                               ),
                             ),
                       ListTile(
-                        leading: SvgPicture.asset(
+                        /* leading: SvgPicture.asset(
                           'assets/svg/calculator.svg',
                           color: Colors.teal,
-                        ),
+                        ), */
                         title: Text('Come Share'),
                         onTap: () {
                           Navigator.of(context)
