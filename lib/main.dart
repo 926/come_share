@@ -1,11 +1,12 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sembast/sembast.dart' as sembast;
+import 'package:sembast_web/sembast_web.dart';
 import 'package:sembast/sembast_io.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 import 'package:come_share/src/models/collector.dart';
 import 'package:come_share/src/models/commodity.dart';
 import 'package:come_share/src/models/herder.dart';
@@ -22,11 +23,16 @@ void main() async {
   await initializeDateFormatting('fr');
   DateTime now = DateTime.now();
 
-  Directory appDocDir = await getApplicationDocumentsDirectory();
-  String path = join(appDocDir.path, 'cs.db');
-  sembast.DatabaseFactory dbFactory = databaseFactoryIo;
-  sembast.Database _database = await dbFactory.openDatabase(path, version: 1);
-
+  sembast.Database _database;
+  if (kIsWeb) {
+    var factory = databaseFactoryWeb;
+    _database = await factory.openDatabase('app.db');
+  } else {
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String path = join(appDocDir.path, 'cs.db');
+    sembast.DatabaseFactory dbFactory = databaseFactoryIo;
+    _database = await dbFactory.openDatabase(path, version: 1);
+  }
   // ? use this for db seetings only
   //var store = sembast.StoreRef<String, List<dynamic>>.main();
 
