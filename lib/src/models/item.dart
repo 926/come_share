@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:come_share/src/models/lot.dart';
+import 'package:putu_putu/src/models/lot.dart';
 
 part 'item.g.dart';
 

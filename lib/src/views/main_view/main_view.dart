@@ -1,15 +1,15 @@
 import 'dart:ui';
-import 'package:come_share/src/routes/flocks/flocks.dart';
+import 'package:putu_putu/src/routes/flocks/flocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:package_info/package_info.dart';
 
-import 'package:come_share/src/routes/herders/herders.dart';
-import 'package:come_share/src/routes/sync.dart';
-import 'package:come_share/src/utils/back_pressed.dart';
-import 'package:come_share/src/routes/collect/collect.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
-import 'package:come_share/src/widgets/drawer.dart';
+import 'package:putu_putu/src/routes/herders/herders.dart';
+import 'package:putu_putu/src/routes/sync.dart';
+import 'package:putu_putu/src/utils/back_pressed.dart';
+import 'package:putu_putu/src/routes/collect/collect.dart';
+import 'package:putu_putu/src/utils/basic_dialog.dart';
+import 'package:putu_putu/src/widgets/drawer.dart';
 
 class MainView extends StatefulWidget {
   final Widget body;
@@ -62,7 +62,7 @@ class _MainViewState extends State<MainView> {
                 context);
           },
           child: Text(
-            'Come Share',
+            'putu-putu',
             style: TextStyle(),
           ),
         ),

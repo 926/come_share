@@ -2,12 +2,12 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:sembast/sembast.dart' as sembast;
 
-import 'package:come_share/src/stores/collector.dart';
-import 'package:come_share/src/stores/commodities.dart';
-import 'package:come_share/src/stores/herders.dart';
-import 'package:come_share/src/stores/app.dart';
-import 'package:come_share/src/stores/flocks.dart';
-import 'package:come_share/src/stores/cart.dart';
+import 'package:putu_putu/src/stores/collector.dart';
+import 'package:putu_putu/src/stores/commodities.dart';
+import 'package:putu_putu/src/stores/herders.dart';
+import 'package:putu_putu/src/stores/app.dart';
+import 'package:putu_putu/src/stores/flocks.dart';
+import 'package:putu_putu/src/stores/cart.dart';
 
 class StoresProvider extends StatelessWidget {
   final Widget child;

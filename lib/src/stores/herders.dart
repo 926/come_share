@@ -1,7 +1,7 @@
 import 'dart:convert' as convert;
 import 'package:mobx/mobx.dart';
 import 'package:sembast/sembast.dart' as sembast;
-import 'package:come_share/src/models/herder.dart';
+import 'package:putu_putu/src/models/herder.dart';
 
 part 'herders.g.dart';
 

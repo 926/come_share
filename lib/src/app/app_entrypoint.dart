@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sembast/sembast.dart' as sembast;
 
-import 'package:come_share/src/app/my_app.dart';
-import 'package:come_share/src/providers/database.dart';
-import 'package:come_share/src/providers/stores.dart';
+import 'package:putu_putu/src/app/my_app.dart';
+import 'package:putu_putu/src/providers/database.dart';
+import 'package:putu_putu/src/providers/stores.dart';
 
 class ComeShareApp extends StatelessWidget {
   final sembast.Database database;

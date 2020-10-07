@@ -1,10 +1,10 @@
-import 'package:come_share/src/stores/flocks.dart';
+import 'package:putu_putu/src/stores/flocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:come_share/src/models/commodity.dart';
-import 'package:come_share/src/models/lot.dart';
-import 'package:come_share/src/routes/commodities/lot_detail.dart';
-import 'package:come_share/src/utils/formatters.dart';
+import 'package:putu_putu/src/models/commodity.dart';
+import 'package:putu_putu/src/models/lot.dart';
+import 'package:putu_putu/src/routes/commodities/lot_detail.dart';
+import 'package:putu_putu/src/utils/formatters.dart';
 import 'package:provider/provider.dart';
 
 class LotItemWidget extends StatelessWidget {

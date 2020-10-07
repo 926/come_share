@@ -2,18 +2,18 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
-import 'package:come_share/src/views/main_view/main_view.dart';
+import 'package:putu_putu/src/models/herder.dart';
+import 'package:putu_putu/src/models/flock.dart';
+import 'package:putu_putu/src/utils/basic_dialog.dart';
+import 'package:putu_putu/src/views/main_view/main_view.dart';
 import 'package:flare_flutter/flare_actor.dart';
 // import 'package:provider/provider.dart';
-// import 'package:come_share/src/stores/commodities.dart';
-// import 'package:come_share/src/stores/collector.dart';
-// import 'package:come_share/src/stores/flocks.dart';
-// import 'package:come_share/src/webhooks/status.dart';
-// import 'package:come_share/src/webhooks/upload_commodities.dart';
-// import 'package:come_share/src/webhooks/upload_flocks.dart';
+// import 'package:putu_putu/src/stores/commodities.dart';
+// import 'package:putu_putu/src/stores/collector.dart';
+// import 'package:putu_putu/src/stores/flocks.dart';
+// import 'package:putu_putu/src/webhooks/status.dart';
+// import 'package:putu_putu/src/webhooks/upload_commodities.dart';
+// import 'package:putu_putu/src/webhooks/upload_flocks.dart';
 
 class SyncView extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigator;

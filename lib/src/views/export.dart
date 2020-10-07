@@ -1,5 +1,5 @@
 import 'dart:async' show Future;
-import 'package:come_share/src/widgets/drawer.dart';
+import 'package:putu_putu/src/widgets/drawer.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -14,13 +14,13 @@ import 'package:intent/action.dart' as intent_action;
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:come_share/src/stores/herders.dart';
-import 'package:come_share/src/utils/save_excel.dart';
-import 'package:come_share/src/stores/commodities.dart';
-import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/stores/flocks.dart';
-//import 'package:come_share/src/utils/basic_dialog.dart';
-//import 'package:come_share/src/stores/collector.dart';
+import 'package:putu_putu/src/stores/herders.dart';
+import 'package:putu_putu/src/utils/save_excel.dart';
+import 'package:putu_putu/src/stores/commodities.dart';
+import 'package:putu_putu/src/models/flock.dart';
+import 'package:putu_putu/src/stores/flocks.dart';
+//import 'package:putu_putu/src/utils/basic_dialog.dart';
+//import 'package:putu_putu/src/stores/collector.dart';
 
 class Export extends StatefulWidget {
   Export({

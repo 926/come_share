@@ -1,8 +1,8 @@
-import 'package:come_share/src/stores/collector.dart';
+import 'package:putu_putu/src/stores/collector.dart';
 import 'package:mobx/mobx.dart';
-import 'package:come_share/src/stores/flocks.dart';
-import 'package:come_share/src/stores/herders.dart';
-import 'package:come_share/src/stores/commodities.dart';
+import 'package:putu_putu/src/stores/flocks.dart';
+import 'package:putu_putu/src/stores/herders.dart';
+import 'package:putu_putu/src/stores/commodities.dart';
 
 part 'app.g.dart';
 

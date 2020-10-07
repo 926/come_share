@@ -1,21 +1,21 @@
-import 'package:come_share/src/routes/collector_detail.dart';
-import 'package:come_share/src/routes/commodities/commodity_detail.dart';
-import 'package:come_share/src/routes/commodities/lot_detail.dart';
-import 'package:come_share/src/routes/export.dart';
-import 'package:come_share/src/routes/flocks/flock_detail_frame.dart';
-import 'package:come_share/src/routes/flocks/flocks.dart';
-import 'package:come_share/src/routes/herders/herder_detail.dart';
+import 'package:putu_putu/src/routes/collector_detail.dart';
+import 'package:putu_putu/src/routes/commodities/commodity_detail.dart';
+import 'package:putu_putu/src/routes/commodities/lot_detail.dart';
+import 'package:putu_putu/src/routes/export.dart';
+import 'package:putu_putu/src/routes/flocks/flock_detail_frame.dart';
+import 'package:putu_putu/src/routes/flocks/flocks.dart';
+import 'package:putu_putu/src/routes/herders/herder_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/stores/app.dart';
+import 'package:putu_putu/src/stores/app.dart';
 import 'package:flutter/widgets.dart';
-import 'package:come_share/src/routes/collect/collect.dart';
-import 'package:come_share/src/routes/commodities/commodities.dart';
-import 'package:come_share/src/routes/herders/herders.dart';
-import 'package:come_share/src/routes/sync.dart';
-import 'package:come_share/src/routes/settings_import.dart';
+import 'package:putu_putu/src/routes/collect/collect.dart';
+import 'package:putu_putu/src/routes/commodities/commodities.dart';
+import 'package:putu_putu/src/routes/herders/herders.dart';
+import 'package:putu_putu/src/routes/sync.dart';
+import 'package:putu_putu/src/routes/settings_import.dart';
 import 'package:rc_router/rc_router.dart';
 
 class MyApp extends StatefulWidget {
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       navigatorKey: navigatorKey,
-      title: 'Come Share',
+      title: 'putu-putu',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

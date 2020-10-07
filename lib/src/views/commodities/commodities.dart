@@ -1,12 +1,12 @@
 //import 'dart:async';
-import 'package:come_share/src/widgets/drawer.dart';
+import 'package:putu_putu/src/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/models/commodity.dart';
-import 'package:come_share/src/stores/commodities.dart';
-//import 'package:come_share/src/stores/collector.dart';
-import 'package:come_share/src/views/commodities/elements/commodity_element.dart';
+import 'package:putu_putu/src/models/commodity.dart';
+import 'package:putu_putu/src/stores/commodities.dart';
+//import 'package:putu_putu/src/stores/collector.dart';
+import 'package:putu_putu/src/views/commodities/elements/commodity_element.dart';
 
 class CommoditiesView extends StatefulWidget {
   @override

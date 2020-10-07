@@ -1,6 +1,6 @@
-import 'package:come_share/src/models/collector.dart';
-import 'package:come_share/src/stores/collector.dart';
-import 'package:come_share/src/widgets/drawer.dart';
+import 'package:putu_putu/src/models/collector.dart';
+import 'package:putu_putu/src/stores/collector.dart';
+import 'package:putu_putu/src/widgets/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

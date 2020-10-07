@@ -1,12 +1,12 @@
-import 'package:come_share/src/stores/flocks.dart';
-import 'package:come_share/src/views/commodities/elements/lot_element.dart';
+import 'package:putu_putu/src/stores/flocks.dart';
+import 'package:putu_putu/src/views/commodities/elements/lot_element.dart';
 import 'package:flutter/material.dart';
-import 'package:come_share/src/models/commodity.dart';
-import 'package:come_share/src/routes/commodities/commodities.dart';
+import 'package:putu_putu/src/models/commodity.dart';
+import 'package:putu_putu/src/routes/commodities/commodities.dart';
 //import 'package:provider/provider.dart';
-//import 'package:come_share/src/stores/collector.dart';
-//import 'package:come_share/src/utils/basic_dialog.dart';
-import 'package:come_share/src/utils/formatters.dart';
+//import 'package:putu_putu/src/stores/collector.dart';
+//import 'package:putu_putu/src/utils/basic_dialog.dart';
+import 'package:putu_putu/src/utils/formatters.dart';
 import 'package:provider/provider.dart';
 
 class CommodityDetailWidget extends StatefulWidget {

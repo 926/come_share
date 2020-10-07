@@ -1,16 +1,16 @@
 import 'dart:convert' as convert;
-import 'package:come_share/src/widgets/drawer.dart';
+import 'package:putu_putu/src/widgets/drawer.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/models/commodity.dart';
+import 'package:putu_putu/src/models/herder.dart';
+import 'package:putu_putu/src/models/commodity.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/stores/commodities.dart';
-//import 'package:come_share/src/stores/collector.dart';
-import 'package:come_share/src/stores/flocks.dart';
-import 'package:come_share/src/stores/herders.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
-import 'package:come_share/src/utils/import_dialog.dart';
+import 'package:putu_putu/src/models/flock.dart';
+import 'package:putu_putu/src/stores/commodities.dart';
+//import 'package:putu_putu/src/stores/collector.dart';
+import 'package:putu_putu/src/stores/flocks.dart';
+import 'package:putu_putu/src/stores/herders.dart';
+import 'package:putu_putu/src/utils/basic_dialog.dart';
+import 'package:putu_putu/src/utils/import_dialog.dart';
 // import 'package:collection/collection.dart'; // does not sem so useful
 
 import 'package:flutter/material.dart';

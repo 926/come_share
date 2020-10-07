@@ -1,10 +1,10 @@
 import 'dart:convert' as convert;
-import 'package:come_share/src/models/commodity.dart';
-import 'package:come_share/src/models/lot.dart';
+import 'package:putu_putu/src/models/commodity.dart';
+import 'package:putu_putu/src/models/lot.dart';
 import 'package:mobx/mobx.dart';
-//import 'package:come_share/src/servives/flocks.dart';
+//import 'package:putu_putu/src/servives/flocks.dart';
 
-import 'package:come_share/src/models/flock.dart';
+import 'package:putu_putu/src/models/flock.dart';
 
 import 'package:sembast/sembast.dart' as sembast;
 

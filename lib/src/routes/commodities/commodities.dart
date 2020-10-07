@@ -1,5 +1,5 @@
-import 'package:come_share/src/routes/app_route_base.dart';
-import 'package:come_share/src/views/commodities/commodities.dart';
+import 'package:putu_putu/src/routes/app_route_base.dart';
+import 'package:putu_putu/src/views/commodities/commodities.dart';
 
 class CommoditiesRoute extends AppRouteBase {
   static String routePath = '/commodities';

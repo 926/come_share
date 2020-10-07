@@ -1,8 +1,8 @@
-import 'package:come_share/src/stores/cart.dart';
-import 'package:come_share/src/stores/commodities.dart';
+import 'package:putu_putu/src/stores/cart.dart';
+import 'package:putu_putu/src/stores/commodities.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/views/main_view/collect/collect.dart';
+import 'package:putu_putu/src/views/main_view/collect/collect.dart';
 
 // ! si tu fais évoluer la calculatrice pour par exemple  :
 // ! choisir x ou y produit
@@ -77,7 +77,7 @@ class _CalculatorViewState extends State<CalculatorView> {
     final double itemWidth = (size.width + size.width * 0.1) / 2;
 
     final cartStore = Provider.of<CartStore>(context, listen: false);
-    cartStore.clearItems();
+    //cartStore.clearItems();
     cartStore.clearHerder();
     //cartStore.clearComment();
     return Scaffold(
@@ -299,15 +299,15 @@ class _CalculatorViewState extends State<CalculatorView> {
         currentCaptureValue = currentCaptureValue * 10 + number;
       });
 
-  void _validateAndLoadNextView(
-    BuildContext context,
-  ) {
+  void _validateAndLoadNextView(BuildContext context) {
     final cartStore = Provider.of<CartStore>(context);
     final commoditiesStore = Provider.of<CommoditiesStore>(context);
     final _commodities = commoditiesStore.commodities.toList(growable: false);
-    final collectorViewManager = Provider.of<CollectorViewsManager>(context);
-    //print(_commodities.length);
     cartStore.addLot(_commodities[1].lots.first, total.toDouble());
+    //print(_commodities[1].name);
+    //print(total);
+
+    final collectorViewManager = Provider.of<CollectorViewsManager>(context);
     collectorViewManager.activeView = CollectorViews.scanner;
   }
 }

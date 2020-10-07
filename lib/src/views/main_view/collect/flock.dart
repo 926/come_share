@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/views/main_view/flocks/flock_detail.dart';
+import 'package:putu_putu/src/views/main_view/flocks/flock_detail.dart';
 import 'package:flare_flutter/flare_actor.dart';
 
 import 'collect.dart';
