@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:come_share/src/models/lot.dart';
+import 'package:putu_putu/src/models/lot.dart';
 import 'package:json_annotation/json_annotation.dart';
-//import 'package:come_share/src/utils/formatters.dart';
+//import 'package:putu_putu/src/utils/formatters.dart';
 import 'package:meta/meta.dart';
 
 part 'commodity.g.dart';

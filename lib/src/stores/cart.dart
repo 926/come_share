@@ -1,8 +1,8 @@
 import 'package:mobx/mobx.dart';
-import 'package:come_share/src/models/item.dart';
-import 'package:come_share/src/models/lot.dart';
-import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/stores/commodities.dart';
+import 'package:putu_putu/src/models/item.dart';
+import 'package:putu_putu/src/models/lot.dart';
+import 'package:putu_putu/src/models/herder.dart';
+import 'package:putu_putu/src/stores/commodities.dart';
 
 part 'cart.g.dart';
 
@@ -26,11 +26,11 @@ abstract class CartStoreBase with Store {
   List<Lot> listBigQuantityOnForLot;
 
   @computed
-  int get numberOfItem => items.fold(0, (value, item) => value + item).round();
+  int get numberOfItem =>
+      items.fold(0, (value, item) => value + item.quantity).round();
 
   @computed
-  double get qt =>
-      items.fold(0, (value, item) => value + item.quantity).roundToDouble();
+  double get qt => items.fold(0.0, (value, item) => value + item.quantity);
 
   CartStoreBase(this._commoditiesStore) {
     items = <Item>[];
@@ -55,7 +55,7 @@ abstract class CartStoreBase with Store {
     final _lot = _commodity.lots
         .firstWhere((l) => l.id == lot.id); // use lot in commodityStore
 
-    if (!items.any((item) => // this was never added here
+    if (!items.any((item) => // first click on item
         item.lot.commodityId == _lot.commodityId && item.lot.id == _lot.id)) {
       _newItems.add(Item(lot, lotQuantity)); // adding the new lot/item
 
@@ -73,6 +73,13 @@ abstract class CartStoreBase with Store {
       });
     }
     items = _newItems;
+    //print(_newItems.length);
+    //print(_newItems.last.quantity);
+    print(items.length);
+    print(items.last.quantity);
+    print(items.last.lot.id);
+    print(items.last.lot.commodityId);
+    print('qt $qt');
   }
 
   @action

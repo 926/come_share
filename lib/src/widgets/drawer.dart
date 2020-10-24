@@ -1,10 +1,10 @@
-import 'package:come_share/src/models/collector.dart';
-import 'package:come_share/src/routes/collect/collect.dart';
-import 'package:come_share/src/routes/collector_detail.dart';
-import 'package:come_share/src/routes/commodities/commodities.dart';
-import 'package:come_share/src/routes/export.dart';
-import 'package:come_share/src/routes/settings_import.dart';
-import 'package:come_share/src/stores/collector.dart';
+import 'package:putu_putu/src/models/collector.dart';
+import 'package:putu_putu/src/routes/collect/collect.dart';
+import 'package:putu_putu/src/routes/collector_detail.dart';
+import 'package:putu_putu/src/routes/commodities/commodities.dart';
+import 'package:putu_putu/src/routes/export.dart';
+import 'package:putu_putu/src/routes/settings_import.dart';
+import 'package:putu_putu/src/stores/collector.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +39,7 @@ class AppDrawer extends StatelessWidget {
                           'assets/svg/calculator.svg',
                           color: Colors.teal,
                         ), */
-                        title: Text('Come Share'),
+                        title: Text('putu-putu'),
                         onTap: () {
                           Navigator.of(context)
                               .pushReplacementNamed(CollectRoute.routePath);

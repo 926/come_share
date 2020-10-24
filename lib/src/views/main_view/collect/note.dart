@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/stores/cart.dart';
-//import 'package:come_share/src/stores/collectors.dart';
-import 'package:come_share/src/utils/formatters.dart';
+import 'package:putu_putu/src/stores/cart.dart';
+//import 'package:putu_putu/src/stores/collectors.dart';
+import 'package:putu_putu/src/utils/formatters.dart';
 
 class NoteView extends StatefulWidget {
   final Future<void> Function() onOk;

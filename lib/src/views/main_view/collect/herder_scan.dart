@@ -1,18 +1,18 @@
 import 'dart:async';
 
-import 'package:come_share/src/models/flock.dart';
-import 'package:come_share/src/stores/flocks.dart';
+import 'package:putu_putu/src/models/flock.dart';
+import 'package:putu_putu/src/stores/flocks.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/routes/herders/herder_detail.dart';
-import 'package:come_share/src/stores/herders.dart';
-import 'package:come_share/src/stores/cart.dart';
+import 'package:putu_putu/src/models/herder.dart';
+import 'package:putu_putu/src/routes/herders/herder_detail.dart';
+import 'package:putu_putu/src/stores/herders.dart';
+import 'package:putu_putu/src/stores/cart.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'package:come_share/src/utils/basic_dialog.dart';
-import 'package:come_share/src/utils/formatters.dart';
+import 'package:putu_putu/src/utils/basic_dialog.dart';
+import 'package:putu_putu/src/utils/formatters.dart';
 
 import 'collect.dart';
 
@@ -136,12 +136,8 @@ class _HerderCollectViewState extends State<HerderCollectView> {
   @override
   Widget build(BuildContext context) {
     final herdersStore = Provider.of<HerdersStore>(context);
-    final cartStore = Provider.of<CartStore>(context, listen: false);
+    final cartStore = Provider.of<CartStore>(context, listen: true);
 
-//  final collectorStore = Provider.of<CollectorStore>(context);
-
-    // ? select default herder on init
-    // var clientHerder = herdersStore.herders.firstWhere((f) => f.id == 0, orElse: null);
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.teal[400],
@@ -195,6 +191,15 @@ class _HerderCollectViewState extends State<HerderCollectView> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: <Widget>[
+                /* Observer(
+                  builder: (context) => Text(
+                    numberFormatter.format(cartStore.numberOfItem),
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ), */
                 Flexible(
                   fit: FlexFit.tight,
                   child: Text('Total quantité'),
@@ -264,8 +269,7 @@ class _HerderCollectViewState extends State<HerderCollectView> {
                     backgroundColor: Colors.teal,
                     child: Text('OK'),
                     onPressed: () {
-                      //final collectorStore = Provider.of<CollectorStore>(context);
-                      final cartStore = Provider.of<CartStore>(context);
+                      //print('cartStore.items.length ${cartStore.qt}');
                       if (cartStore.items.isEmpty) {
                         showDialogCSNotOk('Panier vide', context);
                       } else {

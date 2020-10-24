@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:come_share/src/models/item.dart';
+import 'package:putu_putu/src/models/item.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 

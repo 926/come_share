@@ -2,7 +2,7 @@ import 'dart:convert' as convert;
 
 import 'package:mobx/mobx.dart';
 
-import 'package:come_share/src/models/commodity.dart';
+import 'package:putu_putu/src/models/commodity.dart';
 import 'package:sembast/sembast.dart' as sembast;
 
 part 'commodities.g.dart';

@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:come_share/src/models/collector.dart';
+import 'package:putu_putu/src/models/collector.dart';
 import 'package:sembast/sembast.dart' as sembast;
 
 part 'collector.g.dart';

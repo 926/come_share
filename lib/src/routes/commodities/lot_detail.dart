@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rc_router/rc_router.dart';
-import 'package:come_share/src/stores/commodities.dart';
-import 'package:come_share/src/views/commodities/lot_detail.dart';
+import 'package:putu_putu/src/stores/commodities.dart';
+import 'package:putu_putu/src/views/commodities/lot_detail.dart';
 
 class LotDetailRoute extends RcRoute {
   static String routePath = '/commodity/:commodityId/:lotId';

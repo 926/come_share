@@ -7,11 +7,11 @@ import 'package:sembast/sembast_io.dart';
 import 'package:sembast_web/sembast_web.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:come_share/src/models/collector.dart';
-import 'package:come_share/src/models/commodity.dart';
-import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/models/lot.dart';
-import 'package:come_share/src/app/app_entrypoint.dart';
+import 'package:putu_putu/src/models/collector.dart';
+import 'package:putu_putu/src/models/commodity.dart';
+import 'package:putu_putu/src/models/herder.dart';
+import 'package:putu_putu/src/models/lot.dart';
+import 'package:putu_putu/src/app/app_entrypoint.dart';
 // import 'package:tekartik_app_platform/app_platform.dart';
 // import 'package:tekartik_app_flutter_sembast/sembast.dart';
 // import 'package:tekartik_common_utils/common_utils_import.dart';
@@ -109,26 +109,6 @@ void main() async {
   final hiddenCommodities = await _commoditiesDbStore.find(_database);
   if (hiddenCommodities.isEmpty) {
     final _commodities = [
-      Commodity(
-        companyUuid: '0',
-        id: 0,
-        name: '*',
-        weight: 1,
-        photo: '',
-        status: true,
-        statusUpdateDate: now,
-        date: now,
-        updateDate: now,
-        lots: [
-          Lot(
-              companyUuid: '0',
-              commodityId: 0,
-              id: 1,
-              comment: '',
-              isDefault: true,
-              lotDate: now)
-        ],
-      ),
       Commodity(
         companyUuid: '0',
         id: 1,

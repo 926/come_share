@@ -1,5 +1,5 @@
-import 'package:come_share/src/routes/app_route_base.dart';
-import 'package:come_share/src/views/main_view/flocks/flocks.dart';
+import 'package:putu_putu/src/routes/app_route_base.dart';
+import 'package:putu_putu/src/views/main_view/flocks/flocks.dart';
 import 'package:flutter/widgets.dart';
 
 class FlocksRoute extends AppRouteBase {

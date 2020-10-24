@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rc_router/rc_router.dart';
-import 'package:come_share/src/stores/herders.dart';
-import 'package:come_share/src/views/main_view/herders/herder_detail.dart';
+import 'package:putu_putu/src/stores/herders.dart';
+import 'package:putu_putu/src/views/main_view/herders/herder_detail.dart';
 
 class HerderDetailRoute extends RcRoute {
   static String routePath = '/herders/:id';
@@ -23,7 +23,8 @@ class HerderDetailRoute extends RcRoute {
       child: HerderDetailWidget(
           herder: herdersStore.herders.firstWhere(
               (herder) => '${herder.id}' == herderId,
-              orElse: () => herdersStore.herders.first)), // Preventing dirty red
+              orElse: () =>
+                  herdersStore.herders.first)), // Preventing dirty red
     );
   }
 }

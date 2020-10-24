@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:come_share/src/models/herder.dart';
-import 'package:come_share/src/stores/herders.dart';
-import 'package:come_share/src/views/main_view/herders/herders_overview.dart';
-import 'package:come_share/src/views/main_view/main_view.dart';
-//import 'package:come_share/src/stores/collector.dart';
+import 'package:putu_putu/src/models/herder.dart';
+import 'package:putu_putu/src/stores/herders.dart';
+import 'package:putu_putu/src/views/main_view/herders/herders_overview.dart';
+import 'package:putu_putu/src/views/main_view/main_view.dart';
+//import 'package:putu_putu/src/stores/collector.dart';
 
 class HerdersView extends StatefulWidget {
   final GlobalKey<NavigatorState> mainNavigator;
